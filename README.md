@@ -1,5 +1,14 @@
 # bau-material-app
-Eine einfache App zur Vorbereitung von Baustellenmaterialien.
-Maxbau Material App
 
-Eine App für Baustellenmaterial und Arbeitsvorbereitung.
+Eine einfache App für Baustellenmaterial und Arbeitsvorbereitung.
+
+## Funktionen
+- Materialliste
+- Baustellenübersicht
+- Arbeitsvorbereitung
+- Lagerbestand
+
+## Entwickelt mit
+- HTML
+- CSS
+- JavaScript
