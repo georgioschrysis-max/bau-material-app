@@ -10,7 +10,6 @@ body {
   font-family: Arial, sans-serif;
   background: #f4f6f8;
   margin: 0;
-  padding: 0;
 }
 
 header {
@@ -24,7 +23,7 @@ header {
   padding: 20px;
 }
 
-.card {
+.card, .page {
   background: white;
   padding: 20px;
   margin-bottom: 15px;
@@ -41,6 +40,15 @@ button {
   color: white;
   font-size: 18px;
   font-weight: bold;
+  margin-top: 10px;
+}
+
+.back {
+  background: #555;
+}
+
+.hidden {
+  display: none;
 }
 </style>
 </head>
@@ -54,25 +62,70 @@ button {
 
 <div class="container">
 
-  <div class="card">
-    <h2>Lagerbestand</h2>
-    <p>Materialien verwalten und kontrollieren.</p>
-    <button onclick="alert('Lagerbestand geöffnet')">Öffnen</button>
+  <div id="home">
+
+    <div class="card">
+      <h2>Lagerbestand</h2>
+      <p>Materialien verwalten und kontrollieren.</p>
+      <button onclick="showPage('lager')">Öffnen</button>
+    </div>
+
+    <div class="card">
+      <h2>Lieferscheine</h2>
+      <p>DA-Nummern und Lieferungen erfassen.</p>
+      <button onclick="showPage('lieferscheine')">Öffnen</button>
+    </div>
+
+    <div class="card">
+      <h2>Baustellen</h2>
+      <p>Projekte und Baustellen organisieren.</p>
+      <button onclick="showPage('baustellen')">Öffnen</button>
+    </div>
+
   </div>
 
-  <div class="card">
-    <h2>Lieferscheine</h2>
-    <p>DA-Nummern und Lieferungen erfassen.</p>
-    <button onclick="alert('Lieferscheine geöffnet')">Öffnen</button>
+  <div id="lager" class="page hidden">
+    <h2>📦 Lagerbestand</h2>
+    <ul>
+      <li>Schalung: 120 m²</li>
+      <li>Stützen: 45 Stück</li>
+      <li>Bewehrung: 3.200 kg</li>
+    </ul>
+    <button class="back" onclick="showPage('home')">Zurück</button>
   </div>
 
-  <div class="card">
-    <h2>Baustellen</h2>
-    <p>Projekte und Baustellen organisieren.</p>
-    <button onclick="alert('Baustellen geöffnet')">Öffnen</button>
+  <div id="lieferscheine" class="page hidden">
+    <h2>📄 Lieferscheine</h2>
+    <ul>
+      <li>DA-2026-001 — Betonstahl</li>
+      <li>DA-2026-002 — Schalung</li>
+      <li>DA-2026-003 — Dämmung</li>
+    </ul>
+    <button class="back" onclick="showPage('home')">Zurück</button>
+  </div>
+
+  <div id="baustellen" class="page hidden">
+    <h2>🏗️ Baustellen</h2>
+    <ul>
+      <li>MFH Lahr 2026</li>
+      <li>Baustelle Achern</li>
+      <li>Baustelle Offenburg</li>
+    </ul>
+    <button class="back" onclick="showPage('home')">Zurück</button>
   </div>
 
 </div>
+
+<script>
+function showPage(pageId) {
+  document.getElementById('home').classList.add('hidden');
+  document.getElementById('lager').classList.add('hidden');
+  document.getElementById('lieferscheine').classList.add('hidden');
+  document.getElementById('baustellen').classList.add('hidden');
+
+  document.getElementById(pageId).classList.remove('hidden');
+}
+</script>
 
 </body>
 </html>
