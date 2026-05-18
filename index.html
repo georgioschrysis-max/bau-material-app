@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bau Material App</title>
+
+<style>
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f2f2f2;
+}
+
+header{
+  background:#d35400;
+  color:white;
+  text-align:center;
+  padding:30px 20px;
+}
+
+.container{
+  padding:20px;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:20px;
+  border-radius:15px;
+  box-shadow:0 2px 8px rgba(0,0,0,0.15);
+}
+
+h2{
+  margin-top:0;
+}
+
+input, select{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  box-sizing:border-box;
+  font-size:16px;
+}
+
+button{
+  width:100%;
+  padding:14px;
+  margin-top:12px;
+  border:none;
+  border-radius:10px;
+  background:#e67e22;
+  color:white;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.item{
+  background:#f7f7f7;
+  padding:12px;
+  border-radius:10px;
+  margin-top:10px;
+}
+
+.status{
+  color:#d35400;
+  font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>🏗️ Bau Material App</h1>
+  <p>MAXBAU Material System</p>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>🏗️ Baustelle</h2>
+
+    <input id="kostenstelle" placeholder="Kostenstelle z.B. 760226">
+    <input id="baustelle" placeholder="Baustelle">
+    <input id="ort" placeholder="Ort">
+
+    <button onclick="addBaustelle()">
+      Baustelle speichern
+    </button>
+
+    <div id="baustellenListe"></div>
+  </div>
+
+  <div class="card">
+    <h2>📦 Material</h2>
+
+    <input id="material" placeholder="Material">
+    <input id="menge" placeholder="Menge">
+    <input id="materialKS" placeholder="Kostenstelle">
+
+    <button onclick="addMaterial()">
+      Material speichern
+    </button>
+
+    <div id="materialListe"></div>
+  </div>
+
+  <div class="card">
+    <h2>📄 Lieferschein</h2>
+
+    <input id="daNummer" placeholder="DA Nummer">
+    <input id="lieferant" placeholder="Lieferant">
+    <input id="daMaterial" placeholder="Material">
+    <input id="daKS" placeholder="Kostenstelle">
+
+    <button onclick="addDA()">
+      Lieferschein speichern
+    </button>
+
+    <div id="daListe"></div>
+  </div>
+
+  <div class="card">
+    <h2>🛒 Bestellung</h2>
+
+    <input id="bestArtikel" placeholder="Artikel">
+    <input id="bestMenge" placeholder="Menge">
+    <input id="bestLieferant" placeholder="Lieferant">
+    <input id="bestKS" placeholder="Kostenstelle">
+
+    <select id="bestStatus">
+      <option>Offen</option>
+      <option>Bestellt</option>
+      <option>Geliefert</option>
+    </select>
+
+    <button onclick="addBestellung()">
+      Bestellung speichern
+    </button>
+
+    <div id="bestellungListe"></div>
+  </div>
+
+</div>
+
+<script>
+
+let baustellen = [];
+let materialien = [];
+let lieferscheine = [];
+let bestellungen = [];
+
+function addBaustelle(){
+
+  const ks = document.getElementById("kostenstelle").value;
+  const name = document.getElementById("baustelle").value;
+  const ort = document.getElementById("ort").value;
+
+  if(!ks || !name || !ort){
+    alert("Bitte alles ausfüllen");
+    return;
+  }
+
+  baustellen.push({
+    ks,
+    name,
+    ort
+  });
+
+  renderBaustellen();
+}
+
+function renderBaustellen(){
+
+  let html = "";
+
+  baustellen.forEach(b => {
+
+    html += `
+      <div class="item">
+        <strong>${b.name}</strong><br>
+        Kostenstelle: ${b.ks}<br>
+        Ort: ${b.ort}
+      </div>
+    `;
+  });
+
+  document.getElementById("baustellenListe").innerHTML = html;
+}
+
+function addMaterial(){
+
+  const material = document.getElementById("material").value;
+  const menge = document.getElementById("menge").value;
+  const ks = document.getElementById("materialKS").value;
+
+  if(!material || !menge || !ks){
+    alert("Bitte alles ausfüllen");
+    return;
+  }
+
+  materialien.push({
+    material,
+    menge,
+    ks
+  });
+
+  renderMaterial();
+}
+
+function renderMaterial(){
+
+  let html = "";
+
+  materialien.forEach(m => {
+
+    html += `
+      <div class="item">
+        <strong>${m.material}</strong><br>
+        Menge: ${m.menge}<br>
+        Kostenstelle: ${m.ks}
+      </div>
+    `;
+  });
+
+  document.getElementById("materialListe").innerHTML = html;
+}
+
+function addDA(){
+
+  const nummer = document.getElementById("daNummer").value;
+  const lieferant = document.getElementById("lieferant").value;
+  const material = document.getElementById("daMaterial").value;
+  const ks = document.getElementById("daKS").value;
+
+  if(!nummer || !lieferant || !material || !ks){
+    alert("Bitte alles ausfüllen");
+    return;
+  }
+
+  lieferscheine.push({
+    nummer,
+    lieferant,
+    material,
+    ks
+  });
+
+  renderDA();
+}
+
+function renderDA(){
+
+  let html = "";
+
+  lieferscheine.forEach(d => {
+
+    html += `
+      <div class="item">
+        <strong>${d.nummer}</strong><br>
+        Lieferant: ${d.lieferant}<br>
+        Material: ${d.material}<br>
+        Kostenstelle: ${d.ks}
+      </div>
+    `;
+  });
+
+  document.getElementById("daListe").innerHTML = html;
+}
+
+function addBestellung(){
+
+  const artikel = document.getElementById("bestArtikel").value;
+  const menge = document.getElementById("bestMenge").value;
+  const lieferant = document.getElementById("bestLieferant").value;
+  const ks = document.getElementById("bestKS").value;
+  const status = document.getElementById("bestStatus").value;
+
+  if(!artikel || !menge || !lieferant || !ks){
+    alert("Bitte alles ausfüllen");
+    return;
+  }
+
+  bestellungen.push({
+    artikel,
+    menge,
+    lieferant,
+    ks,
+    status
+  });
+
+  renderBestellungen();
+}
+
+function renderBestellungen(){
+
+  let html = "";
+
+  bestellungen.forEach(b => {
+
+    html += `
+      <div class="item">
+        <strong>${b.artikel}</strong><br>
+        Menge: ${b.menge}<br>
+        Lieferant: ${b.lieferant}<br>
+        Kostenstelle: ${b.ks}<br>
+        <span class="status">${b.status}</span>
+      </div>
+    `;
+  });
+
+  document.getElementById("bestellungListe").innerHTML = html;
+}
+
+</script>
+
+</body>
+</html>
