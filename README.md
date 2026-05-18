@@ -12,3 +12,5 @@ Eine einfache App für Baustellenmaterial und Arbeitsvorbereitung.
 - HTML
 - CSS
 - JavaScript
+
+README update
