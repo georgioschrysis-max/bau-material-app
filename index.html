@@ -327,6 +327,7 @@ const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
 p.checkliste[index].done=!p.checkliste[index].done;
 saveData();
 renderCheckliste();
+renderSummary();
 }
 
 function addCheckpunkt(){
@@ -359,6 +360,7 @@ p[kategorie].push({name:name, menge:menge});
 
 saveData();
 renderRessourcen();
+renderSummary();
 
 document.getElementById(nameId).value="";
 document.getElementById(mengeId).value="";
@@ -382,6 +384,7 @@ function addPersonal(){
 
   saveData();
   renderRessourcen();
+  renderSummary();
 
   document.getElementById("personalName").value = "";
   document.getElementById("personalMenge").value = "";
@@ -391,6 +394,7 @@ const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
 p[kategorie].splice(index,1);
 saveData();
 renderRessourcen();
+renderSummary();
 }
 function addBestellung(){
   const name = document.getElementById("bestellungName").value.trim();
@@ -414,6 +418,7 @@ function addBestellung(){
 
   saveData();
   renderBestellungen();
+  renderSummary();
 
   document.getElementById("bestellungName").value = "";
   document.getElementById("bestellungMenge").value = "";
@@ -426,6 +431,7 @@ function deleteBestellung(index){
   p.bestellungen.splice(index,1);
   saveData();
   renderBestellungen();
+  renderSummary();
 }
 
 function renderBestellungen(){
@@ -492,6 +498,7 @@ function addDA(){
   });
 
   saveData();
+  renderSummary();
 
   renderDA();
 
@@ -509,6 +516,7 @@ function deleteDA(index){
   p.lieferscheine.splice(index,1);
 
   saveData();
+  renderSummary();
 
   renderDA();
 }
