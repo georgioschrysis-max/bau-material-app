@@ -277,20 +277,7 @@ function sucheKostenstelle(){
 
   const b = baustellen[index];
 
-  let html = `
-    <div class="item">
-      <strong>${b.name}</strong><br>
-      Kostenstelle: ${b.kostenstelle}<br>
-      Ort: ${b.ort}<br>
-      Typ: ${b.typ}
-      <button onclick="openProjekt(${index})">
-        Bauvorhaben öffnen
-      </button>
-    </div>
-  `;
-
-  box.innerHTML = html;
-}
+  
 
 function renderBaustellen(){
 
