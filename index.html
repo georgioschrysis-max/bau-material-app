@@ -91,9 +91,20 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 <div id="materialienListe"></div>
 
 <h3>👷 Personal</h3>
-<input id="personalName" placeholder="Personal / Firma">
+<input id="personalName" placeholder="Name / Firma">
+
+<select id="personalRolle">
+  <option>Polier</option>
+  <option>Werkpolier</option>
+  <option>Vorarbeiter</option>
+  <option>Spezialfacharbeiter</option>
+  <option>Facharbeiter</option>
+  <option>Bauhelfer</option>
+</select>
+
 <input id="personalMenge" placeholder="Anzahl / Aufgabe">
-<button onclick="addRessource('personal','personalName','personalMenge')">Personal hinzufügen</button>
+
+<button onclick="addPersonal()">Personal hinzufügen</button>
 <div id="personalListe"></div>
 
 <button class="back" onclick="zurueckProjekt()">Zurück zu den Phasen</button>
@@ -313,7 +324,29 @@ renderRessourcen();
 document.getElementById(nameId).value="";
 document.getElementById(mengeId).value="";
 }
+function addPersonal(){
+  const name = document.getElementById("personalName").value.trim();
+  const rolle = document.getElementById("personalRolle").value;
+  const menge = document.getElementById("personalMenge").value.trim();
 
+  if(!name || !menge){
+    alert("Bitte Name/Firma und Anzahl/Aufgabe eingeben");
+    return;
+  }
+
+  const p = baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+  p.personal.push({
+    name: name + " - " + rolle,
+    menge: menge
+  });
+
+  saveData();
+  renderRessourcen();
+
+  document.getElementById("personalName").value = "";
+  document.getElementById("personalMenge").value = "";
+}
 function deleteRessource(kategorie,index){
 const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
 p[kategorie].splice(index,1);
