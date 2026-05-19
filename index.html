@@ -252,22 +252,28 @@ return document.getElementById("ks").value.trim();
 
 function sucheKostenstelle(){
 
-  const ks = document.getElementById("sucheKS").value.trim();
-  const box = document.getElementById("suchErgebnis");
+  const ks =
+    document.getElementById("sucheKS")
+    .value
+    .trim();
 
-  box.innerHTML = "";
-
-  if(!ks){
-    alert("Bitte Kostenstelle eingeben");
-    return;
-  }
-
-  const index = baustellen.findIndex(b => b.kostenstelle === ks);
+  const index =
+    baustellen.findIndex(
+      b => b.kostenstelle === ks
+    );
 
   if(index === -1){
-    box.innerHTML = "<p>Keine Baustelle gefunden.</p>";
+
+    document.getElementById("suchErgebnis")
+      .innerHTML =
+      "<p>Keine Baustelle gefunden.</p>";
+
     return;
   }
+
+  openProjekt(index);
+
+}
 
   const b = baustellen[index];
 
