@@ -368,7 +368,69 @@ p[kategorie].splice(index,1);
 saveData();
 renderRessourcen();
 }
+function addBestellung(){
+  const name = document.getElementById("bestellungName").value.trim();
+  const menge = document.getElementById("bestellungMenge").value.trim();
+  const lieferant = document.getElementById("bestellungLieferant").value.trim();
+  const status = document.getElementById("bestellungStatus").value;
 
+  if(!name || !menge || !lieferant){
+    alert("Bitte alle Felder ausfüllen");
+    return;
+  }
+
+  const p = baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+  p.bestellungen.push({
+    name:name,
+    menge:menge,
+    lieferant:lieferant,
+    status:status
+  });
+
+  saveData();
+  renderBestellungen();
+
+  document.getElementById("bestellungName").value = "";
+  document.getElementById("bestellungMenge").value = "";
+  document.getElementById("bestellungLieferant").value = "";
+  document.getElementById("bestellungStatus").value = "Offen";
+}
+
+function deleteBestellung(index){
+  const p = baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+  p.bestellungen.splice(index,1);
+  saveData();
+  renderBestellungen();
+}
+
+function renderBestellungen(){
+  const p = baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+  const box = document.getElementById("bestellungenListe");
+
+  box.innerHTML = "";
+
+  if(!p.bestellungen){
+    p.bestellungen = [];
+  }
+
+  if(p.bestellungen.length === 0){
+    box.innerHTML = "<p>Noch keine Bestellungen.</p>";
+    return;
+  }
+
+  p.bestellungen.forEach((b,index)=>{
+    box.innerHTML += `
+      <div class="item">
+        <strong>${b.name}</strong><br>
+        Menge: ${b.menge}<br>
+        Lieferant: ${b.lieferant}<br>
+        Status: ${b.status}
+        <button class="delete" onclick="deleteBestellung(${index})">Löschen</button>
+      </div>
+    `;
+  });
+}
 function renderRessourcen(){
 const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
 
