@@ -295,6 +295,16 @@ function renderPhasen(){
 const b=baustellen[aktuelleBaustelle];
 phasenListe.innerHTML="";
 b.phasen.forEach((p,index)=>{
+
+if(!p.maschinen) p.maschinen=[];
+if(!p.werkzeuge) p.werkzeuge=[];
+if(!p.materialien) p.materialien=[];
+if(!p.schalung) p.schalung=[];
+if(!p.gerueste) p.gerueste=[];
+if(!p.personal) p.personal=[];
+if(!p.bestellungen) p.bestellungen=[];
+if(!p.lieferscheine) p.lieferscheine=[];
+
 const erledigt=p.checkliste.filter(c=>c.done).length;
 const count=p.maschinen.length+p.werkzeuge.length+p.materialien.length+p.personal.length+p.bestellungen.length+p.lieferscheine.length;
 phasenListe.innerHTML+=`
