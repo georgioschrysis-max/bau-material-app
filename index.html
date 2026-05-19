@@ -338,8 +338,22 @@ baustellen.splice(index,1);
 saveData();
 renderBaustellen();
 }
-}
+function toggleBaustelleStatus(index){
 
+  if(!baustellen[index].status){
+    baustellen[index].status = "offen";
+  }
+
+  if(baustellen[index].status === "offen"){
+    baustellen[index].status = "abgeschlossen";
+  } else {
+    baustellen[index].status = "offen";
+  }
+
+  saveData();
+  renderBaustellen();
+
+}
 function openProjekt(index){
 aktuelleBaustelle=index;
 const b=baustellen[index];
