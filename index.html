@@ -288,13 +288,19 @@ function openProjekt(index){
 }
 function deleteBaustelle(index){
 
-  if(confirm("Baustelle wirklich löschen?")){
+  const bestaetigung = confirm(
+    "Baustelle wirklich löschen?"
+  );
 
-    baustellen.splice(index,1);
+  if(bestaetigung){
+
+    baustellen.splice(index, 1);
 
     saveData();
 
     renderBaustellen();
+
+    alert("Baustelle gelöscht");
 
   }
 
