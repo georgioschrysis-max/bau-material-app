@@ -286,7 +286,19 @@ function openProjekt(index){
   document.getElementById("phasenListe").innerHTML = html;
 
 }
+function deleteBaustelle(index){
 
+  if(confirm("Baustelle wirklich löschen?")){
+
+    baustellen.splice(index,1);
+
+    saveData();
+
+    renderBaustellen();
+
+  }
+
+}
 function zurueckHome(){
 
   document.getElementById("projekt").classList.add("hidden");
