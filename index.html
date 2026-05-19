@@ -60,12 +60,25 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 <option>Umbau</option>
 </select>
 <button onclick="addBaustelle()">Bauvorhaben speichern</button>
+
+<div id="baustellenSeite" class="hidden">
+
+  <div class="card">
+
+    <h2>📋 Baustellen Übersicht</h2>
+
+    <h3>🟢 Offene Baustellen</h3>
+    <div id="offeneBaustellen"></div>
+
+    <h3>✅ Abgeschlossene Baustellen</h3>
+    <div id="fertigeBaustellen"></div>
+
+<button class="back" onclick="zurueckHome()">
+      Zurück
+    </button>
+
 </div>
 
-<div class="card">
-<h2>📋 Meine Baustellen</h2>
-<div id="baustellenListe"></div>
-</div>
 </div>
 
 <div id="projekt" class="hidden">
