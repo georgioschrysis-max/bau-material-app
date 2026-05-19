@@ -47,6 +47,18 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 </div>
 
 <div class="card">
+  <h2>🔎 Suche nach Kostenstelle</h2>
+
+  <input id="sucheKS" placeholder="Kostenstelle eingeben">
+
+  <button onclick="sucheKostenstelle()">
+    Suchen
+  </button>
+
+  <div id="suchErgebnis"></div>
+</div>
+
+<div class="card">
 <h2>📋 Meine Baustellen</h2>
 <div id="baustellenListe"></div>
 </div>
@@ -217,6 +229,42 @@ document.getElementById("ort").value="";
 
 function ksInput(){
 return document.getElementById("ks").value.trim();
+}
+
+function sucheKostenstelle(){
+
+  const ks = document.getElementById("sucheKS").value.trim();
+  const box = document.getElementById("suchErgebnis");
+
+  box.innerHTML = "";
+
+  if(!ks){
+    alert("Bitte Kostenstelle eingeben");
+    return;
+  }
+
+  const index = baustellen.findIndex(b => b.kostenstelle === ks);
+
+  if(index === -1){
+    box.innerHTML = "<p>Keine Baustelle gefunden.</p>";
+    return;
+  }
+
+  const b = baustellen[index];
+
+  let html = `
+    <div class="item">
+      <strong>${b.name}</strong><br>
+      Kostenstelle: ${b.kostenstelle}<br>
+      Ort: ${b.ort}<br>
+      Typ: ${b.typ}
+      <button onclick="openProjekt(${index})">
+        Bauvorhaben öffnen
+      </button>
+    </div>
+  `;
+
+  box.innerHTML = html;
 }
 
 function renderBaustellen(){
