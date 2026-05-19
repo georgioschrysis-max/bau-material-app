@@ -498,9 +498,8 @@ function addDA(){
   });
 
   saveData();
-  renderSummary();
-
   renderDA();
+  renderSummary();
 
   document.getElementById("daNummer").value="";
   document.getElementById("daDatum").value="";
@@ -516,9 +515,8 @@ function deleteDA(index){
   p.lieferscheine.splice(index,1);
 
   saveData();
-  renderSummary();
-
   renderDA();
+  renderSummary();
 }
 
 function renderDA(){
