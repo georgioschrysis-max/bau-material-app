@@ -176,7 +176,22 @@ Gerüst hinzufügen
 </div>
 
 </div>
+<div id="schalungSeite" class="hidden">
 
+  <div class="card">
+
+    <h2>🧩 Schalung / Gerüste</h2>
+
+    <h3>📋 Übersicht</h3>
+    <div id="schalungUebersicht"></div>
+
+    <button class="back" onclick="zurueckPhase()">
+      Zurück zur Phase
+    </button>
+
+  </div>
+
+</div>
 <script>
 let baustellen=JSON.parse(localStorage.getItem("baustellen"))||[];
 let aktuelleBaustelle=null;
@@ -554,8 +569,32 @@ phaseSeite.classList.add("hidden");
 baustellenSeite.classList.add("hidden");
 home.classList.remove("hidden");
 }
+
 function openSchalungSeite(){
-alert("Schalung / Gerüste Seite kommt als nächstes 🚀");
+phaseSeite.classList.add("hidden");
+schalungSeite.classList.remove("hidden");
+renderSchalungUebersicht();
+}
+
+function zurueckPhase(){
+schalungSeite.classList.add("hidden");
+phaseSeite.classList.remove("hidden");
+}
+
+function renderSchalungUebersicht(){
+const p =
+baustellen[aktuelleBaustelle]
+.phasen[aktuellePhase];
+document.getElementById(
+"schalungUebersicht"
+).innerHTML = `
+<div class="item">
+🧩 Schalung: ${p.schalung.length}
+</div>
+<div class="item">
+🏗️ Gerüste: ${p.gerueste.length}
+</div>
+`;
 }
 
 renderBaustellen();
