@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polier App</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f2f2f2}
+header{background:#d35400;color:white;text-align:center;padding:20px}
+.container{padding:20px}
+.card{background:white;padding:20px;border-radius:15px;margin-bottom:20px}
+input,select{width:100%;padding:12px;margin-top:10px;box-sizing:border-box}
+button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;background:#e67e22;color:white;font-size:18px;font-weight:bold}
+.delete{background:#c0392b}
+.back{background:#555}
+.item{background:#f7f7f7;padding:12px;border-radius:10px;margin-top:10px}
+.hidden{display:none}
+.phase{border-left:5px solid #e67e22}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🏗️ Polier App</h1>
+<p>georgios</p>
+<p>Baustellen · Phasen · Checklisten</p>
+</header>
+
+<div class="container">
+
+<div id="home">
+<div class="card">
+<h2>➕ Neues Bauvorhaben</h2>
+
+<input id="ks" placeholder="Kostenstelle">
+<input id="bauName" placeholder="Name des Bauvorhabens">
+<input id="adresse" placeholder="Adresse">
+<input id="ort" placeholder="Ort">
+
+<select id="typ">
+<option>Mehrfamilienhaus</option>
+<option>Einfamilienhaus</option>
+<option>Rohbau</option>
+<option>Umbau</option>
+</select>
+
+<button onclick="addBaustelle()">Bauvorhaben speichern</button>
+</div>
+
+<div class="card">
+<h2>📋 Meine Baustellen</h2>
+<div id="baustellenListe"></div>
+</div>
+</div>
+
+<div id="projekt" class="hidden">
+<div class="card">
+<h2 id="projektTitel"></h2>
+<div id="projektInfo"></div>
+
+<h3>🔨 Bauphasen</h3>
+<div id="phasenListe"></div>
+
+<button class="back" onclick="zurueckHome()">Zurück</button>
+</div>
+</div>
+
+<div id="phaseSeite" class="hidden">
+<div class="card">
+<h2 id="phaseTitel"></h2>
+<p id="phaseInfo"></p>
+
+<h3>✅ Checkliste</h3>
+<div id="checkliste"></div>
+
+<input id="neuerPunkt" placeholder="Neuen Checkpunkt hinzufügen">
+<button onclick="addCheckpunkt()">Checkpunkt hinzufügen</button>
+
+<button class="back" onclick="zurueckProjekt()">Zurück zu den Phasen</button>
+</div>
+</div>
+
+</div>
+
+<script>
+let baustellen = JSON.parse(localStorage.getItem("baustellen")) || [];
+
+let aktuelleBaustelle = null;
+let aktuellePhase = null;
+
+const standardPhasen = [
+"Baustelleneinrichtung",
+"Erdarbeiten",
+"Entwässerung / Versorgungsleitung",
+"Gründung",
+"Untergeschoss",
+"Erdgeschoss",
+"1.OG",
+"2.OG",
+"3.OG",
+"4.OG",
+"Dachgeschoss",
+"Abschluss"
+];
+
+const standardChecklist = [
+"Pläne geprüft",
+"Materialbedarf geprüft",
+"Werkzeuge geprüft",
+"Sicherheit kontrolliert",
+"Termin abgestimmt",
+"Arbeit abgeschlossen"
+];
+
+function saveData(){
+localStorage.setItem("baustellen", JSON.stringify(baustellen));
+}
+
+function addBaustelle(){
+const ks=document.getElementById("ks").value.trim();
+const name=document.getElementById("bauName").value.trim();
+const adresse=document.getElementById("adresse").value.trim();
+const ort=document.getElementById("ort").value.trim();
+const typ=document.getElementById("typ").value;
+
+if(!ks || !name){
+alert("Bitte Kostenstelle und Name eingeben");
+return;
+}
+
+const phasen = standardPhasen.map(p => ({
+name:p,
+checkliste: standardChecklist.map(c => ({text:c, done:false}))
+}));
+
+baustellen.push({kostenstelle:ks,name,adresse,ort,typ,phasen});
+saveData();
+renderBaustellen();
+
+document.getElementById("ks").value="";
+document.getElementById("bauName").value="";
+document.getElementById("adresse").value="";
+document.getElementById("ort").value="";
+}
+
+function renderBaustellen(){
+const liste=document.getElementById("baustellenListe");
+liste.innerHTML="";
+
+if(baustellen.length===0){
+liste.innerHTML="<p>Noch keine Baustelle gespeichert.</p>";
+return;
+}
+
+baustellen.forEach((b,index)=>{
+liste.innerHTML+=`
+<div class="item">
+<strong>${b.name}</strong><br>
+Kostenstelle: ${b.kostenstelle}<br>
+${b.ort}<br>
+${b.typ}
+<button onclick="openProjekt(${index})">Öffnen</button>
+<button class="delete" onclick="deleteBaustelle(${index})">Löschen</button>
+</div>`;
+});
+}
+
+function deleteBaustelle(index){
+if(confirm("Baustelle wirklich löschen?")){
+baustellen.splice(index,1);
+saveData();
+renderBaustellen();
+}
+}
+
+function openProjekt(index){
+aktuelleBaustelle=index;
+const b=baustellen[index];
+
+document.getElementById("home").classList.add("hidden");
+document.getElementById("phaseSeite").classList.add("hidden");
+document.getElementById("projekt").classList.remove("hidden");
+
+document.getElementById("projektTitel").innerHTML="🏗️ "+b.name;
+document.getElementById("projektInfo").innerHTML=`
+<strong>Kostenstelle:</strong> ${b.kostenstelle}<br>
+<strong>Adresse:</strong> ${b.adresse}<br>
+<strong>Ort:</strong> ${b.ort}<br>
+<strong>Typ:</strong> ${b.typ}
+`;
+
+renderPhasen();
+}
+
+function renderPhasen(){
+const b=baustellen[aktuelleBaustelle];
+const liste=document.getElementById("phasenListe");
+liste.innerHTML="";
+
+b.phasen.forEach((p,index)=>{
+const erledigt=p.checkliste.filter(c=>c.done).length;
+
+liste.innerHTML+=`
+<div class="item phase">
+<strong>${index+1}. ${p.name}</strong><br>
+Checkliste: ${erledigt}/${p.checkliste.length} erledigt
+<button onclick="openPhase(${index})">Phase öffnen</button>
+</div>`;
+});
+}
+
+function openPhase(index){
+aktuellePhase=index;
+
+const b=baustellen[aktuelleBaustelle];
+const p=b.phasen[index];
+
+document.getElementById("projekt").classList.add("hidden");
+document.getElementById("phaseSeite").classList.remove("hidden");
+
+document.getElementById("phaseTitel").innerHTML="✅ "+p.name;
+document.getElementById("phaseInfo").innerHTML="Kostenstelle: "+b.kostenstelle+" · "+b.name;
+
+renderCheckliste();
+}
+
+function renderCheckliste(){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+const box=document.getElementById("checkliste");
+box.innerHTML="";
+
+p.checkliste.forEach((c,index)=>{
+box.innerHTML+=`
+<label class="item" style="display:block">
+<input type="checkbox" ${c.done ? "checked" : ""} onchange="toggleCheck(${index})">
+${c.text}
+</label>`;
+});
+}
+
+function toggleCheck(index){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.checkliste[index].done=!p.checkliste[index].done;
+saveData();
+renderCheckliste();
+renderPhasen();
+}
+
+function addCheckpunkt(){
+const text=document.getElementById("neuerPunkt").value.trim();
+
+if(!text){
+alert("Bitte Checkpunkt eingeben");
+return;
+}
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.checkliste.push({text:text,done:false});
+saveData();
+renderCheckliste();
+
+document.getElementById("neuerPunkt").value="";
+}
+
+function zurueckProjekt(){
+document.getElementById("phaseSeite").classList.add("hidden");
+document.getElementById("projekt").classList.remove("hidden");
+renderPhasen();
+}
+
+function zurueckHome(){
+document.getElementById("projekt").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+renderBaustellen();
+}
+
+renderBaustellen();
+</script>
+
+</body>
+</html>
