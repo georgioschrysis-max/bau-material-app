@@ -534,6 +534,42 @@ function renderDA(){
 
     return;
   }
+  function renderSummary(){
+
+  const p =
+    baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+  const erledigt =
+    p.checkliste.filter(c => c.done).length;
+
+  const box =
+    document.getElementById("phaseSummary");
+
+  box.innerHTML = `
+
+    ✅ Checkliste:
+    ${erledigt}/${p.checkliste.length}<br><br>
+
+    🚜 Maschinen:
+    ${p.maschinen.length}<br>
+
+    🛠️ Werkzeuge:
+    ${p.werkzeuge.length}<br>
+
+    📦 Materialien:
+    ${p.materialien.length}<br>
+
+    👷 Personal:
+    ${p.personal.length}<br>
+
+    🛒 Bestellungen:
+    ${p.bestellungen.length}<br>
+
+    📄 Lieferscheine:
+    ${p.lieferscheine.length}
+
+  `;
+}
 
   p.lieferscheine.forEach((d,index)=>{
 
