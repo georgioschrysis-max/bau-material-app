@@ -752,7 +752,23 @@ document.getElementById("projekt").classList.add("hidden");
 document.getElementById("home").classList.remove("hidden");
 renderBaustellen();
 }
+function openBaustellenSeite(){
 
+  document.getElementById("home")
+    .classList.add("hidden");
+
+  document.getElementById("projekt")
+    .classList.add("hidden");
+
+  document.getElementById("phaseSeite")
+    .classList.add("hidden");
+
+  document.getElementById("baustellenSeite")
+    .classList.remove("hidden");
+
+  renderBaustellen();
+
+}
 renderBaustellen();
 </script>
 
