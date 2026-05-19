@@ -188,8 +188,13 @@ if(!ks||!name){alert("Bitte Kostenstelle und Name eingeben");return;}
 const phasen=standardPhasen.map(p=>({
 name:p,
 checkliste:standardChecklist.map(c=>({text:c,done:false})),
-maschinen:[],werkzeuge:[],materialien:[],personal:[],
-bestellungen:[],lieferscheine:[]
+maschinen:[],
+werkzeuge:[],
+materialien:[],
+schalung:[],
+gerueste:[],
+personal:[],
+bestellungen:[]
 }));
 
 baustellen.push({kostenstelle:ks,name,adresse,ort,typ,status:"offen",phasen});
