@@ -285,25 +285,51 @@ function sucheKostenstelle(){
 }
 
 function renderBaustellen(){
-const liste=document.getElementById("baustellenListe");
-liste.innerHTML="";
 
-if(baustellen.length===0){
-liste.innerHTML="<p>Noch keine Baustelle gespeichert.</p>";
-return;
-}
+  const offene = document.getElementById("offeneBaustellen");
+  const fertige = document.getElementById("fertigeBaustellen");
 
-baustellen.forEach((b,index)=>{
-liste.innerHTML+=`
-<div class="item">
-<strong>${b.name}</strong><br>
-Kostenstelle: ${b.kostenstelle}<br>
-${b.ort}<br>
-${b.typ}
-<button onclick="openProjekt(${index})">Öffnen</button>
-<button class="delete" onclick="deleteBaustelle(${index})">Löschen</button>
-</div>`;
-});
+  if(!offene || !fertige){
+    return;
+  }
+
+  offene.innerHTML = "";
+  fertige.innerHTML = "";
+
+  if(baustellen.length === 0){
+    offene.innerHTML = "<p>Noch keine Baustelle gespeichert.</p>";
+    fertige.innerHTML = "<p>Noch keine abgeschlossene Baustelle.</p>";
+    return;
+  }
+
+  baustellen.forEach((b,index)=>{
+
+    if(!b.status){
+      b.status = "offen";
+    }
+
+    const html = `
+      <div class="item">
+        <strong>${b.name}</strong><br>
+        Kostenstelle: ${b.kostenstelle}<br>
+        ${b.ort}<br>
+        ${b.typ}
+        <button onclick="openProjekt(${index})">Öffnen</button>
+        <button onclick="toggleBaustelleStatus(${index})">
+          ${b.status === "offen" ? "Als abgeschlossen markieren" : "Wieder öffnen"}
+        </button>
+        <button class="delete" onclick="deleteBaustelle(${index})">Löschen</button>
+      </div>
+    `;
+
+    if(b.status === "abgeschlossen"){
+      fertige.innerHTML += html;
+    } else {
+      offene.innerHTML += html;
+    }
+
+  });
+
 }
 
 function deleteBaustelle(index){
