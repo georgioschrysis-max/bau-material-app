@@ -122,6 +122,24 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 <button onclick="addBestellung()">Bestellung hinzufügen</button>
 
 <div id="bestellungenListe"></div>
+<h3>📄 Lieferscheine / DA</h3>
+
+<input id="daNummer" placeholder="DA Nummer">
+<input id="daDatum" placeholder="Datum">
+<input id="daLieferant" placeholder="Lieferant">
+<input id="daMaterial" placeholder="Material / Beschreibung">
+
+<select id="daStatus">
+  <option>Offen</option>
+  <option>Kontrolliert</option>
+  <option>Abgelegt</option>
+</select>
+
+<button onclick="addDA()">
+  DA hinzufügen
+</button>
+
+<div id="daListe"></div>
 <button class="back" onclick="zurueckProjekt()">Zurück zu den Phasen</button>
 </div>
 </div>
@@ -179,7 +197,9 @@ checkliste: standardChecklist.map(c => ({text:c, done:false})),
 maschinen:[],
 werkzeuge:[],
 materialien:[],
-personal:[]
+personal:[],
+bestellungen:[],
+lieferscheine:[]
 }));
 
 baustellen.push({kostenstelle:ks,name,adresse,ort,typ,phasen});
@@ -431,6 +451,113 @@ function renderBestellungen(){
       </div>
     `;
   });
+}
+function addDA(){
+
+  const nummer =
+    document.getElementById("daNummer").value.trim();
+
+  const datum =
+    document.getElementById("daDatum").value.trim();
+
+  const lieferant =
+    document.getElementById("daLieferant").value.trim();
+
+  const material =
+    document.getElementById("daMaterial").value.trim();
+
+  const status =
+    document.getElementById("daStatus").value;
+
+  if(!nummer || !datum || !lieferant || !material){
+
+    alert("Bitte alle DA Felder ausfüllen");
+
+    return;
+
+  }
+
+  const p =
+    baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+  p.lieferscheine.push({
+    nummer:nummer,
+    datum:datum,
+    lieferant:lieferant,
+    material:material,
+    status:status
+  });
+
+  saveData();
+
+  renderDA();
+
+  document.getElementById("daNummer").value="";
+  document.getElementById("daDatum").value="";
+  document.getElementById("daLieferant").value="";
+  document.getElementById("daMaterial").value="";
+}
+
+function deleteDA(index){
+
+  const p =
+    baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+  p.lieferscheine.splice(index,1);
+
+  saveData();
+
+  renderDA();
+}
+
+function renderDA(){
+
+  const p =
+    baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+  const box =
+    document.getElementById("daListe");
+
+  box.innerHTML = "";
+
+  if(!p.lieferscheine){
+    p.lieferscheine = [];
+  }
+
+  if(p.lieferscheine.length === 0){
+
+    box.innerHTML =
+      "<p>Noch keine Lieferscheine.</p>";
+
+    return;
+  }
+
+  p.lieferscheine.forEach((d,index)=>{
+
+    box.innerHTML += `
+
+      <div class="item">
+
+        <strong>DA: ${d.nummer}</strong><br>
+
+        Datum: ${d.datum}<br>
+
+        Lieferant: ${d.lieferant}<br>
+
+        Material: ${d.material}<br>
+
+        Status: ${d.status}
+
+        <button class="delete"
+        onclick="deleteDA(${index})">
+          Löschen
+        </button>
+
+      </div>
+
+    `;
+  });
+
 }
 function renderRessourcen(){
 const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
