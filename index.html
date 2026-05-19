@@ -107,7 +107,21 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 
 <button onclick="addPersonal()">Personal hinzufügen</button>
 <div id="personalListe"></div>
+<h3>🛒 Bestellungen</h3>
 
+<input id="bestellungName" placeholder="Artikel / Leistung">
+<input id="bestellungMenge" placeholder="Menge">
+<input id="bestellungLieferant" placeholder="Lieferant">
+
+<select id="bestellungStatus">
+  <option>Offen</option>
+  <option>Bestellt</option>
+  <option>Geliefert</option>
+</select>
+
+<button onclick="addBestellung()">Bestellung hinzufügen</button>
+
+<div id="bestellungenListe"></div>
 <button class="back" onclick="zurueckProjekt()">Zurück zu den Phasen</button>
 </div>
 </div>
