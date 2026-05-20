@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<link rel="apple-touch-icon" href="2914F4C3-DAFA-484F-95BE-8AA56CCE0E16.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polier App</title>
+
+<style>
+body{margin:0;font-family:Arial;background:#f2f2f2}
+header{background:#d35400;color:white;text-align:center;padding:20px}
+.container{padding:20px}
+.card{background:white;padding:20px;border-radius:15px;margin-bottom:20px}
+input,select{width:100%;padding:12px;font-size:16px}
+button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;background:#e67e22;color:white;font-size:18px;font-weight:bold}
+.delete{background:#c0392b}
+.back{background:#555}
+.item{background:#f7f7f7;padding:12px;border-radius:10px;margin-top:10px}
+.hidden{display:none}
+.phase{border-left:5px solid #e67e22}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>🏗️ Polier App</h1>
+<p>georgios</p>
+<p>Baustellen · Phasen · Checklisten</p>
+</header>
+
+<div class="container">
+
+<div id="home">
+<div class="card">
+<h2>🔎 Suche nach Kostenstelle</h2>
+<input id="sucheKS" placeholder="Kostenstelle eingeben">
+<button onclick="sucheKostenstelle()">Suchen</button>
+<div id="suchErgebnis"></div>
+</div>
+
+<div class="card">
+<h2>➕ Neues Bauvorhaben</h2>
+<input id="ks" placeholder="Kostenstelle">
+<input id="bauName" placeholder="Name des Bauvorhabens">
+<input id="adresse" placeholder="Adresse">
+<input id="ort" placeholder="Ort">
+<select id="typ">
+<option>Mehrfamilienhaus</option>
+<option>Einfamilienhaus</option>
+<option>Rohbau</option>
+<option>Umbau</option>
+</select>
+<button onclick="addBaustelle()">Bauvorhaben speichern</button>
+<button onclick="openBaustellenSeite()">📋 Baustellen öffnen</button>
+</div>
+</div>
+
+<div id="baustellenSeite" class="hidden">
+<div class="card">
+<h2>📋 Baustellen Übersicht</h2>
+<h3>🟢 Offene Baustellen</h3>
+<div id="offeneBaustellen"></div>
+<h3>✅ Abgeschlossene Baustellen</h3>
+<div id="fertigeBaustellen"></div>
+<button class="back" onclick="zurueckHome()">Zurück</button>
+</div>
+</div>
+
+<div id="projekt" class="hidden">
+<div class="card">
+<h2 id="projektTitel"></h2>
+<div id="projektInfo"></div>
+
+<div id="phasenBereich" class="hidden">
+<div id="phasenListe"></div>
+</div>
+
+<button onclick="toggleBauphasen()">🔨 Bauphasen</button>
+
+<div id="schalungContainer" class="hidden">
+<h3>🧩 Schalung</h3>
+<input id="hauptSchalungName" placeholder="Schalung">
+<input id="hauptSchalungMenge" placeholder="Menge">
+<button onclick="addHauptSchalung()">Schalung hinzufügen</button>
+<div id="hauptSchalungListe"></div>
+
+<h3>🏗️ Gerüste</h3>
+<input id="hauptGeruestName" placeholder="Gerüst">
+<input id="hauptGeruestMenge" placeholder="Menge">
+<button onclick="addHauptGeruest()">Gerüst hinzufügen</button>
+<div id="hauptGeruestListe"></div>
+</div>
+
+<button onclick="toggleSchalungGerueste()">🧩 Schalung / Gerüste</button>
+
+<button class="back" onclick="zurueckHome()">Zurück</button>
+</div>
+</div>
+
+<div id="phaseSeite" class="hidden">
+<div class="card">
+<h2 id="phaseTitel"></h2>
+<p id="phaseInfo"></p>
+<div id="phaseSummary" class="item"></div>
+
+<h3>✅ Checkliste</h3>
+<div id="checkliste"></div>
+<input id="neuerPunkt" placeholder="Neuen Checkpunkt hinzufügen">
+<button onclick="addCheckpunkt()">Checkpunkt hinzufügen</button>
+
+<h3>🚜 Maschinen</h3>
+<input id="maschineName" placeholder="Maschine">
+<input id="maschineMenge" placeholder="Anzahl / Menge">
+<button onclick="addRessource('maschinen','maschineName','maschineMenge')">Maschine hinzufügen</button>
+<div id="maschinenListe"></div>
+
+<h3>🛠️ Werkzeuge</h3>
+<input id="werkzeugName" placeholder="Werkzeug">
+<input id="werkzeugMenge" placeholder="Anzahl / Menge">
+<button onclick="addRessource('werkzeuge','werkzeugName','werkzeugMenge')">Werkzeug hinzufügen</button>
+<div id="werkzeugeListe"></div>
+
+<h3>📦 Materialien</h3>
+<input id="materialName" placeholder="Material">
+<input id="materialMenge" placeholder="Menge">
+<button onclick="addRessource('materialien','materialName','materialMenge')">Material hinzufügen</button>
+<div id="materialienListe"></div>
+
+<h3>👷 Personal</h3>
+<input id="personalName" placeholder="Name / Firma">
+<select id="personalRolle">
+<option>Polier</option>
+<option>Werkpolier</option>
+<option>Vorarbeiter</option>
+<option>Spezialfacharbeiter</option>
+<option>Facharbeiter</option>
+<option>Bauhelfer</option>
+<option>Azubi</option>
+</select>
+<input id="personalMenge" placeholder="Anzahl / Aufgabe">
+<button onclick="addPersonal()">Personal hinzufügen</button>
+<div id="personalListe"></div>
+
+<h3>🛒 Bestellungen</h3>
+<input id="bestellungName" placeholder="Artikel / Leistung">
+<input id="bestellungMenge" placeholder="Menge">
+<input id="bestellungLieferant" placeholder="Lieferant">
+<select id="bestellungStatus">
+<option>Offen</option>
+<option>Bestellt</option>
+<option>Geliefert</option>
+</select>
+<button onclick="addBestellung()">Bestellung hinzufügen</button>
+<div id="bestellungenListe"></div>
+
+<h3>📄 Lieferscheine / DA</h3>
+<input id="daNummer" placeholder="DA Nummer">
+<input id="daDatum" placeholder="Datum">
+<input id="daLieferant" placeholder="Lieferant">
+<input id="daMaterial" placeholder="Material / Beschreibung">
+<select id="daStatus">
+<option>Offen</option>
+<option>Kontrolliert</option>
+<option>Abgelegt</option>
+</select>
+<button onclick="addDA()">DA hinzufügen</button>
+<div id="daListe"></div>
+
+<button class="back" onclick="zurueckProjekt()">Zurück zu den Phasen</button>
+</div>
+</div>
+
+</div>
+
+<script>
+let baustellen=JSON.parse(localStorage.getItem("baustellen"))||[];
+let aktuelleBaustelle=null;
+let aktuellePhase=null;
+
+const standardPhasen=[
+"Baustelleneinrichtung","Erdarbeiten","Entwässerung / Versorgungsleitung",
+"Gründung","Untergeschoss","Erdgeschoss","1.OG","2.OG","3.OG","4.OG",
+"Dachgeschoss","Abschluss"
+];
+
+const standardChecklist=[
+"Pläne geprüft","Materialbedarf geprüft","Werkzeuge geprüft",
+"Sicherheit kontrolliert","Termin abgestimmt","Arbeit abgeschlossen"
+];
+
+function saveData(){
+localStorage.setItem("baustellen",JSON.stringify(baustellen));
+}
+
+function addBaustelle(){
+const ks=document.getElementById("ks").value.trim();
+const name=document.getElementById("bauName").value.trim();
+const adresse=document.getElementById("adresse").value.trim();
+const ort=document.getElementById("ort").value.trim();
+const typ=document.getElementById("typ").value;
+
+if(!ks||!name){
+alert("Bitte Kostenstelle und Name eingeben");
+return;
+}
+
+const phasen=standardPhasen.map(p=>({
+name:p,
+checkliste:standardChecklist.map(c=>({text:c,done:false})),
+maschinen:[],
+werkzeuge:[],
+materialien:[],
+personal:[],
+bestellungen:[],
+lieferscheine:[]
+}));
+
+baustellen.push({
+kostenstelle:ks,
+name,
+adresse,
+ort,
+typ,
+status:"offen",
+phasen,
+hauptSchalung:[],
+hauptGerueste:[]
+});
+
+saveData();
+
+document.getElementById("ks").value="";
+document.getElementById("bauName").value="";
+document.getElementById("adresse").value="";
+document.getElementById("ort").value="";
+
+alert("Bauvorhaben gespeichert");
+renderBaustellen();
+}
+
+function sucheKostenstelle(){
+const ks=document.getElementById("sucheKS").value.trim();
+const index=baustellen.findIndex(b=>b.kostenstelle===ks);
+
+if(index===-1){
+document.getElementById("suchErgebnis").innerHTML="<p>Keine Baustelle gefunden.</p>";
+return;
+}
+
+document.getElementById("suchErgebnis").innerHTML="";
+openProjekt(index);
+}
+
+function openBaustellenSeite(){
+home.classList.add("hidden");
+projekt.classList.add("hidden");
+phaseSeite.classList.add("hidden");
+baustellenSeite.classList.remove("hidden");
+renderBaustellen();
+}
+
+function renderBaustellen(){
+offeneBaustellen.innerHTML="";
+fertigeBaustellen.innerHTML="";
+
+if(baustellen.length===0){
+offeneBaustellen.innerHTML="<p>Noch keine Baustelle gespeichert.</p>";
+fertigeBaustellen.innerHTML="<p>Noch keine abgeschlossene Baustelle.</p>";
+return;
+}
+
+baustellen.forEach((b,index)=>{
+if(!b.status)b.status="offen";
+
+const html=`
+<div class="item">
+<strong>${b.name}</strong><br>
+Kostenstelle: ${b.kostenstelle}<br>
+${b.ort}<br>
+${b.typ}
+<button onclick="openProjekt(${index})">Öffnen</button>
+<button onclick="toggleBaustelleStatus(${index})">
+${b.status==="offen"?"Als abgeschlossen markieren":"Wieder öffnen"}
+</button>
+<button class="delete" onclick="deleteBaustelle(${index})">Löschen</button>
+</div>`;
+
+if(b.status==="abgeschlossen"){
+fertigeBaustellen.innerHTML+=html;
+}else{
+offeneBaustellen.innerHTML+=html;
+}
+});
+}
+
+function deleteBaustelle(index){
+if(confirm("Baustelle wirklich löschen?")){
+baustellen.splice(index,1);
+saveData();
+renderBaustellen();
+}
+}
+
+function toggleBaustelleStatus(index){
+baustellen[index].status=baustellen[index].status==="offen"?"abgeschlossen":"offen";
+saveData();
+renderBaustellen();
+}
+
+function openProjekt(index){
+aktuelleBaustelle=index;
+const b=baustellen[index];
+
+if(!b.hauptSchalung)b.hauptSchalung=[];
+if(!b.hauptGerueste)b.hauptGerueste=[];
+
+home.classList.add("hidden");
+baustellenSeite.classList.add("hidden");
+phaseSeite.classList.add("hidden");
+projekt.classList.remove("hidden");
+
+phasenBereich.classList.add("hidden");
+schalungContainer.classList.add("hidden");
+
+projektTitel.innerHTML="🏗️ "+b.name;
+projektInfo.innerHTML=`
+<strong>Kostenstelle:</strong> ${b.kostenstelle}<br>
+<strong>Adresse:</strong> ${b.adresse}<br>
+<strong>Ort:</strong> ${b.ort}<br>
+<strong>Typ:</strong> ${b.typ}
+`;
+
+renderPhasen();
+renderSchalungUebersicht();
+}
+
+function toggleBauphasen(){
+const box=document.getElementById("phasenBereich");
+box.classList.toggle("hidden");
+}
+
+function toggleSchalungGerueste(){
+renderSchalungUebersicht();
+const box=document.getElementById("schalungContainer");
+box.classList.toggle("hidden");
+}
+
+function renderSchalungUebersicht(){
+const b=baustellen[aktuelleBaustelle];
+
+if(!b.hauptSchalung)b.hauptSchalung=[];
+if(!b.hauptGerueste)b.hauptGerueste=[];
+
+hauptSchalungListe.innerHTML="";
+hauptGeruestListe.innerHTML="";
+
+if(b.hauptSchalung.length===0){
+hauptSchalungListe.innerHTML="<p>Noch keine Einträge.</p>";
+}
+
+if(b.hauptGerueste.length===0){
+hauptGeruestListe.innerHTML="<p>Noch keine Einträge.</p>";
+}
+
+b.hauptSchalung.forEach(x=>{
+hauptSchalungListe.innerHTML+=`
+<div class="item">
+<strong>${x.name}</strong><br>
+Menge: ${x.menge}
+</div>`;
+});
+
+b.hauptGerueste.forEach(x=>{
+hauptGeruestListe.innerHTML+=`
+<div class="item">
+<strong>${x.name}</strong><br>
+Menge: ${x.menge}
+</div>`;
+});
+}
+
+function addHauptSchalung(){
+const name=hauptSchalungName.value.trim();
+const menge=hauptSchalungMenge.value.trim();
+
+if(!name||!menge){
+alert("Bitte Schalung und Menge eingeben");
+return;
+}
+
+const b=baustellen[aktuelleBaustelle];
+if(!b.hauptSchalung)b.hauptSchalung=[];
+
+b.hauptSchalung.push({name,menge});
+saveData();
+renderSchalungUebersicht();
+
+hauptSchalungName.value="";
+hauptSchalungMenge.value="";
+}
+
+function addHauptGeruest(){
+const name=hauptGeruestName.value.trim();
+const menge=hauptGeruestMenge.value.trim();
+
+if(!name||!menge){
+alert("Bitte Gerüst und Menge eingeben");
+return;
+}
+
+const b=baustellen[aktuelleBaustelle];
+if(!b.hauptGerueste)b.hauptGerueste=[];
+
+b.hauptGerueste.push({name,menge});
+saveData();
+renderSchalungUebersicht();
+
+hauptGeruestName.value="";
+hauptGeruestMenge.value="";
+}
+
+function renderPhasen(){
+const b=baustellen[aktuelleBaustelle];
+phasenListe.innerHTML="";
+
+b.phasen.forEach((p,index)=>{
+if(!p.maschinen)p.maschinen=[];
+if(!p.werkzeuge)p.werkzeuge=[];
+if(!p.materialien)p.materialien=[];
+if(!p.personal)p.personal=[];
+if(!p.bestellungen)p.bestellungen=[];
+if(!p.lieferscheine)p.lieferscheine=[];
+
+const erledigt=p.checkliste.filter(c=>c.done).length;
+const count=p.maschinen.length+p.werkzeuge.length+p.materialien.length+p.personal.length+p.bestellungen.length+p.lieferscheine.length;
+
+phasenListe.innerHTML+=`
+<div class="item phase">
+<strong>${index+1}. ${p.name}</strong><br>
+Checkliste: ${erledigt}/${p.checkliste.length}<br>
+Einträge: ${count}
+<button onclick="openPhase(${index})">Phase öffnen</button>
+</div>`;
+});
+}
+
+function openPhase(index){
+aktuellePhase=index;
+const b=baustellen[aktuelleBaustelle];
+const p=b.phasen[index];
+
+projekt.classList.add("hidden");
+phaseSeite.classList.remove("hidden");
+
+phaseTitel.innerHTML="🔨 "+p.name;
+phaseInfo.innerHTML="Kostenstelle: "+b.kostenstelle+" · "+b.name;
+
+renderCheckliste();
+renderRessourcen();
+renderBestellungen();
+renderDA();
+renderSummary();
+}
+
+function renderSummary(){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+const erledigt=p.checkliste.filter(c=>c.done).length;
+
+phaseSummary.innerHTML=`
+✅ Checkliste: ${erledigt}/${p.checkliste.length}<br><br>
+🚜 Maschinen: ${p.maschinen.length}<br>
+🛠️ Werkzeuge: ${p.werkzeuge.length}<br>
+📦 Materialien: ${p.materialien.length}<br>
+👷 Personal: ${p.personal.length}<br>
+🛒 Bestellungen: ${p.bestellungen.length}<br>
+📄 Lieferscheine: ${p.lieferscheine.length}`;
+}
+
+function renderCheckliste(){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+checkliste.innerHTML="";
+
+p.checkliste.forEach((c,index)=>{
+checkliste.innerHTML+=`
+<label class="item" style="display:block">
+<input type="checkbox" ${c.done?"checked":""} onchange="toggleCheck(${index})">
+${c.text}
+</label>`;
+});
+}
+
+function toggleCheck(index){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.checkliste[index].done=!p.checkliste[index].done;
+saveData();
+renderCheckliste();
+renderSummary();
+}
+
+function addCheckpunkt(){
+const text=neuerPunkt.value.trim();
+
+if(!text){
+alert("Bitte Checkpunkt eingeben");
+return;
+}
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.checkliste.push({text,done:false});
+saveData();
+renderCheckliste();
+renderSummary();
+neuerPunkt.value="";
+}
+
+function addRessource(kategorie,nameId,mengeId){
+const name=document.getElementById(nameId).value.trim();
+const menge=document.getElementById(mengeId).value.trim();
+
+if(!name||!menge){
+alert("Bitte Name und Menge eingeben");
+return;
+}
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p[kategorie].push({name,menge});
+saveData();
+renderRessourcen();
+renderSummary();
+
+document.getElementById(nameId).value="";
+document.getElementById(mengeId).value="";
+}
+
+function deleteRessource(kategorie,index){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p[kategorie].splice(index,1);
+saveData();
+renderRessourcen();
+renderSummary();
+}
+
+function addPersonal(){
+const name=personalName.value.trim();
+const rolle=personalRolle.value;
+const menge=personalMenge.value.trim();
+
+if(!name||!menge){
+alert("Bitte Name/Firma und Anzahl/Aufgabe eingeben");
+return;
+}
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.personal.push({name:name+" - "+rolle,menge});
+saveData();
+renderRessourcen();
+renderSummary();
+
+personalName.value="";
+personalMenge.value="";
+}
+
+function renderRessourcen(){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+renderListe("maschinenListe",p.maschinen,"maschinen");
+renderListe("werkzeugeListe",p.werkzeuge,"werkzeuge");
+renderListe("materialienListe",p.materialien,"materialien");
+renderListe("personalListe",p.personal,"personal");
+}
+
+function renderListe(elementId,liste,kategorie){
+const box=document.getElementById(elementId);
+box.innerHTML="";
+
+if(liste.length===0){
+box.innerHTML="<p>Noch keine Einträge.</p>";
+return;
+}
+
+liste.forEach((x,index)=>{
+box.innerHTML+=`
+<div class="item">
+<strong>${x.name}</strong><br>
+Menge / Info: ${x.menge}
+<button class="delete" onclick="deleteRessource('${kategorie}',${index})">Löschen</button>
+</div>`;
+});
+}
+
+function addBestellung(){
+const name=bestellungName.value.trim();
+const menge=bestellungMenge.value.trim();
+const lieferant=bestellungLieferant.value.trim();
+const status=bestellungStatus.value;
+
+if(!name||!menge||!lieferant){
+alert("Bitte alle Felder ausfüllen");
+return;
+}
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.bestellungen.push({name,menge,lieferant,status});
+saveData();
+renderBestellungen();
+renderSummary();
+
+bestellungName.value="";
+bestellungMenge.value="";
+bestellungLieferant.value="";
+}
+
+function deleteBestellung(index){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.bestellungen.splice(index,1);
+saveData();
+renderBestellungen();
+renderSummary();
+}
+
+function renderBestellungen(){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+bestellungenListe.innerHTML="";
+
+if(p.bestellungen.length===0){
+bestellungenListe.innerHTML="<p>Noch keine Bestellungen.</p>";
+return;
+}
+
+p.bestellungen.forEach((b,index)=>{
+bestellungenListe.innerHTML+=`
+<div class="item">
+<strong>${b.name}</strong><br>
+Menge: ${b.menge}<br>
+Lieferant: ${b.lieferant}<br>
+Status: ${b.status}
+<button class="delete" onclick="deleteBestellung(${index})">Löschen</button>
+</div>`;
+});
+}
+
+function addDA(){
+const nummer=daNummer.value.trim();
+const datum=daDatum.value.trim();
+const lieferant=daLieferant.value.trim();
+const material=daMaterial.value.trim();
+const status=daStatus.value;
+
+if(!nummer||!datum||!lieferant||!material){
+alert("Bitte alle DA Felder ausfüllen");
+return;
+}
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.lieferscheine.push({nummer,datum,lieferant,material,status});
+saveData();
+renderDA();
+renderSummary();
+
+daNummer.value="";
+daDatum.value="";
+daLieferant.value="";
+daMaterial.value="";
+}
+
+function deleteDA(index){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.lieferscheine.splice(index,1);
+saveData();
+renderDA();
+renderSummary();
+}
+
+function renderDA(){
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+daListe.innerHTML="";
+
+if(p.lieferscheine.length===0){
+daListe.innerHTML="<p>Noch keine Lieferscheine.</p>";
+return;
+}
+
+p.lieferscheine.forEach((d,index)=>{
+daListe.innerHTML+=`
+<div class="item">
+<strong>DA: ${d.nummer}</strong><br>
+Datum: ${d.datum}<br>
+Lieferant: ${d.lieferant}<br>
+Material: ${d.material}<br>
+Status: ${d.status}
+<button class="delete" onclick="deleteDA(${index})">Löschen</button>
+</div>`;
+});
+}
+
+function zurueckProjekt(){
+phaseSeite.classList.add("hidden");
+projekt.classList.remove("hidden");
+renderPhasen();
+}
+
+function zurueckHome(){
+projekt.classList.add("hidden");
+phaseSeite.classList.add("hidden");
+baustellenSeite.classList.add("hidden");
+home.classList.remove("hidden");
+}
+
+renderBaustellen();
+</script>
+
+</body>
+</html>
