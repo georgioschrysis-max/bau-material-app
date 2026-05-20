@@ -101,10 +101,6 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 
 </div>
 
-<button onclick="toggleSchalungGerueste()">
-🧩 Schalung / Gerüste
-</button>
-
 <button class="back" onclick="zurueckHome()">
 Zurück
 </button>
@@ -206,39 +202,7 @@ Gerüst hinzufügen
 </div>
 
 </div>
-<div id="schalungContainer" class="hidden">
 
-<div class="card">
-
-<h2>🧩 Schalung / Gerüste</h2>
-
-<h3>📋 Übersicht</h3>
-<div id="schalungUebersicht"></div>
-<h3>🧩 Schalung</h3>
-
-<input id="hauptSchalungName" placeholder="Schalung">
-<input id="hauptSchalungMenge" placeholder="Menge">
-
-<button onclick="addHauptSchalung()">
-Schalung hinzufügen
-</button>
-
-<div id="hauptSchalungListe"></div>
-
-<h3>🏗️ Gerüste</h3>
-
-<input id="hauptGeruestName" placeholder="Gerüst">
-<input id="hauptGeruestMenge" placeholder="Menge">
-
-<button onclick="addHauptGeruest()">
-Gerüst hinzufügen
-</button>
-
-<div id="hauptGeruestListe"></div>
-
-</div>
-
-</div>
 <script>
 let baustellen=JSON.parse(localStorage.getItem("baustellen"))||[];
 let aktuelleBaustelle=null;
