@@ -168,18 +168,39 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 </div>
 <div id="schalungSeite" class="hidden">
 
-  <div class="card">
+<div class="card">
 
-    <h2>🧩 Schalung / Gerüste</h2>
+<h2>🧩 Schalung / Gerüste</h2>
 
-    <h3>📋 Übersicht</h3>
-    <div id="schalungUebersicht"></div>
+<h3>📋 Übersicht</h3>
+<div id="schalungUebersicht"></div>
+<h3>🧩 Schalung</h3>
 
-    <button class="back" onclick="zurueckPhase()">
-      Zurück zur Phase
-    </button>
+<input id="hauptSchalungName" placeholder="Schalung">
+<input id="hauptSchalungMenge" placeholder="Menge">
 
-  </div>
+<button onclick="addHauptSchalung()">
+Schalung hinzufügen
+</button>
+
+<div id="hauptSchalungListe"></div>
+
+<h3>🏗️ Gerüste</h3>
+
+<input id="hauptGeruestName" placeholder="Gerüst">
+<input id="hauptGeruestMenge" placeholder="Menge">
+
+<button onclick="addHauptGeruest()">
+Gerüst hinzufügen
+</button>
+
+<div id="hauptGeruestListe"></div>
+
+<button class="back" onclick="zurueckPhase()">
+Zurück zur Phase
+</button>
+
+</div>
 
 </div>
 <script>
