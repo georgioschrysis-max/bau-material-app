@@ -122,7 +122,7 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 <button onclick="addRessource('materialien','materialName','materialMenge')">Material hinzufügen</button>
 <div id="materialienListe"></div>
 
-<button onclick="openSchalungSeite()">
+<button onclick="toggleSchalungGerueste()">
   🧩 Schalung / Gerüste öffnen
 </button>
 
@@ -171,7 +171,7 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 </div>
 
 </div>
-<div id="schalungSeite" class="hidden">
+<div id="schalungContainer" class="hidden">
 
 <div class="card">
 
@@ -200,10 +200,6 @@ Gerüst hinzufügen
 </button>
 
 <div id="hauptGeruestListe"></div>
-
-<button class="back" onclick="zurueckProjektVonSchalung()">
-  Zurück zum Projekt
-</button>
 
 </div>
 
@@ -578,12 +574,6 @@ Status: ${d.status}
 });
 }
 
-function zurueckProjektVonSchalung(){
-schalungSeite.classList.add("hidden");
-phaseSeite.classList.add("hidden");
-projekt.classList.remove("hidden");
-}
-
 function zurueckHome(){
 projekt.classList.add("hidden");
 phaseSeite.classList.add("hidden");
@@ -591,31 +581,15 @@ baustellenSeite.classList.add("hidden");
 home.classList.remove("hidden");
 }
 
-function openSchalungSeite(){
-phaseSeite.classList.add("hidden");
-schalungSeite.classList.remove("hidden");
-renderSchalungUebersicht();
-}
-
 function zurueckPhase(){
 schalungSeite.classList.add("hidden");
 phaseSeite.classList.remove("hidden");
 }
 
-function renderSchalungUebersicht(){
-const p =
-baustellen[aktuelleBaustelle]
-.phasen[aktuellePhase];
-document.getElementById(
-"schalungUebersicht"
-).innerHTML = `
-<div class="item">
-🧩 Schalung: ${p.schalung.length}
-</div>
-<div class="item">
-🏗️ Gerüste: ${p.gerueste.length}
-</div>
-`;
+function toggleSchalungGerueste(){
+const box =
+document.getElementById("schalungContainer");
+box.classList.toggle("hidden");
 }
 
 function addHauptSchalung(){
