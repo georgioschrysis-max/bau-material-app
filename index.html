@@ -608,6 +608,50 @@ document.getElementById(
 `;
 }
 
+function addHauptSchalung(){
+  const name = hauptSchalungName.value.trim();
+  const menge = hauptSchalungMenge.value.trim();
+
+  if(!name || !menge){
+    alert("Bitte Schalung und Menge eingeben");
+    return;
+  }
+
+  const b = baustellen[aktuelleBaustelle];
+
+  if(!b.hauptSchalung) b.hauptSchalung = [];
+
+  b.hauptSchalung.push({name, menge});
+
+  saveData();
+  renderSchalungUebersicht();
+
+  hauptSchalungName.value = "";
+  hauptSchalungMenge.value = "";
+}
+
+function addHauptGeruest(){
+  const name = hauptGeruestName.value.trim();
+  const menge = hauptGeruestMenge.value.trim();
+
+  if(!name || !menge){
+    alert("Bitte Gerüst und Menge eingeben");
+    return;
+  }
+
+  const b = baustellen[aktuelleBaustelle];
+
+  if(!b.hauptGerueste) b.hauptGerueste = [];
+
+  b.hauptGerueste.push({name, menge});
+
+  saveData();
+  renderSchalungUebersicht();
+
+  hauptGeruestName.value = "";
+  hauptGeruestMenge.value = "";
+}
+
 renderBaustellen();
 </script>
 
