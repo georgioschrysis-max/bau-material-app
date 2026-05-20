@@ -282,6 +282,40 @@ fertigeBaustellen.innerHTML="<p>Noch keine abgeschlossene Baustelle.</p>";
 return;
 }
 
+function renderSchalungUebersicht(){
+const b = baustellen[aktuelleBaustelle];
+
+if(!b.hauptSchalung) b.hauptSchalung = [];
+if(!b.hauptGerueste) b.hauptGerueste = [];
+
+hauptSchalungListe.innerHTML = "";
+hauptGeruestListe.innerHTML = "";
+
+if(b.hauptSchalung.length===0){
+hauptSchalungListe.innerHTML = "<p>Noch keine Einträge.</p>";
+}
+
+if(b.hauptGerueste.length===0){
+hauptGeruestListe.innerHTML = "<p>Noch keine Einträge.</p>";
+}
+
+b.hauptSchalung.forEach(x=>{
+hauptSchalungListe.innerHTML += `
+<div class="item">
+<strong>${x.name}</strong><br>
+Menge: ${x.menge}
+</div>`;
+});
+
+b.hauptGerueste.forEach(x=>{
+hauptGeruestListe.innerHTML += `
+<div class="item">
+<strong>${x.name}</strong><br>
+Menge: ${x.menge}
+</div>`;
+});
+}
+
 baustellen.forEach((b,index)=>{
 if(!b.status)b.status="offen";
 
