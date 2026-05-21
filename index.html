@@ -510,8 +510,6 @@ document.getElementById("phaseInfo").innerHTML=
 
 renderCheckliste();
 renderRessourcen();
-renderBestellungen();
-renderDA();
 renderSummary();
 }
 
@@ -639,17 +637,6 @@ Menge / Info: ${x.menge}
 });
 }
 
-function addBestellung(){
-const name=bestellungName.value.trim();
-const menge=bestellungMenge.value.trim();
-const lieferant=bestellungLieferant.value.trim();
-const status=bestellungStatus.value;
-
-if(!name||!menge||!lieferant){
-alert("Bitte alle Felder ausfüllen");
-return;
-}
-
 const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
 p.bestellungen.push({name,menge,lieferant,status});
 saveData();
@@ -659,23 +646,6 @@ renderSummary();
 bestellungName.value="";
 bestellungMenge.value="";
 bestellungLieferant.value="";
-}
-
-function deleteBestellung(index){
-const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
-p.bestellungen.splice(index,1);
-saveData();
-renderBestellungen();
-renderSummary();
-}
-
-function renderBestellungen(){
-const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
-bestellungenListe.innerHTML="";
-
-if(p.bestellungen.length===0){
-bestellungenListe.innerHTML="<p>Noch keine Bestellungen.</p>";
-return;
 }
 
 p.bestellungen.forEach((b,index)=>{
@@ -712,15 +682,6 @@ daNummer.value="";
 daDatum.value="";
 daLieferant.value="";
 daMaterial.value="";
-}
-
-function renderDA(){
-const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
-daListe.innerHTML="";
-
-if(p.lieferscheine.length===0){
-daListe.innerHTML="<p>Noch keine Lieferscheine.</p>";
-return;
 }
 
 p.lieferscheine.forEach((d,index)=>{
