@@ -267,10 +267,13 @@ openProjekt(index);
 }
 
 function openBaustellenSeite(){
+alert("Baustellen öffnen gedrückt");
+
 document.getElementById("home").classList.add("hidden");
 document.getElementById("projekt").classList.add("hidden");
 document.getElementById("phaseSeite").classList.add("hidden");
 document.getElementById("baustellenSeite").classList.remove("hidden");
+
 renderBaustellen();
 }
 
