@@ -241,9 +241,7 @@ checkliste:standardChecklist.map(c=>({text:c,done:false})),
 maschinen:[],
 werkzeuge:[],
 materialien:[],
-personal:[],
-bestellungen:[],
-lieferscheine:[]
+personal:[]
 }));
 
 baustellen.push({
@@ -483,11 +481,9 @@ if(!p.maschinen)p.maschinen=[];
 if(!p.werkzeuge)p.werkzeuge=[];
 if(!p.materialien)p.materialien=[];
 if(!p.personal)p.personal=[];
-if(!p.bestellungen)p.bestellungen=[];
-if(!p.lieferscheine)p.lieferscheine=[];
 
 const erledigt=p.checkliste.filter(c=>c.done).length;
-const count=p.maschinen.length+p.werkzeuge.length+p.materialien.length+p.personal.length+p.bestellungen.length+p.lieferscheine.length;
+const count=p.maschinen.length+p.werkzeuge.length+p.materialien.length+p.personal.length;
 
 phasenListe.innerHTML+=`
 <div class="item phase">
@@ -528,9 +524,7 @@ phaseSummary.innerHTML=`
 🚜 Maschinen: ${p.maschinen.length}<br>
 🛠️ Werkzeuge: ${p.werkzeuge.length}<br>
 📦 Materialien: ${p.materialien.length}<br>
-👷 Personal: ${p.personal.length}<br>
-🛒 Bestellungen: ${p.bestellungen.length}<br>
-📄 Lieferscheine: ${p.lieferscheine.length}`;
+👷 Personal: ${p.personal.length}`;
 }
 
 function renderCheckliste(){
@@ -718,14 +712,6 @@ daNummer.value="";
 daDatum.value="";
 daLieferant.value="";
 daMaterial.value="";
-}
-
-function deleteDA(index){
-const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
-p.lieferscheine.splice(index,1);
-saveData();
-renderDA();
-renderSummary();
 }
 
 function renderDA(){
