@@ -40,7 +40,7 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 </div>
 
 <div class="card">
-<h2>➕ Neues Bauvorhaben</h2>
+<div id="neuesBauvorhabenBox" class="hidden">
 <input id="ks" placeholder="Kostenstelle">
 <input id="bauName" placeholder="Name des Bauvorhabens">
 <input id="adresse" placeholder="Adresse">
@@ -52,7 +52,8 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 <option>Umbau</option>
 </select>
 <button onclick="addBaustelle()">Bauvorhaben speichern</button>
-<button onclick="openBaustellenSeite()">📋 Baustellen öffnen</button>
+</div>
+<button onclick="toggleNeuesBauvorhaben()">➕ Neues Bauvorhaben</button>
 </div>
 </div>
 
