@@ -102,6 +102,7 @@ Bauvorhaben speichern
 
 <div id="phasenBereich" class="hidden">
 <div id="phasenListe"></div>
+
 </div>
 
 <button onclick="toggleBauphasen()">
@@ -109,7 +110,6 @@ Bauvorhaben speichern
 </button>
 
 <div id="unterlagenContainer" class="hidden">
-
 <h3>🛒 Bestellungen</h3>
 <div id="bestellungenContainer"></div>
 
@@ -121,19 +121,13 @@ Bauvorhaben speichern
 
 <h3>⏱️ Stundenliste</h3>
 <div id="stundenlisteContainer"></div>
+</div>
 
 <button onclick="toggleUnterlagen()">
 📑 Unterlagen
 </button>
 
-</div>
-
 <div id="schalungContainer" class="hidden">
-    
-<button onclick="toggleSchalungGerueste()">
-🧩 Schalung / Gerüste
-</button>
-
 <h3>🧩 Schalung</h3>
 <input id="hauptSchalungName" placeholder="Schalung">
 <input id="hauptSchalungMenge" placeholder="Menge">
@@ -145,11 +139,16 @@ Bauvorhaben speichern
 <input id="hauptGeruestMenge" placeholder="Menge">
 <button onclick="addHauptGeruest()">Gerüst hinzufügen</button>
 <div id="hauptGeruestListe"></div>
-    
 </div>
 
-<button class="back" onclick="zurueckHome()">Zurück</button>
-</div>
+<button onclick="toggleSchalungGerueste()">
+🧩 Schalung / Gerüste
+</button>
+
+<button class="back" onclick="zurueckHome()">
+Zurück
+</button>
+
 </div>
 
 <div id="phaseSeite" class="hidden">
