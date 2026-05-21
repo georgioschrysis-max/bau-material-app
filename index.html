@@ -32,19 +32,31 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 <div class="container">
 
 <div id="home">
+
 <div class="card">
+
 <h2>🔎 Suche nach Kostenstelle</h2>
+
 <input id="sucheKS" placeholder="Kostenstelle eingeben">
-<button onclick="sucheKostenstelle()">Suchen</button>
+
+<button onclick="sucheKostenstelle()">
+Suchen
+</button>
+
 <div id="suchErgebnis"></div>
+
 </div>
 
 <div class="card">
+
 <div id="neuesBauvorhabenBox" class="hidden">
 
 <input id="ks" placeholder="Kostenstelle">
+
 <input id="bauName" placeholder="Name des Bauvorhabens">
+
 <input id="adresse" placeholder="Adresse">
+
 <input id="ort" placeholder="Ort">
 
 <select id="typ">
@@ -67,6 +79,8 @@ Bauvorhaben speichern
 <button onclick="openBaustellenSeite()">
 📋 Baustellen öffnen
 </button>
+
+</div>
 
 </div>
 
@@ -267,12 +281,18 @@ openProjekt(index);
 }
 
 function openBaustellenSeite(){
-alert("Baustellen öffnen gedrückt");
 
-document.getElementById("home").classList.add("hidden");
-document.getElementById("projekt").classList.add("hidden");
-document.getElementById("phaseSeite").classList.add("hidden");
-document.getElementById("baustellenSeite").classList.remove("hidden");
+document.getElementById("home")
+.classList.add("hidden");
+
+document.getElementById("projekt")
+.classList.add("hidden");
+
+document.getElementById("phaseSeite")
+.classList.add("hidden");
+
+document.getElementById("baustellenSeite")
+.classList.remove("hidden");
 
 renderBaustellen();
 }
@@ -359,6 +379,14 @@ function toggleBauphasen(){
 const box=document.getElementById("phasenBereich");
 box.classList.toggle("hidden");
 }
+
+function toggleNeuesBauvorhaben(){
+const box =
+document.getElementById("neuesBauvorhabenBox");
+
+box.classList.toggle("hidden");
+}
+
 function toggleNeuesBauvorhaben(){
 const box = document.getElementById("neuesBauvorhabenBox");
 box.classList.toggle("hidden");
