@@ -104,7 +104,32 @@ Bauvorhaben speichern
 <div id="phasenListe"></div>
 </div>
 
-<button onclick="toggleBauphasen()">🔨 Bauphasen</button>
+<button onclick="toggleBauphasen()">
+🔨 Bauphasen
+</button>
+
+<div id="unterlagenContainer" class="hidden">
+
+<h3>🛒 Bestellungen</h3>
+<div id="bestellungenContainer"></div>
+
+<h3>📄 Lieferschein</h3>
+<div id="lieferscheinContainer"></div>
+
+<h3>📬 Rückschein</h3>
+<div id="rueckscheinContainer"></div>
+
+<h3>⏱️ Stundenliste</h3>
+<div id="stundenlisteContainer"></div>
+<button onclick="toggleUnterlagen()">
+📑 Unterlagen
+</button>
+
+</div>
+
+<button onclick="toggleSchalungGerueste()">
+🧩 Schalung / Gerüste
+</button>
 
 <div id="schalungContainer" class="hidden">
 <h3>🧩 Schalung</h3>
@@ -377,6 +402,12 @@ renderSchalungUebersicht();
 
 function toggleBauphasen(){
 const box=document.getElementById("phasenBereich");
+box.classList.toggle("hidden");
+}
+
+function toggleUnterlagen(){
+const box =
+document.getElementById("unterlagenContainer");
 box.classList.toggle("hidden");
 }
 
