@@ -524,6 +524,7 @@ Einträge: ${count}
 
 function openPhase(index){
 aktuellePhase=index;
+
 const b=baustellen[aktuelleBaustelle];
 const p=b.phasen[index];
 
@@ -531,7 +532,10 @@ projekt.classList.add("hidden");
 phaseSeite.classList.remove("hidden");
 
 phaseTitel.innerHTML="🔨 "+p.name;
-phaseInfo.innerHTML="Kostenstelle: "+b.kostenstelle+" · "+b.name;
+
+phaseInfo.innerHTML=
+"Kostenstelle: "+b.kostenstelle+
+" · "+b.name;
 
 renderCheckliste();
 renderRessourcen();
