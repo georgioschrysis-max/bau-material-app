@@ -618,15 +618,6 @@ renderListe("materialienListe",p.materialien,"materialien");
 renderListe("personalListe",p.personal,"personal");
 }
 
-function renderListe(elementId,liste,kategorie){
-const box=document.getElementById(elementId);
-box.innerHTML="";
-
-if(liste.length===0){
-box.innerHTML="<p>Noch keine Einträge.</p>";
-return;
-}
-
 function zurueckProjekt(){
 phaseSeite.classList.add("hidden");
 projekt.classList.remove("hidden");
