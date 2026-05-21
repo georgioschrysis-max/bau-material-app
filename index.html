@@ -528,14 +528,12 @@ aktuellePhase=index;
 const b=baustellen[aktuelleBaustelle];
 const p=b.phasen[index];
 
-projekt.classList.add("hidden");
-phaseSeite.classList.remove("hidden");
+document.getElementById("projekt").classList.add("hidden");
+document.getElementById("phaseSeite").classList.remove("hidden");
 
-phaseTitel.innerHTML="🔨 "+p.name;
-
-phaseInfo.innerHTML=
-"Kostenstelle: "+b.kostenstelle+
-" · "+b.name;
+document.getElementById("phaseTitel").innerHTML="🔨 "+p.name;
+document.getElementById("phaseInfo").innerHTML=
+"Kostenstelle: "+b.kostenstelle+" · "+b.name;
 
 renderCheckliste();
 renderRessourcen();
