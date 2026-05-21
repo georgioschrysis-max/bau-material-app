@@ -40,20 +40,28 @@ button{width:100%;padding:14px;margin-top:12px;border:none;border-radius:10px;ba
 </div>
 
 <div class="card">
-<h2>➕ Neues Bauvorhaben</h2>
+<button onclick="toggleNeuesBauvorhaben()">
+➕ Neues Bauvorhaben
+</button>
+
+<div id="neuesBauvorhabenBox" class="hidden">
+
 <input id="ks" placeholder="Kostenstelle">
 <input id="bauName" placeholder="Name des Bauvorhabens">
 <input id="adresse" placeholder="Adresse">
 <input id="ort" placeholder="Ort">
+
 <select id="typ">
 <option>Mehrfamilienhaus</option>
 <option>Einfamilienhaus</option>
 <option>Rohbau</option>
 <option>Umbau</option>
 </select>
-<button onclick="addBaustelle()">Bauvorhaben speichern</button>
-<button onclick="openBaustellenSeite()">📋 Baustellen öffnen</button>
-</div>
+
+<button onclick="addBaustelle()">
+Bauvorhaben speichern
+</button>
+
 </div>
 
 <div id="baustellenSeite" class="hidden">
@@ -343,6 +351,12 @@ box.classList.toggle("hidden");
 function toggleSchalungGerueste(){
 renderSchalungUebersicht();
 const box=document.getElementById("schalungContainer");
+box.classList.toggle("hidden");
+}
+function toggleNeuesBauvorhaben(){
+const box =
+document.getElementById("neuesBauvorhabenBox");
+
 box.classList.toggle("hidden");
 }
 
