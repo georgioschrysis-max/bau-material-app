@@ -96,17 +96,26 @@ Bauvorhaben speichern
 </div>
 </div>
 
+<div id="bauphasenSeite" class="hidden">
+<div class="card">
+
+<h2>🔨 Bauphasen</h2>
+
+<div id="phasenListe"></div>
+
+<button class="back" onclick="zurueckProjektVonPhasen()">
+Zurück
+</button>
+
+</div>
+</div>
+
 <div id="projekt" class="hidden">
 <div class="card">
 <h2 id="projektTitel"></h2>
 <div id="projektInfo"></div>
 
-<div id="phasenBereich" class="hidden">
-<div id="phasenListe"></div>
-
-</div>
-
-<button id="bauphasenButton" onclick="toggleBauphasen()">
+<button onclick="openBauphasenSeite()">
 🔨 Bauphasen
 </button>
 
@@ -387,16 +396,25 @@ renderPhasen();
 renderSchalungUebersicht();
 }
 
-function toggleBauphasen(){
+function openBauphasenSeite(){
 
-const box = document.getElementById("phasenBereich");
-const bauButton = document.getElementById("bauphasenButton");
+document.getElementById("projekt")
+.classList.add("hidden");
 
-document.getElementById("unterlagenContainer").classList.add("hidden");
-document.getElementById("schalungContainer").classList.add("hidden");
+document.getElementById("bauphasenSeite")
+.classList.remove("hidden");
 
-box.classList.remove("hidden");
-bauButton.classList.add("hidden");
+renderPhasen();
+
+}
+
+function zurueckProjektVonPhasen(){
+
+document.getElementById("bauphasenSeite")
+.classList.add("hidden");
+
+document.getElementById("projekt")
+.classList.remove("hidden");
 
 }
 
@@ -700,6 +718,8 @@ document.getElementById("projekt").classList.add("hidden");
 document.getElementById("phaseSeite").classList.add("hidden");
 document.getElementById("baustellenSeite").classList.add("hidden");
 document.getElementById("home").classList.remove("hidden");
+document.getElementById("bauphasenSeite")
+.classList.add("hidden");
 
 }
 
