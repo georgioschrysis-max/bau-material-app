@@ -106,7 +106,7 @@ Bauvorhaben speichern
 
 </div>
 
-<button onclick="toggleBauphasen()">
+<button id="bauphasenButton" onclick="toggleBauphasen()">
 🔨 Bauphasen
 </button>
 
@@ -389,20 +389,14 @@ renderSchalungUebersicht();
 
 function toggleBauphasen(){
 
-document.getElementById("unterlagenContainer")
-.classList.add("hidden");
+const box = document.getElementById("phasenBereich");
+const bauButton = document.getElementById("bauphasenButton");
 
-document.getElementById("schalungContainer")
-.classList.add("hidden");
+document.getElementById("unterlagenContainer").classList.add("hidden");
+document.getElementById("schalungContainer").classList.add("hidden");
 
-document.querySelector('button[onclick="toggleUnterlagen()"]')
-.classList.add("hidden");
-
-document.querySelector('button[onclick="toggleSchalungGerueste()"]')
-.classList.add("hidden");
-
-const box=document.getElementById("phasenBereich");
-box.classList.toggle("hidden");
+box.classList.remove("hidden");
+bauButton.classList.add("hidden");
 
 }
 
@@ -680,9 +674,8 @@ renderPhasen();
 }
 
 function zurueckHome(){
-    
-document.querySelector('button[onclick="toggleUnterlagen()"]').classList.remove("hidden");
-document.querySelector('button[onclick="toggleSchalungGerueste()"]').classList.remove("hidden");
+
+document.getElementById("bauphasenButton").classList.remove("hidden");
 
 const phasen = document.getElementById("phasenBereich");
 const unterlagen = document.getElementById("unterlagenContainer");
@@ -691,11 +684,6 @@ const schalung = document.getElementById("schalungContainer");
 if(phasen && !phasen.classList.contains("hidden")){
 phasen.classList.add("hidden");
 return;
-document.querySelector('button[onclick="toggleUnterlagen()"]')
-.classList.remove("hidden");
-
-document.querySelector('button[onclick="toggleSchalungGerueste()"]')
-.classList.remove("hidden");
 }
 
 if(unterlagen && !unterlagen.classList.contains("hidden")){
