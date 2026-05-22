@@ -380,7 +380,6 @@ baustellenSeite.classList.add("hidden");
 phaseSeite.classList.add("hidden");
 projekt.classList.remove("hidden");
 
-phasenBereich.classList.add("hidden");
 unterlagenContainer.classList.add("hidden");
 schalungContainer.classList.add("hidden");
 
@@ -420,9 +419,6 @@ document.getElementById("projekt")
 
 function toggleUnterlagen(){
 
-document.getElementById("phasenBereich")
-.classList.add("hidden");
-
 document.getElementById("schalungContainer")
 .classList.add("hidden");
 
@@ -431,9 +427,6 @@ box.classList.toggle("hidden");
 }
 
 function toggleSchalungGerueste(){
-
-document.getElementById("phasenBereich")
-.classList.add("hidden");
 
 document.getElementById("unterlagenContainer")
 .classList.add("hidden");
@@ -693,16 +686,8 @@ renderPhasen();
 
 function zurueckHome(){
 
-document.getElementById("bauphasenButton").classList.remove("hidden");
-
-const phasen = document.getElementById("phasenBereich");
 const unterlagen = document.getElementById("unterlagenContainer");
 const schalung = document.getElementById("schalungContainer");
-
-if(phasen && !phasen.classList.contains("hidden")){
-phasen.classList.add("hidden");
-return;
-}
 
 if(unterlagen && !unterlagen.classList.contains("hidden")){
 unterlagen.classList.add("hidden");
