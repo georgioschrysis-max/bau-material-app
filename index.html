@@ -387,19 +387,13 @@ renderSchalungUebersicht();
 }
 
 function toggleBauphasen(){
-
 const box = document.getElementById("phasenBereich");
-
 box.classList.toggle("hidden");
-
 if(!box.classList.contains("hidden")){
-
 document.getElementById("unterlagenContainer")
 .classList.add("hidden");
-
 document.getElementById("schalungContainer")
 .classList.add("hidden");
-
 }
 
 function toggleUnterlagen(){
