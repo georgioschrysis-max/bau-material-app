@@ -542,7 +542,7 @@ aktuellePhase=index;
 const b=baustellen[aktuelleBaustelle];
 const p=b.phasen[index];
 
-document.getElementById("projekt").classList.add("hidden");
+document.getElementById("bauphasenSeite").classList.add("hidden");
 document.getElementById("phaseSeite").classList.remove("hidden");
 
 document.getElementById("phaseTitel").innerHTML="🔨 "+p.name;
@@ -680,7 +680,7 @@ Menge / Info: ${x.menge}
 
 function zurueckProjekt(){
 phaseSeite.classList.add("hidden");
-projekt.classList.remove("hidden");
+bauphasenSeite.classList.remove("hidden");
 renderPhasen();
 }
 
