@@ -383,41 +383,17 @@ projektInfo.innerHTML=`
 `;
 
 function toggleBauphasen(){
-
-const box = document.getElementById("phasenBereich");
-
-if(box.classList.contains("hidden")){
-
-box.classList.remove("hidden");
-
-document.getElementById("unterlagenContainer")
-.classList.add("hidden");
-
-document.getElementById("schalungContainer")
-.classList.add("hidden");
-
-}else{
-
-box.classList.add("hidden");
-
-}
-
+const box=document.getElementById("phasenBereich");
+box.classList.toggle("hidden");
 }
 
 function toggleUnterlagen(){
 const box=document.getElementById("unterlagenContainer");
 box.classList.toggle("hidden");
-document.getElementById("unterlagenContainer")
-.classList.add("hidden");
-
-document.getElementById("schalungContainer")
-.classList.add("hidden");
 }
 
 function toggleNeuesBauvorhaben(){
-const box =
-document.getElementById("neuesBauvorhabenBox");
-
+const box=document.getElementById("neuesBauvorhabenBox");
 box.classList.toggle("hidden");
 }
 
