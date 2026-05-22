@@ -113,9 +113,19 @@ Zurück
 <div id="unterlagenSeite" class="hidden">
 <div class="card">
 
+<h2>📑 Unterlagen</h2>
+
+<h3>🛒 Bestellungen</h3>
+<div id="bestellungenContainer"></div>
+
+<h3>📄 Lieferschein</h3>
+<div id="lieferscheinContainer"></div>
+
+<h3>📬 Rückschein</h3>
+<div id="rueckscheinContainer"></div>
+
 <h3>⏱️ Stundenliste</h3>
 <div id="stundenlisteContainer"></div>
-</div>
 
 <button class="back" onclick="zurueckProjektVonUnterlagen()">
 Zurück
@@ -132,19 +142,6 @@ Zurück
 <button onclick="openBauphasenSeite()">
 🔨 Bauphasen
 </button>
-
-<h3>🛒 Bestellungen</h3>
-<div id="bestellungenContainer"></div>
-
-<h3>📄 Lieferschein</h3>
-<div id="lieferscheinContainer"></div>
-
-<h3>📬 Rückschein</h3>
-<div id="rueckscheinContainer"></div>
-
-<h3>⏱️ Stundenliste</h3>
-<div id="stundenlisteContainer"></div>
-</div>
 
 <button onclick="openUnterlagenSeite()">
 📑 Unterlagen
@@ -393,7 +390,6 @@ baustellenSeite.classList.add("hidden");
 phaseSeite.classList.add("hidden");
 projekt.classList.remove("hidden");
 
-unterlagenContainer.classList.add("hidden");
 schalungContainer.classList.add("hidden");
 
 projektTitel.innerHTML="🏗️ "+b.name;
@@ -450,9 +446,6 @@ document.getElementById("projekt")
 }
 
 function toggleSchalungGerueste(){
-
-document.getElementById("unterlagenContainer")
-.classList.add("hidden");
 
 renderSchalungUebersicht();
 
