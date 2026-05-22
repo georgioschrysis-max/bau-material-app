@@ -134,6 +134,40 @@ Zurück
 </div>
 </div>
 
+<div id="schalungSeite" class="hidden">
+<div class="card">
+
+<h2>🧩 Schalung / Gerüste</h2>
+
+<h3>🧩 Schalung</h3>
+
+<input id="hauptSchalungName" placeholder="Schalung">
+<input id="hauptSchalungMenge" placeholder="Menge">
+
+<button onclick="addHauptSchalung()">
+Schalung hinzufügen
+</button>
+
+<div id="hauptSchalungListe"></div>
+
+<h3>🏗️ Gerüste</h3>
+
+<input id="hauptGeruestName" placeholder="Gerüst">
+<input id="hauptGeruestMenge" placeholder="Menge">
+
+<button onclick="addHauptGeruest()">
+Gerüst hinzufügen
+</button>
+
+<div id="hauptGeruestListe"></div>
+
+<button class="back" onclick="zurueckProjektVonSchalung()">
+Zurück
+</button>
+
+</div>
+</div>
+
 <div id="projekt" class="hidden">
 <div class="card">
 <h2 id="projektTitel"></h2>
@@ -147,21 +181,7 @@ Zurück
 📑 Unterlagen
 </button>
 
-<div id="schalungContainer" class="hidden">
-<h3>🧩 Schalung</h3>
-<input id="hauptSchalungName" placeholder="Schalung">
-<input id="hauptSchalungMenge" placeholder="Menge">
-<button onclick="addHauptSchalung()">Schalung hinzufügen</button>
-<div id="hauptSchalungListe"></div>
-
-<h3>🏗️ Gerüste</h3>
-<input id="hauptGeruestName" placeholder="Gerüst">
-<input id="hauptGeruestMenge" placeholder="Menge">
-<button onclick="addHauptGeruest()">Gerüst hinzufügen</button>
-<div id="hauptGeruestListe"></div>
-</div>
-
-<button onclick="toggleSchalungGerueste()">
+<button onclick="openSchalungSeite()">
 🧩 Schalung / Gerüste
 </button>
 
@@ -390,8 +410,6 @@ baustellenSeite.classList.add("hidden");
 phaseSeite.classList.add("hidden");
 projekt.classList.remove("hidden");
 
-schalungContainer.classList.add("hidden");
-
 projektTitel.innerHTML="🏗️ "+b.name;
 projektInfo.innerHTML=`
 <strong>Kostenstelle:</strong> ${b.kostenstelle}<br>
@@ -425,6 +443,28 @@ document.getElementById("unterlagenSeite")
 
 }
 
+function openSchalungSeite(){
+
+document.getElementById("projekt")
+.classList.add("hidden");
+
+document.getElementById("schalungSeite")
+.classList.remove("hidden");
+
+renderSchalungUebersicht();
+
+}
+
+function zurueckProjektVonSchalung(){
+
+document.getElementById("schalungSeite")
+.classList.add("hidden");
+
+document.getElementById("projekt")
+.classList.remove("hidden");
+
+}
+
 function zurueckProjektVonUnterlagen(){
 
 document.getElementById("unterlagenSeite")
@@ -443,14 +483,6 @@ document.getElementById("bauphasenSeite")
 document.getElementById("projekt")
 .classList.remove("hidden");
 
-}
-
-function toggleSchalungGerueste(){
-
-renderSchalungUebersicht();
-
-const box=document.getElementById("schalungContainer");
-box.classList.toggle("hidden");
 }
 
 function toggleNeuesBauvorhaben(){
@@ -703,7 +735,6 @@ renderPhasen();
 function zurueckHome(){
 
 const unterlagen = document.getElementById("unterlagenContainer");
-const schalung = document.getElementById("schalungContainer");
 
 if(unterlagen && !unterlagen.classList.contains("hidden")){
 unterlagen.classList.add("hidden");
@@ -723,7 +754,8 @@ document.getElementById("bauphasenSeite")
 .classList.add("hidden");
 document.getElementById("unterlagenSeite")
 .classList.add("hidden");
-
+document.getElementById("schalungSeite")
+.classList.add("hidden");
 }
 
 renderBaustellen();
