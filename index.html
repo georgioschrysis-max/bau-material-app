@@ -116,6 +116,20 @@ Zurück
 
 <h2>📑 Unterlagen</h2>
 
+<button onclick="openForm('bestellungen')">🛒 Bestellungen</button>
+
+<button onclick="openForm('lieferscheine')">📄 Lieferscheine</button>
+
+<button onclick="openForm('rueckscheine')">📬 Rückscheine</button>
+
+<button onclick="openForm('stundenlisten')">⏱️ Stundenlisten</button>
+
+<button onclick="openForm('taglohnzettel')">📝 Taglohnzettel</button>
+
+<button onclick="openForm('tagesberichte')">📋 Tagesberichte</button>
+
+<div id="formularContainer"></div>
+
 <h3>🛒 Bestellungen</h3>
 <div id="bestellungenContainer"></div>
 
@@ -754,6 +768,96 @@ schalungSeite.classList.add("hidden");
 
 document.getElementById("home").classList.remove("hidden");
 
+}
+
+function openForm(type){
+  document.getElementById("formularContainer").innerHTML = `
+    <div class="item">
+
+      <h3>${type}</h3>
+
+      <input id="datum" placeholder="Datum">
+
+      <input id="baustelle" placeholder="Baustelle">
+
+      <input id="firma" placeholder="Firma">
+
+      <input id="name" placeholder="Name / Mitarbeiter">
+
+      <input id="beschreibung" placeholder="Beschreibung">
+
+      <input id="menge" placeholder="Menge / Stunden">
+
+      <input id="bemerkung" placeholder="Bemerkung">
+
+      <button onclick="speichernFormular('${type}')">
+      Speichern
+      </button>
+
+      <button onclick="exportExcel('${type}')">
+      Excel Export
+      </button>
+
+      <button onclick="window.print()">
+      PDF Export
+      </button>
+
+    </div>
+  `;
+}
+
+function speichernFormular(type){
+
+  let daten = {
+    typ: type,
+    datum: document.getElementById("datum").value,
+    baustelle: document.getElementById("baustelle").value,
+    firma: document.getElementById("firma").value,
+    name: document.getElementById("name").value,
+    beschreibung: document.getElementById("beschreibung").value,
+    menge: document.getElementById("menge").value,
+    bemerkung: document.getElementById("bemerkung").value
+  };
+
+  let liste =
+  JSON.parse(localStorage.getItem(type)) || [];
+
+  liste.push(daten);
+
+  localStorage.setItem(type, JSON.stringify(liste));
+
+  alert("Gespeichert");
+}
+
+function exportExcel(type){
+
+  let daten =
+  JSON.parse(localStorage.getItem(type)) || [];
+
+  let csv =
+  "Typ;Datum;Baustelle;Firma;Name;Beschreibung;Menge;Bemerkung\n";
+
+  daten.forEach(d => {
+
+    csv +=
+    `${d.typ};${d.datum};${d.baustelle};${d.firma};${d.name};${d.beschreibung};${d.menge};${d.bemerkung}\n`;
+
+  });
+
+  let blob =
+  new Blob([csv], {
+    type: "text/csv;charset=utf-8;"
+  });
+
+  let link =
+  document.createElement("a");
+
+  link.href =
+  URL.createObjectURL(blob);
+
+  link.download = type + ".csv";
+
+  link.click();
 }
 
 renderBaustellen();
