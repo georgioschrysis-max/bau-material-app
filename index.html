@@ -372,6 +372,7 @@ phaseSeite.classList.add("hidden");
 projekt.classList.remove("hidden");
 
 phasenBereich.classList.add("hidden");
+unterlagenContainer.classList.add("hidden");
 schalungContainer.classList.add("hidden");
 
 projektTitel.innerHTML="🏗️ "+b.name;
@@ -381,6 +382,10 @@ projektInfo.innerHTML=`
 <strong>Ort:</strong> ${b.ort}<br>
 <strong>Typ:</strong> ${b.typ}
 `;
+
+renderPhasen();
+renderSchalungUebersicht();
+}
 
 function toggleBauphasen(){
 const box=document.getElementById("phasenBereich");
