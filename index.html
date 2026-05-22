@@ -486,12 +486,9 @@ const erledigt=p.checkliste.filter(c=>c.done).length;
 const count=p.maschinen.length+p.werkzeuge.length+p.materialien.length+p.personal.length;
 
 phasenListe.innerHTML+=`
-<div class="item phase">
-<strong>${index+1}. ${p.name}</strong><br>
-Checkliste: ${erledigt}/${p.checkliste.length}<br>
-Einträge: ${count}
-<button onclick="openPhase(${index})">Phase öffnen</button>
-</div>`;
+<button onclick="openPhase(${index})">
+${index+1}. ${p.name}
+</button>`;
 });
 }
 
