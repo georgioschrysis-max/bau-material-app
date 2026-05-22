@@ -645,25 +645,27 @@ const phasen = document.getElementById("phasenBereich");
 const unterlagen = document.getElementById("unterlagenContainer");
 const schalung = document.getElementById("schalungContainer");
 
-if(!phasen.classList.contains("hidden")){
+if(phasen && !phasen.classList.contains("hidden")){
 phasen.classList.add("hidden");
 return;
 }
 
-if(!unterlagen.classList.contains("hidden")){
+if(unterlagen && !unterlagen.classList.contains("hidden")){
 unterlagen.classList.add("hidden");
 return;
 }
 
-if(!schalung.classList.contains("hidden")){
+if(schalung && !schalung.classList.contains("hidden")){
 schalung.classList.add("hidden");
 return;
 }
 
-projekt.classList.add("hidden");
-phaseSeite.classList.add("hidden");
-baustellenSeite.classList.add("hidden");
-home.classList.remove("hidden");
+document.getElementById("projekt").classList.add("hidden");
+document.getElementById("phaseSeite").classList.add("hidden");
+document.getElementById("baustellenSeite").classList.add("hidden");
+document.getElementById("home").classList.remove("hidden");
+
+}
 }
 
 renderBaustellen();
