@@ -680,6 +680,9 @@ renderPhasen();
 }
 
 function zurueckHome(){
+    
+document.querySelector('button[onclick="toggleUnterlagen()"]').classList.remove("hidden");
+document.querySelector('button[onclick="toggleSchalungGerueste()"]').classList.remove("hidden");
 
 const phasen = document.getElementById("phasenBereich");
 const unterlagen = document.getElementById("unterlagenContainer");
