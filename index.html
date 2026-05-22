@@ -625,6 +625,25 @@ renderListe("materialienListe",p.materialien,"materialien");
 renderListe("personalListe",p.personal,"personal");
 }
 
+function renderListe(elementId,liste,kategorie){
+const box=document.getElementById(elementId);
+box.innerHTML="";
+
+if(liste.length===0){
+box.innerHTML="<p>Noch keine Einträge.</p>";
+return;
+}
+
+liste.forEach((x,index)=>{
+box.innerHTML+=`
+<div class="item">
+<strong>${x.name}</strong><br>
+Menge / Info: ${x.menge}
+<button class="delete" onclick="deleteRessource('${kategorie}',${index})">Löschen</button>
+</div>`;
+});
+}
+
 function zurueckProjekt(){
 phaseSeite.classList.add("hidden");
 projekt.classList.remove("hidden");
