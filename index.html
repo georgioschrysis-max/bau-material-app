@@ -388,49 +388,46 @@ renderSchalungUebersicht();
 }
 
 function toggleBauphasen(){
-const phasen=document.getElementById("phasenBereich");
-const unterlagen=document.getElementById("unterlagenContainer");
-const schalung=document.getElementById("schalungContainer");
 
-phasen.classList.toggle("hidden");
+document.getElementById("unterlagenContainer")
+.classList.add("hidden");
 
-if(!phasen.classList.contains("hidden")){
-unterlagen.classList.add("hidden");
-schalung.classList.add("hidden");
-}
+document.getElementById("schalungContainer")
+.classList.add("hidden");
+
+const box=document.getElementById("phasenBereich");
+box.classList.toggle("hidden");
 }
 
 function toggleUnterlagen(){
-const phasen=document.getElementById("phasenBereich");
-const unterlagen=document.getElementById("unterlagenContainer");
-const schalung=document.getElementById("schalungContainer");
 
-unterlagen.classList.toggle("hidden");
+document.getElementById("phasenBereich")
+.classList.add("hidden");
 
-if(!unterlagen.classList.contains("hidden")){
-phasen.classList.add("hidden");
-schalung.classList.add("hidden");
+document.getElementById("schalungContainer")
+.classList.add("hidden");
+
+const box=document.getElementById("unterlagenContainer");
+box.classList.toggle("hidden");
 }
+
+function toggleSchalungGerueste(){
+
+document.getElementById("phasenBereich")
+.classList.add("hidden");
+
+document.getElementById("unterlagenContainer")
+.classList.add("hidden");
+
+renderSchalungUebersicht();
+
+const box=document.getElementById("schalungContainer");
+box.classList.toggle("hidden");
 }
 
 function toggleNeuesBauvorhaben(){
 const box=document.getElementById("neuesBauvorhabenBox");
 box.classList.toggle("hidden");
-}
-
-function toggleSchalungGerueste(){
-renderSchalungUebersicht();
-
-const phasen=document.getElementById("phasenBereich");
-const unterlagen=document.getElementById("unterlagenContainer");
-const schalung=document.getElementById("schalungContainer");
-
-schalung.classList.toggle("hidden");
-
-if(!schalung.classList.contains("hidden")){
-phasen.classList.add("hidden");
-unterlagen.classList.add("hidden");
-}
 }
 
 function renderSchalungUebersicht(){
