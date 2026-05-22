@@ -110,6 +110,30 @@ Zurück
 </div>
 </div>
 
+<div id="unterlagenSeite" class="hidden">
+<div class="card">
+
+<h2>📑 Unterlagen</h2>
+
+<h3>🛒 Bestellungen</h3>
+<div id="bestellungenContainer"></div>
+
+<h3>📄 Lieferschein</h3>
+<div id="lieferscheinContainer"></div>
+
+<h3>📬 Rückschein</h3>
+<div id="rueckscheinContainer"></div>
+
+<h3>⏱️ Stundenliste</h3>
+<div id="stundenlisteContainer"></div>
+
+<button class="back" onclick="zurueckProjektVonUnterlagen()">
+Zurück
+</button>
+
+</div>
+</div>
+
 <div id="projekt" class="hidden">
 <div class="card">
 <h2 id="projektTitel"></h2>
@@ -119,7 +143,6 @@ Zurück
 🔨 Bauphasen
 </button>
 
-<div id="unterlagenContainer" class="hidden">
 <h3>🛒 Bestellungen</h3>
 <div id="bestellungenContainer"></div>
 
@@ -133,7 +156,7 @@ Zurück
 <div id="stundenlisteContainer"></div>
 </div>
 
-<button onclick="toggleUnterlagen()">
+<button onclick="openUnterlagenSeite()">
 📑 Unterlagen
 </button>
 
@@ -406,6 +429,25 @@ document.getElementById("bauphasenSeite")
 renderPhasen();
 
 }
+function openUnterlagenSeite(){
+
+document.getElementById("projekt")
+.classList.add("hidden");
+
+document.getElementById("unterlagenSeite")
+.classList.remove("hidden");
+
+}
+
+function zurueckProjektVonUnterlagen(){
+
+document.getElementById("unterlagenSeite")
+.classList.add("hidden");
+
+document.getElementById("projekt")
+.classList.remove("hidden");
+
+}
 
 function zurueckProjektVonPhasen(){
 
@@ -415,15 +457,6 @@ document.getElementById("bauphasenSeite")
 document.getElementById("projekt")
 .classList.remove("hidden");
 
-}
-
-function toggleUnterlagen(){
-
-document.getElementById("schalungContainer")
-.classList.add("hidden");
-
-const box=document.getElementById("unterlagenContainer");
-box.classList.toggle("hidden");
 }
 
 function toggleSchalungGerueste(){
@@ -704,6 +737,8 @@ document.getElementById("phaseSeite").classList.add("hidden");
 document.getElementById("baustellenSeite").classList.add("hidden");
 document.getElementById("home").classList.remove("hidden");
 document.getElementById("bauphasenSeite")
+.classList.add("hidden");
+document.getElementById("unterlagenSeite")
 .classList.add("hidden");
 
 }
