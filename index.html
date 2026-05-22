@@ -395,8 +395,15 @@ document.getElementById("unterlagenContainer")
 document.getElementById("schalungContainer")
 .classList.add("hidden");
 
+document.querySelector('button[onclick="toggleUnterlagen()"]')
+.classList.add("hidden");
+
+document.querySelector('button[onclick="toggleSchalungGerueste()"]')
+.classList.add("hidden");
+
 const box=document.getElementById("phasenBereich");
 box.classList.toggle("hidden");
+
 }
 
 function toggleUnterlagen(){
@@ -681,6 +688,11 @@ const schalung = document.getElementById("schalungContainer");
 if(phasen && !phasen.classList.contains("hidden")){
 phasen.classList.add("hidden");
 return;
+document.querySelector('button[onclick="toggleUnterlagen()"]')
+.classList.remove("hidden");
+
+document.querySelector('button[onclick="toggleSchalungGerueste()"]')
+.classList.remove("hidden");
 }
 
 if(unterlagen && !unterlagen.classList.contains("hidden")){
