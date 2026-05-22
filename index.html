@@ -382,10 +382,6 @@ projektInfo.innerHTML=`
 <strong>Typ:</strong> ${b.typ}
 `;
 
-renderPhasen();
-renderSchalungUebersicht();
-}
-
 function toggleBauphasen(){
 
 const box = document.getElementById("phasenBereich");
@@ -411,6 +407,11 @@ box.classList.add("hidden");
 function toggleUnterlagen(){
 const box=document.getElementById("unterlagenContainer");
 box.classList.toggle("hidden");
+document.getElementById("unterlagenContainer")
+.classList.add("hidden");
+
+document.getElementById("schalungContainer")
+.classList.add("hidden");
 }
 
 function toggleNeuesBauvorhaben(){
