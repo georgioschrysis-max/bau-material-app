@@ -93,6 +93,7 @@ Bauvorhaben speichern
 <div id="fertigeBaustellen"></div>
 
 <button class="back" onclick="zurueckHome()">Zurück</button>
+
 </div>
 </div>
 
@@ -734,11 +735,19 @@ renderPhasen();
 
 function zurueckHome(){
 
-const unterlagen = document.getElementById("unterlagenContainer");
+document.getElementById("projekt").classList.add("hidden");
+document.getElementById("phaseSeite").classList.add("hidden");
+document.getElementById("baustellenSeite").classList.add("hidden");
+document.getElementById("bauphasenSeite").classList.add("hidden");
+document.getElementById("unterlagenSeite").classList.add("hidden");
 
-if(unterlagen && !unterlagen.classList.contains("hidden")){
-unterlagen.classList.add("hidden");
-return;
+const schalungSeite = document.getElementById("schalungSeite");
+if(schalungSeite){
+schalungSeite.classList.add("hidden");
+}
+
+document.getElementById("home").classList.remove("hidden");
+
 }
 
 if(schalung && !schalung.classList.contains("hidden")){
