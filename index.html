@@ -1280,42 +1280,6 @@ document.getElementById("home").classList.remove("hidden");
 
 }
 
-function openForm(type){
-  document.getElementById("formularContainer").innerHTML = `
-    <div class="item">
-
-      <h3>${type}</h3>
-
-      <input id="datum" placeholder="Datum">
-
-      <input id="baustelle" placeholder="Baustelle">
-
-      <input id="firma" placeholder="Firma">
-
-      <input id="name" placeholder="Name / Mitarbeiter">
-
-      <input id="beschreibung" placeholder="Beschreibung">
-
-      <input id="menge" placeholder="Menge / Stunden">
-
-      <input id="bemerkung" placeholder="Bemerkung">
-
-      <button onclick="speichernFormular('${type}')">
-      Speichern
-      </button>
-
-      <button onclick="exportExcel('${type}')">
-      Excel Export
-      </button>
-
-      <button onclick="window.print()">
-      PDF Export
-      </button>
-
-    </div>
-  `;
-}
-
 function speichernFormular(type){
 
   let daten = {
