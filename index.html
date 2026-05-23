@@ -819,23 +819,21 @@ renderBaustellen();
 }
 
 function openProjekt(index){
+
 aktuelleBaustelle=index;
 const b=baustellen[index];
 
 if(!b.hauptSchalung)b.hauptSchalung=[];
 if(!b.hauptGerueste)b.hauptGerueste=[];
+if(!b.bestellungen)b.bestellungen=[];
 
-home.classList.add("hidden");
-baustellenSeite.classList.add("hidden");
-phaseSeite.classList.add("hidden");
-projekt.classList.remove("hidden");
+hideAllSeiten();
 
-document.getElementById("bauphasenSeite").classList.add("hidden");
-document.getElementById("unterlagenSeite").classList.add("hidden");
-document.getElementById("schalungSeite").classList.add("hidden");
+document.getElementById("projekt").classList.remove("hidden");
 
-projektTitel.innerHTML="🏗️ "+b.name;
-projektInfo.innerHTML=`
+document.getElementById("projektTitel").innerHTML="🏗️ "+b.name;
+
+document.getElementById("projektInfo").innerHTML=`
 <strong>Kostenstelle:</strong> ${b.kostenstelle}<br>
 <strong>Adresse:</strong> ${b.adresse}<br>
 <strong>Ort:</strong> ${b.ort}<br>
@@ -844,6 +842,7 @@ projektInfo.innerHTML=`
 
 renderPhasen();
 renderSchalungUebersicht();
+
 }
 
 function openBauphasenSeite(){
