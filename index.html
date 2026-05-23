@@ -7,6 +7,26 @@
 <title>Polier App</title>
 
 <style>
+.inputBox{
+position:relative;
+margin-top:8px;
+}
+
+.inputIcon{
+position:absolute;
+left:14px;
+top:50%;
+transform:translateY(-50%);
+font-size:22px;
+z-index:2;
+}
+
+.inputBox input,
+.inputBox select{
+width:100%;
+padding-left:48px;
+box-sizing:border-box;
+}
 body{margin:0;font-family:Arial;background:#f2f2f2}
 header{background:#d35400;color:white;text-align:center;padding:20px}
 .container{padding:20px}
@@ -179,8 +199,10 @@ Zurück
 
 </select>
 <input id="bestellungLieferant" placeholder="Lieferant">
+<label>📅 Bestelldatum</label>
 <input id="bestellungBestelldatum" type="date">
 
+<label>📅 Liefertermin</label>
 <input id="bestellungLiefertermin" type="date">
 <input id="bestellungBemerkung" placeholder="Bemerkung">
 
@@ -462,6 +484,10 @@ renderBaustellen();
 function openUnterlageDetail(seiteId){
 document.getElementById("unterlagenSeite").classList.add("hidden");
 document.getElementById(seiteId).classList.remove("hidden");
+
+if(seiteId==="bestellungenSeite"){
+renderProjektBestellungen();
+}
 }
 
 function zurueckUnterlagen(){
@@ -565,6 +591,7 @@ document.getElementById("bauphasenSeite")
 renderPhasen();
 
 }
+
 function openUnterlagenSeite(){
 
 document.getElementById("projekt")
@@ -572,8 +599,6 @@ document.getElementById("projekt")
 
 document.getElementById("unterlagenSeite")
 .classList.remove("hidden");
-
-renderProjektBestellungen();
 
 }
 
