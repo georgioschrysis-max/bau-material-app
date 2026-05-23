@@ -858,13 +858,8 @@ renderPhasen();
 }
 
 function openUnterlagenSeite(){
-
-document.getElementById("projekt")
-.classList.add("hidden");
-
-document.getElementById("unterlagenSeite")
-.classList.remove("hidden");
-
+  document.getElementById("projekt").classList.add("hidden");
+  document.getElementById("unterlagenSeite").classList.remove("hidden");
 }
 
 function openSchalungSeite(){
@@ -880,38 +875,23 @@ renderSchalungUebersicht();
 }
 
 function zurueckProjektVonSchalung(){
-
-document.getElementById("schalungSeite")
-.classList.add("hidden");
-
-document.getElementById("projekt")
-.classList.remove("hidden");
-
+  document.getElementById("schalungSeite").classList.add("hidden");
+  document.getElementById("projekt").classList.remove("hidden");
 }
 
 function zurueckProjektVonUnterlagen(){
-
-document.getElementById("unterlagenSeite")
-.classList.add("hidden");
-
-document.getElementById("projekt")
-.classList.remove("hidden");
-
+  document.getElementById("unterlagenSeite").classList.add("hidden");
+  document.getElementById("projekt").classList.remove("hidden");
 }
 
 function zurueckProjektVonPhasen(){
-
-document.getElementById("bauphasenSeite")
-.classList.add("hidden");
-
-document.getElementById("projekt")
-.classList.remove("hidden");
-
+  document.getElementById("bauphasenSeite").classList.add("hidden");
+  document.getElementById("projekt").classList.remove("hidden");
 }
 
 function toggleNeuesBauvorhaben(){
-const box=document.getElementById("neuesBauvorhabenBox");
-box.classList.toggle("hidden");
+  const box = document.getElementById("neuesBauvorhabenBox");
+  box.classList.toggle("hidden");
 }
 
 function renderSchalungUebersicht(){
