@@ -116,24 +116,63 @@ Zurück
 
 <h2>📑 Unterlagen</h2>
 
-<button onclick="openForm('bestellungen')">🛒 Bestellungen</button>
+<button onclick="openUnterlageDetail('bestellungenSeite')">🛒 Bestellungen</button>
+<button onclick="openUnterlageDetail('lieferscheineSeite')">📄 Lieferscheine</button>
+<button onclick="openUnterlageDetail('rueckscheineSeite')">📬 Rückscheine</button>
+<button onclick="openUnterlageDetail('stundenlistenSeite')">⏱️ Stundenlisten</button>
+<button onclick="openUnterlageDetail('taglohnzettelSeite')">🧾 Taglohnzettel</button>
+<button onclick="openUnterlageDetail('tagesberichteSeite')">📝 Tagesberichte</button>
 
-<button onclick="openForm('lieferscheine')">📄 Lieferscheine</button>
+<button class="back" onclick="zurueckProjektVonUnterlagen()">Zurück</button>
 
-<button onclick="openForm('rueckscheine')">📬 Rückscheine</button>
+</div>
+</div>
 
-<button onclick="openForm('stundenlisten')">⏱️ Stundenlisten</button>
+<div id="bestellungenSeite" class="hidden">
+<div class="card">
+<h2>🛒 Bestellungen</h2>
+<div id="bestellungenContainer"></div>
+<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
+</div>
+</div>
 
-<button onclick="openForm('taglohnzettel')">📝 Taglohnzettel</button>
+<div id="lieferscheineSeite" class="hidden">
+<div class="card">
+<h2>📄 Lieferscheine</h2>
+<div id="lieferscheinContainer"></div>
+<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
+</div>
+</div>
 
-<button onclick="openForm('tagesberichte')">📋 Tagesberichte</button>
+<div id="rueckscheineSeite" class="hidden">
+<div class="card">
+<h2>📬 Rückscheine</h2>
+<div id="rueckscheinContainer"></div>
+<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
+</div>
+</div>
 
-<div id="formularContainer"></div>
+<div id="stundenlistenSeite" class="hidden">
+<div class="card">
+<h2>⏱️ Stundenlisten</h2>
+<div id="stundenlisteContainer"></div>
+<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
+</div>
+</div>
 
-<button class="back" onclick="zurueckProjektVonUnterlagen()">
-Zurück
-</button>
+<div id="taglohnzettelSeite" class="hidden">
+<div class="card">
+<h2>🧾 Taglohnzettel</h2>
+<div id="taglohnzettelContainer"></div>
+<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
+</div>
+</div>
 
+<div id="tagesberichteSeite" class="hidden">
+<div class="card">
+<h2>📝 Tagesberichte</h2>
+<div id="tagesberichteContainer"></div>
+<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
 </div>
 </div>
 
@@ -348,6 +387,22 @@ document.getElementById("baustellenSeite")
 .classList.remove("hidden");
 
 renderBaustellen();
+}
+
+function openUnterlageDetail(seiteId){
+document.getElementById("unterlagenSeite").classList.add("hidden");
+document.getElementById(seiteId).classList.remove("hidden");
+}
+
+function zurueckUnterlagen(){
+document.getElementById("bestellungenSeite").classList.add("hidden");
+document.getElementById("lieferscheineSeite").classList.add("hidden");
+document.getElementById("rueckscheineSeite").classList.add("hidden");
+document.getElementById("stundenlistenSeite").classList.add("hidden");
+document.getElementById("taglohnzettelSeite").classList.add("hidden");
+document.getElementById("tagesberichteSeite").classList.add("hidden");
+
+document.getElementById("unterlagenSeite").classList.remove("hidden");
 }
 
 function renderBaustellen(){
@@ -742,6 +797,12 @@ document.getElementById("phaseSeite").classList.add("hidden");
 document.getElementById("baustellenSeite").classList.add("hidden");
 document.getElementById("bauphasenSeite").classList.add("hidden");
 document.getElementById("unterlagenSeite").classList.add("hidden");
+document.getElementById("bestellungenSeite").classList.add("hidden");
+document.getElementById("lieferscheineSeite").classList.add("hidden");
+document.getElementById("rueckscheineSeite").classList.add("hidden");
+document.getElementById("stundenlistenSeite").classList.add("hidden");
+document.getElementById("taglohnzettelSeite").classList.add("hidden");
+document.getElementById("tagesberichteSeite").classList.add("hidden");
 
 const schalungSeite = document.getElementById("schalungSeite");
 if(schalungSeite){
