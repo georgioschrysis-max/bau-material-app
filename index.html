@@ -1102,6 +1102,7 @@ box.innerHTML=`
 <table style="width:100%;border-collapse:collapse;font-size:14px">
 
 <tr>
+<td>${x.eingangsdatum || ""}</td>
 <th align="left">Artikel</th>
 <th align="left">Menge</th>
 <th align="left">Lieferant</th>
@@ -1112,6 +1113,7 @@ box.innerHTML=`
 ${b.bestellungen.map((x,index)=>`
 
 <tr>
+<td>${x.eingangsdatum || ""}</td>
 <td>${x.artikel}</td>
 <td>${x.menge} ${x.einheit}</td>
 <td>${x.lieferant}</td>
