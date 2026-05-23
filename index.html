@@ -1049,6 +1049,8 @@ const liefertermin=document.getElementById("bestellungLiefertermin").value;
 
 const bemerkung=document.getElementById("bestellungBemerkung").value.trim();
 
+const eingangsdatum=new Date().toLocaleDateString("de-DE");
+
 if(!artikel || !menge){
 alert("Bitte Artikel und Menge eingeben");
 return;
@@ -1059,6 +1061,7 @@ const b=baustellen[aktuelleBaustelle];
 if(!b.bestellungen)b.bestellungen=[];
 
 b.bestellungen.push({
+eingangsdatum,
 artikel,
 menge,
 einheit,
