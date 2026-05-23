@@ -39,19 +39,37 @@ width:100%;
 padding:12px 12px 12px 44px;
 box-sizing:border-box;
 }
-.input-with-icon input[type="date"]{
-height:58px;
-min-height:58px;
-line-height:58px;
-padding:12px 12px 12px 44px;
-font-size:16px;
-background:white;
+.dateBox{
+display:flex;
+align-items:center;
+height:52px;
 border:1px solid #ddd;
 border-radius:10px;
+background:white;
 box-sizing:border-box;
-appearance:auto;
--webkit-appearance:auto;
+padding:0 12px;
+margin-top:8px;
 }
+
+.dateBox .icon{
+font-size:22px;
+margin-right:12px;
+}
+
+.dateBox label{
+color:#888;
+font-size:16px;
+flex:1;
+}
+
+.dateBox input{
+width:140px;
+border:none;
+background:transparent;
+font-size:16px;
+padding:0;
+}
+
 </style>
 </head>
 
