@@ -451,13 +451,28 @@ localStorage.setItem("baustellen",JSON.stringify(baustellen));
 
 function hideAllSeiten(){
 
-document.getElementById("home").classList.add("hidden");
-document.getElementById("baustellenSeite").classList.add("hidden");
-document.getElementById("projekt").classList.add("hidden");
-document.getElementById("bauphasenSeite").classList.add("hidden");
-document.getElementById("unterlagenSeite").classList.add("hidden");
-document.getElementById("schalungSeite").classList.add("hidden");
-document.getElementById("phaseSeite").classList.add("hidden");
+const seiten=[
+"home",
+"baustellenSeite",
+"projekt",
+"bauphasenSeite",
+"unterlagenSeite",
+"bestellungenSeite",
+"lieferscheineSeite",
+"rueckscheineSeite",
+"stundenlistenSeite",
+"taglohnzettelSeite",
+"tagesberichteSeite",
+"schalungSeite",
+"phaseSeite"
+];
+
+seiten.forEach(id=>{
+const el=document.getElementById(id);
+if(el){
+el.classList.add("hidden");
+}
+});
 
 }
 
