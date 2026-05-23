@@ -5,6 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Polier App</title>
+<script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
 <style>
 body{margin:0;font-family:Arial;background:#f2f2f2}
 header{background:#d35400;color:white;text-align:center;padding:20px}
@@ -257,6 +258,10 @@ Bestellung speichern
 
 <button onclick="exportBestellungenPDF()">
 📄 PDF Export
+</button>
+
+<button onclick="exportBestellungenExcelMehrereTabellen()">
+📊 Excel Export
 </button>
 
 <button onclick="exportBestellungenExcel()">
@@ -585,6 +590,76 @@ Erstellt mit Polier App
 
 printWindow.document.close();
 printWindow.print();
+}
+
+function exportBestellungenExcelMehrereTabellen(){
+
+const b=baustellen[aktuelleBaustelle];
+
+if(!b.bestellungen || b.bestellungen.length===0){
+alert("Keine Bestellungen vorhanden");
+return;
+}
+
+const alleBestellungen=[
+["Eingangsdatum","Artikel","Menge","Einheit","Lieferant","Bestelldatum","Liefertermin","Bemerkung","Baustelle","Kostenstelle"]
+];
+
+b.bestellungen.forEach(x=>{
+alleBestellungen.push([
+x.eingangsdatum || "",
+x.artikel,
+x.menge,
+x.einheit,
+x.lieferant,
+x.bestelldatum,
+x.liefertermin,
+x.bemerkung,
+b.name,
+b.kostenstelle
+]);
+});
+
+const zusammenfassung={};
+
+b.bestellungen.forEach(x=>{
+const key=x.artikel+"_"+x.einheit;
+
+if(!zusammenfassung[key]){
+zusammenfassung[key]={
+artikel:x.artikel,
+menge:0,
+einheit:x.einheit,
+lieferanten:new Set()
+};
+}
+
+zusammenfassung[key].menge += Number(x.menge) || 0;
+zusammenfassung[key].lieferanten.add(x.lieferant);
+});
+
+const gesamt=[
+["Artikel","Gesamtmenge","Einheit","Lieferanten"]
+];
+
+Object.values(zusammenfassung).forEach(x=>{
+gesamt.push([
+x.artikel,
+x.menge,
+x.einheit,
+Array.from(x.lieferanten).join(", ")
+]);
+});
+
+const wb=XLSX.utils.book_new();
+
+const ws1=XLSX.utils.aoa_to_sheet(alleBestellungen);
+const ws2=XLSX.utils.aoa_to_sheet(gesamt);
+
+XLSX.utils.book_append_sheet(wb, ws1, "Alle Bestellungen");
+XLSX.utils.book_append_sheet(wb, ws2, "Gesamtübersicht");
+
+XLSX.writeFile(wb, "Bestellungen_"+b.kostenstelle+".xlsx");
 }
 
 function exportBestellungenExcel(){
