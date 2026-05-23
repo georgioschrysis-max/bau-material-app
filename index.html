@@ -1280,37 +1280,6 @@ document.getElementById("home").classList.remove("hidden");
 
 }
 
-function exportExcel(type){
-
-  let daten =
-  JSON.parse(localStorage.getItem(type)) || [];
-
-  let csv =
-  "Typ;Datum;Baustelle;Firma;Name;Beschreibung;Menge;Bemerkung\n";
-
-  daten.forEach(d => {
-
-    csv +=
-    `${d.typ};${d.datum};${d.baustelle};${d.firma};${d.name};${d.beschreibung};${d.menge};${d.bemerkung}\n`;
-
-  });
-
-  let blob =
-  new Blob([csv], {
-    type: "text/csv;charset=utf-8;"
-  });
-
-  let link =
-  document.createElement("a");
-
-  link.href =
-  URL.createObjectURL(blob);
-
-  link.download = type + ".csv";
-
-  link.click();
-}
-
 renderBaustellen();
 </script>
 
