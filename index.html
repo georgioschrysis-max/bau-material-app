@@ -777,6 +777,16 @@ alert("Bitte Name/Firma und Anzahl/Aufgabe eingeben");
 return;
 }
 
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+p.personal.push({name:name+" - "+rolle,menge});
+saveData();
+renderRessourcen();
+renderSummary();
+
+personalName.value="";
+personalMenge.value="";
+}
+
 function addProjektBestellung(){
 
 const artikel=document.getElementById("bestellungArtikel").value.trim();
@@ -857,16 +867,6 @@ b.bestellungen.splice(index,1);
 
 saveData();
 renderProjektBestellungen();
-}
-
-const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
-p.personal.push({name:name+" - "+rolle,menge});
-saveData();
-renderRessourcen();
-renderSummary();
-
-personalName.value="";
-personalMenge.value="";
 }
 
 function renderRessourcen(){
