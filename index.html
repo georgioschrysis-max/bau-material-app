@@ -315,6 +315,18 @@ function saveData(){
 localStorage.setItem("baustellen",JSON.stringify(baustellen));
 }
 
+function hideAllSeiten(){
+
+document.getElementById("home").classList.add("hidden");
+document.getElementById("baustellenSeite").classList.add("hidden");
+document.getElementById("projekt").classList.add("hidden");
+document.getElementById("bauphasenSeite").classList.add("hidden");
+document.getElementById("unterlagenSeite").classList.add("hidden");
+document.getElementById("schalungSeite").classList.add("hidden");
+document.getElementById("phaseSeite").classList.add("hidden");
+
+}
+
 function addBaustelle(){
 const ks=document.getElementById("ks").value.trim();
 const name=document.getElementById("bauName").value.trim();
