@@ -255,10 +255,14 @@ Zurück
 Bestellung speichern
 </button>
 
+<button onclick="exportBestellungenPDF()">
+📄 PDF Export
+</button>
+
 <div id="bestellungenContainer"></div>
 
 <button class="back" onclick="zurueckUnterlagen()">Zurück</button>
-</div>
+</dqiv>
 </div>
 
 <div id="lieferscheineSeite" class="hidden">
@@ -450,6 +454,60 @@ document.getElementById("unterlagenSeite").classList.add("hidden");
 document.getElementById("schalungSeite").classList.add("hidden");
 document.getElementById("phaseSeite").classList.add("hidden");
 
+}
+
+function exportBestellungenPDF(){
+
+const b=baustellen[aktuelleBaustelle];
+
+if(!b.bestellungen || b.bestellungen.length===0){
+alert("Keine Bestellungen vorhanden");
+return;
+}
+
+let html=`
+<h1>Bestellungen</h1>
+<p><strong>Baustelle:</strong> ${b.name}</p>
+<p><strong>Kostenstelle:</strong> ${b.kostenstelle}</p>
+<p><strong>Adresse:</strong> ${b.adresse}</p>
+<hr>
+`;
+
+b.bestellungen.forEach((x,index)=>{
+html+=`
+<h3>${index+1}. ${x.artikel}</h3>
+<p>
+<strong>Menge:</strong> ${x.menge} ${x.einheit}<br>
+<strong>Lieferant:</strong> ${x.lieferant}<br>
+<strong>Bestelldatum:</strong> ${x.bestelldatum}<br>
+<strong>Liefertermin:</strong> ${x.liefertermin}<br>
+<strong>Bemerkung:</strong> ${x.bemerkung}
+</p>
+<hr>
+`;
+});
+
+const printWindow=window.open("", "_blank");
+
+printWindow.document.write(`
+<html>
+<head>
+<title>Bestellungen PDF</title>
+<style>
+body{font-family:Arial;padding:20px}
+h1{color:#d35400}
+h3{margin-bottom:5px}
+p{font-size:14px;line-height:1.5}
+</style>
+</head>
+<body>
+${html}
+</body>
+</html>
+`);
+
+printWindow.document.close();
+printWindow.print();
 }
 
 function addBaustelle(){
