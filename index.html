@@ -658,29 +658,6 @@ XLSX.utils.book_append_sheet(wb, ws2, "Gesamtübersicht");
 XLSX.writeFile(wb, "Bestellungen_"+b.kostenstelle+".xlsx");
 }
 
-function exportBestellungenExcel(){
-
-const b=baustellen[aktuelleBaustelle];
-
-if(!b.bestellungen || b.bestellungen.length===0){
-alert("Keine Bestellungen vorhanden");
-return;
-}
-
-let csv="Eingangsdatum;Artikel;Menge;Einheit;Lieferant;Bestelldatum;Liefertermin;Bemerkung;Baustelle;Kostenstelle\n";
-
-b.bestellungen.forEach(x=>{
-csv+=`${x.eingangsdatum || ""};${x.artikel};${x.menge};${x.einheit};${x.lieferant};${x.bestelldatum};${x.liefertermin};${x.bemerkung};${b.name};${b.kostenstelle}\n`;
-});
-
-const blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});
-const link=document.createElement("a");
-
-link.href=URL.createObjectURL(blob);
-link.download="Bestellungen_"+b.kostenstelle+".csv";
-link.click();
-}
-
 function addBaustelle(){
 const ks=document.getElementById("ks").value.trim();
 const name=document.getElementById("bauName").value.trim();
