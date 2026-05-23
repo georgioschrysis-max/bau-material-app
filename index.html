@@ -465,25 +465,19 @@ alert("Keine Bestellungen vorhanden");
 return;
 }
 
-let html=`
-<h1>Bestellungen</h1>
-<p><strong>Baustelle:</strong> ${b.name}</p>
-<p><strong>Kostenstelle:</strong> ${b.kostenstelle}</p>
-<p><strong>Adresse:</strong> ${b.adresse}</p>
-<hr>
-`;
+let rows="";
 
 b.bestellungen.forEach((x,index)=>{
-html+=`
-<h3>${index+1}. ${x.artikel}</h3>
-<p>
-<strong>Menge:</strong> ${x.menge} ${x.einheit}<br>
-<strong>Lieferant:</strong> ${x.lieferant}<br>
-<strong>Bestelldatum:</strong> ${x.bestelldatum}<br>
-<strong>Liefertermin:</strong> ${x.liefertermin}<br>
-<strong>Bemerkung:</strong> ${x.bemerkung}
-</p>
-<hr>
+rows+=`
+<tr>
+<td>${index+1}</td>
+<td>${x.artikel}</td>
+<td>${x.menge} ${x.einheit}</td>
+<td>${x.lieferant}</td>
+<td>${x.bestelldatum}</td>
+<td>${x.liefertermin}</td>
+<td>${x.bemerkung}</td>
+</tr>
 `;
 });
 
@@ -492,16 +486,95 @@ const printWindow=window.open("", "_blank");
 printWindow.document.write(`
 <html>
 <head>
-<title>Bestellungen PDF</title>
+<title>Bestellungen</title>
+
 <style>
-body{font-family:Arial;padding:20px}
-h1{color:#d35400}
-h3{margin-bottom:5px}
-p{font-size:14px;line-height:1.5}
+body{
+font-family:Arial;
+padding:30px;
+color:#222;
+}
+
+.header{
+border-bottom:3px solid #d35400;
+padding-bottom:15px;
+margin-bottom:25px;
+}
+
+h1{
+color:#d35400;
+margin:0;
+}
+
+.info{
+font-size:14px;
+line-height:1.6;
+margin-top:10px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+font-size:13px;
+margin-top:20px;
+}
+
+th{
+background:#d35400;
+color:white;
+padding:10px;
+text-align:left;
+}
+
+td{
+border:1px solid #ccc;
+padding:8px;
+vertical-align:top;
+}
+
+tr:nth-child(even){
+background:#f7f7f7;
+}
+
+.footer{
+margin-top:40px;
+font-size:12px;
+color:#777;
+}
 </style>
+
 </head>
+
 <body>
-${html}
+
+<div class="header">
+<h1>🛒 Bestellungen</h1>
+<div class="info">
+<strong>Baustelle:</strong> ${b.name}<br>
+<strong>Kostenstelle:</strong> ${b.kostenstelle}<br>
+<strong>Adresse:</strong> ${b.adresse}<br>
+<strong>Ort:</strong> ${b.ort}<br>
+<strong>Typ:</strong> ${b.typ}
+</div>
+</div>
+
+<table>
+<tr>
+<th>Nr.</th>
+<th>Artikel</th>
+<th>Menge</th>
+<th>Lieferant</th>
+<th>Bestelldatum</th>
+<th>Liefertermin</th>
+<th>Bemerkung</th>
+</tr>
+${rows}
+</table>
+
+<div class="footer">
+Erstellt mit Polier App
+</div>
+
 </body>
 </html>
 `);
