@@ -179,7 +179,9 @@ Zurück
 
 </select>
 <input id="bestellungLieferant" placeholder="Lieferant">
-<input id="bestellungDatum" placeholder="Datum">
+<input id="bestellungBestelldatum" type="date">
+
+<input id="bestellungLiefertermin" type="date">
 <input id="bestellungBemerkung" placeholder="Bemerkung">
 
 <button onclick="addProjektBestellung()">
@@ -840,7 +842,9 @@ const einheit=document.getElementById("bestellungEinheit").value.trim();
 
 const lieferant=document.getElementById("bestellungLieferant").value.trim();
 
-const datum=document.getElementById("bestellungDatum").value.trim();
+const bestelldatum=document.getElementById("bestellungBestelldatum").value;
+
+const liefertermin=document.getElementById("bestellungLiefertermin").value;
 
 const bemerkung=document.getElementById("bestellungBemerkung").value.trim();
 
@@ -858,7 +862,8 @@ artikel,
 menge,
 einheit,
 lieferant,
-datum,
+bestelldatum,
+liefertermin,
 bemerkung
 });
 
@@ -869,7 +874,8 @@ bestellungArtikel.value="";
 bestellungMenge.value="";
 bestellungEinheit.value="";
 bestellungLieferant.value="";
-bestellungDatum.value="";
+bestellungBestelldatum.value="";
+bestellungLiefertermin.value="";
 bestellungBemerkung.value="";
 }
 
@@ -893,7 +899,8 @@ box.innerHTML+=`
 <strong>${x.artikel}</strong><br>
 Menge: ${x.menge} ${x.einheit}<br>
 Lieferant: ${x.lieferant}<br>
-Datum: ${x.datum}<br>
+Bestelldatum: ${x.bestelldatum}<br>
+Liefertermin: ${x.liefertermin}<br>
 Bemerkung: ${x.bemerkung}
 <button class="delete" onclick="deleteProjektBestellung(${index})">
 Löschen
