@@ -923,6 +923,18 @@ if(lieferscheinDateiInput){
 lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
 }
 
+function deleteLieferscheinDatei(index){
+
+const b = baustellen[aktuelleBaustelle];
+
+b.lieferscheinDateien.splice(index,1);
+
+saveData();
+
+renderLieferscheinDateien();
+
+}
+
 function readLieferscheinExcel(file){
 
 const reader=new FileReader();
