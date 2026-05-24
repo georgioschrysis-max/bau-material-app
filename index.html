@@ -923,17 +923,16 @@ reader.onload = function(e){
 const data = new Uint8Array(e.target.result);
 const workbook = XLSX.read(data,{type:"array"});
 
-const firstSheetName = workbook.SheetNames[0];
-const sheet = workbook.Sheets[firstSheetName];
-
+const sheetName = workbook.SheetNames[0];
+const sheet = workbook.Sheets[sheetName];
 const rows = XLSX.utils.sheet_to_json(sheet,{header:1});
 
-let nr="";
-let datum="";
-let lieferant="";
-let artikel="";
-let menge="";
-let einheit="";
+let nr = "";
+let datum = "";
+let lieferant = "";
+let artikel = "";
+let menge = "";
+let einheit = "";
 
 function excelDateToInputDate(serial){
 const utc_days = Math.floor(serial - 25569);
@@ -944,7 +943,7 @@ const year = date_info.getFullYear();
 const month = String(date_info.getMonth()+1).padStart(2,"0");
 const day = String(date_info.getDate()).padStart(2,"0");
 
-return year+"-"+month+"-"+day;
+return year + "-" + month + "-" + day;
 }
 
 rows.forEach((row,index)=>{
@@ -955,57 +954,38 @@ if(text.includes("Lieferschein Nr.")){
 nr = row[row.length-1];
 }
 
-/* Lieferant */
-if(index===8){
-
-const daten=row.filter(zelle=>
-zelle && String(zelle).trim()!==""
-);
-
-lieferant=daten.find(zelle=>{
-const t=String(zelle).trim();
-
-return (
-t!=="von" &&
-t!=="an" &&
-isNaN(t)
-);
-
+if(index === 8){
+const daten = row.filter(z=>z && String(z).trim() !== "");
+lieferant = daten.find(z=>{
+const t = String(z).trim();
+return t !== "von" && t !== "an" && isNaN(t);
 }) || "";
-
 }
 
-/* Datum */
 if(text.includes("am")){
-
-const zahl=row.find(zelle=>
-zelle && !isNaN(zelle)
-);
-
+const zahl = row.find(z=>z && !isNaN(z));
 if(zahl){
-datum=excelDateToInputDate(zahl);
+datum = excelDateToInputDate(zahl);
+}
 }
 
-}
-
-/* Artikel / Menge / Einheit */
-if(index===13 || index===14){
-
-const daten=row.filter(zelle=>
-zelle !== undefined &&
-zelle !== null &&
-String(zelle).trim() !== ""
+if(index === 13 || index === 14){
+const daten = row.filter(z=>
+z !== undefined &&
+z !== null &&
+String(z).trim() !== ""
 );
 
-const zahlIndex=daten.findIndex(zelle=>!isNaN(zelle));
+const zahlIndex = daten.findIndex(z=>!isNaN(z));
 
 if(zahlIndex > 0){
-artikel=daten[zahlIndex - 1];
-menge=daten[zahlIndex];
-einheit=daten[zahlIndex + 1] || "";
+artikel = daten[zahlIndex - 1];
+menge = daten[zahlIndex];
+einheit = daten[zahlIndex + 1] || "";
+}
 }
 
-}
+});
 
 document.getElementById("lieferscheinNr").value = nr;
 document.getElementById("lieferscheinDatum").value = datum;
@@ -1026,7 +1006,7 @@ ${row.join(" | ")}
 `;
 });
 
-alert("Excel wurde gelesen. Zeilen: "+rows.length);
+alert("Excel wurde gelesen. Zeilen: " + rows.length);
 
 };
 
