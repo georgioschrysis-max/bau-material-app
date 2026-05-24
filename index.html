@@ -942,10 +942,18 @@ return day + "." + month + "." + year;
 let lieferscheinNr = "";
 let artikel = "";
 let menge = "";
+let datum = "";
 
 rows.forEach(row=>{
 
 const text = row.join(" ");
+if(text.includes("am")){
+const zahl = row.find(zelle=>zelle && !isNaN(zelle));
+
+if(zahl){
+datum = excelDateToJSDate(zahl);
+}
+}
 
 if(row.includes(46154)){
 console.log(excelDateToJSDate(46154));
@@ -976,6 +984,7 @@ return index > 0 && zelle && isNaN(zelle);
 document.getElementById("lieferscheinNr").value = lieferscheinNr;
 document.getElementById("lieferscheinArtikel").value = artikel || "";
 document.getElementById("lieferscheinMenge").value = menge || "";
+document.getElementById("lieferscheinDatum").value = datum.split(".").reverse().join("-");
 
 const vorschau = document.getElementById("excelVorschau");
 
