@@ -1023,6 +1023,32 @@ reader.readAsArrayBuffer(file);
 
 }
 
+function renderLieferscheinMaterialien(){
+
+const box=document.getElementById("lieferscheinMaterialListe");
+
+if(!box)return;
+
+box.innerHTML="";
+
+if(aktuelleLieferscheinMaterialien.length===0){
+box.innerHTML="<p>Keine Materialien erkannt.</p>";
+return;
+}
+
+aktuelleLieferscheinMaterialien.forEach((x,index)=>{
+
+box.innerHTML+=`
+<div class="item">
+<strong>${x.artikel}</strong><br>
+Menge: ${x.menge} ${x.einheit}
+</div>
+`;
+
+});
+
+}
+
 function addLieferscheinEintrag(){
 
 const nr=document.getElementById("lieferscheinNr").value.trim();
