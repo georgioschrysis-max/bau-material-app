@@ -1883,6 +1883,120 @@ function toggleExcelVorschau(){
   box.classList.toggle("hidden");
 }
 
+function previewLieferscheinPDF(){
+
+const nr=document.getElementById("lieferscheinNr").value;
+const datum=document.getElementById("lieferscheinDatum").value;
+const lieferant=document.getElementById("lieferscheinLieferant").value;
+
+let rows="";
+
+aktuelleLieferscheinMaterialien.forEach((x,index)=>{
+
+rows+=`
+<tr>
+<td>${index+1}</td>
+<td>${x.artikel || ""}</td>
+<td>${x.menge || ""}</td>
+<td>${x.einheit || ""}</td>
+<td>${x.invNr || ""}</td>
+<td>${x.bemerkung || ""}</td>
+</tr>
+`;
+
+});
+
+const win=window.open("","_blank");
+
+win.document.write(`
+
+<html>
+
+<head>
+
+<title>Lieferschein Vorschau</title>
+
+<style>
+
+body{
+font-family:Arial;
+padding:30px;
+color:#222;
+}
+
+h1{
+color:#d35400;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:20px;
+font-size:13px;
+}
+
+th{
+background:#d35400;
+color:white;
+padding:10px;
+text-align:left;
+}
+
+td{
+border:1px solid #ccc;
+padding:8px;
+}
+
+tr:nth-child(even){
+background:#f7f7f7;
+}
+
+.info{
+margin-bottom:20px;
+line-height:1.8;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>📄 Lieferschein</h1>
+
+<div class="info">
+
+<strong>Lieferschein Nr.:</strong> ${nr}<br>
+<strong>Datum:</strong> ${datum}<br>
+<strong>Lieferant:</strong> ${lieferant}
+
+</div>
+
+<table>
+
+<tr>
+<th>Nr.</th>
+<th>Beschreibung</th>
+<th>Menge</th>
+<th>Einheit</th>
+<th>Inv.-Nr.</th>
+<th>Bemerkung</th>
+</tr>
+
+${rows}
+
+</table>
+
+</body>
+
+</html>
+
+`);
+
+win.document.close();
+
+}
+
 renderBaustellen();
 </script>
 
