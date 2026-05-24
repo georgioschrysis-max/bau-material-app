@@ -1152,6 +1152,14 @@ renderLieferscheinMaterialien();
 
 }
 
+function deleteLieferscheinMaterialZeile(index){
+
+aktuelleLieferscheinMaterialien.splice(index,1);
+
+renderLieferscheinMaterialien();
+
+}
+
 function addLieferscheinEintrag(){
 
 const nr=document.getElementById("lieferscheinNr").value.trim();
