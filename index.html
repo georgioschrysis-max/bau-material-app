@@ -961,6 +961,40 @@ function readLieferscheinExcel(file){
     const sheet = workbook.Sheets[firstSheetName];
 
     const rows = XLSX.utils.sheet_to_json(sheet,{header:1});
+    
+    let lieferscheinNr="";
+let artikel="";
+let menge="";
+
+rows.forEach(row=>{
+
+const text=row.join(" ");
+
+if(text.includes("Lieferschein Nr.")){
+lieferscheinNr=row[row.length-1];
+}
+
+if(row[1] && !artikel && row[0]){
+
+const mengeTest=row[0];
+
+if(!isNaN(mengeTest)){
+
+menge=mengeTest;
+artikel=row[1];
+
+}
+
+}
+
+});
+
+document.getElementById("lieferscheinNr").value=lieferscheinNr;
+
+document.getElementById("lieferscheinArtikel").value=artikel;
+
+document.getElementById("lieferscheinMenge").value=menge;
+    
     const vorschau = document.getElementById("excelVorschau");
 
     vorschau.innerHTML = "<h3>📊 Excel Vorschau</h3>";
