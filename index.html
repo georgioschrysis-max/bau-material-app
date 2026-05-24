@@ -983,9 +983,9 @@ return !isNaN(t) && t !== "";
 });
 
 if(zahlIndex >= 0){
-menge = daten[zahlIndex];
-artikel = daten[zahlIndex - 1] || "";
-einheit = daten[zahlIndex + 1] || "";
+artikel=daten[zahlIndex + 1] || "";
+menge=daten[zahlIndex];
+einheit=daten[zahlIndex + 2] || "";
 }
 
 }
