@@ -295,6 +295,45 @@ accept=".pdf,.xlsx,.xls,image/*"
 style="display:none">
 
 <div id="lieferscheinDateiListe"></div>
+
+<h3>📋 Lieferschein Daten</h3>
+
+<input id="lieferscheinNr" placeholder="Lieferschein Nr.">
+
+<input id="lieferscheinLieferant" placeholder="Lieferant">
+
+<div class="dateBox">
+<span class="icon">📅</span>
+<label>Datum</label>
+<input type="date" id="lieferscheinDatum">
+</div>
+
+<div class="input-with-icon">
+<span class="icon">📦</span>
+<input id="lieferscheinArtikel" placeholder="Artikel / Material">
+</div>
+
+<div class="input-with-icon">
+<span class="icon">🔢</span>
+<input id="lieferscheinMenge" placeholder="Menge">
+</div>
+
+<div class="input-with-icon">
+<span class="icon">📏</span>
+<input id="lieferscheinEinheit" placeholder="Einheit">
+</div>
+
+<div class="input-with-icon">
+<span class="icon">📝</span>
+<input id="lieferscheinBemerkung" placeholder="Bemerkung">
+</div>
+
+<button onclick="addLieferscheinEintrag()">
+Lieferschein speichern
+</button>
+
+<div id="lieferscheinEintraegeListe"></div>
+
 <div id="lieferscheinContainer"></div>
 
 <button class="back" onclick="zurueckUnterlagen()">
