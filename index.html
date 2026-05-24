@@ -974,16 +974,13 @@ if(text.includes("Lieferschein Nr.")){
 lieferscheinNr=row[row.length-1];
 }
 
-if(row[1] && !artikel && row[0]){
+if(!artikel && row[0] && !isNaN(row[0])){
 
-const mengeTest=row[0];
+menge=row[0];
 
-if(!isNaN(mengeTest)){
-
-menge=mengeTest;
-artikel=row[1];
-
-}
+artikel=row.find((zelle,index)=>{
+return index>0 && zelle && String(zelle).trim()!=="";
+});
 
 }
 
