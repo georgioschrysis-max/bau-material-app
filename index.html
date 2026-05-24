@@ -1126,6 +1126,20 @@ ${rows}
 
 }
 
+function addLieferscheinMaterialZeile(){
+
+aktuelleLieferscheinMaterialien.push({
+artikel:"",
+menge:"",
+einheit:"",
+invNr:"",
+bemerkung:""
+});
+
+renderLieferscheinMaterialien();
+
+}
+
 function addLieferscheinEintrag(){
 
 const nr=document.getElementById("lieferscheinNr").value.trim();
