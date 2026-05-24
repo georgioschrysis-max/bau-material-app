@@ -961,29 +961,6 @@ alert("Lieferschein gespeichert");
 
 }
 
-function deleteLieferscheinDatei(index){
-
-const b=baustellen[aktuelleBaustelle];
-
-b.lieferscheinDateien.splice(index,1);
-
-saveData();
-renderLieferscheinDateien();
-
-}
-
-var lieferscheinFotoInput=document.getElementById("lieferscheinFoto");
-
-if(lieferscheinFotoInput){
-lieferscheinFotoInput.addEventListener("change", saveLieferscheinDatei);
-}
-
-var lieferscheinDateiInput=document.getElementById("lieferscheinDatei");
-
-if(lieferscheinDateiInput){
-lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
-}
-
 function renderBaustellen(){
 const offeneBaustellen = document.getElementById("offeneBaustellen");
 const fertigeBaustellen = document.getElementById("fertigeBaustellen");
