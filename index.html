@@ -979,6 +979,22 @@ reader.readAsArrayBuffer(file);
 
 }
 
+function addLieferscheinEintrag(){
+alert("Lieferschein speichern kommt im nächsten Schritt");
+}
+
+const lieferscheinFotoInput=document.getElementById("lieferscheinFoto");
+
+if(lieferscheinFotoInput){
+lieferscheinFotoInput.addEventListener("change", saveLieferscheinDatei);
+}
+
+const lieferscheinDateiInput=document.getElementById("lieferscheinDatei");
+
+if(lieferscheinDateiInput){
+lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
+}
+
 function renderBaustellen(){
 const offeneBaustellen = document.getElementById("offeneBaustellen");
 const fertigeBaustellen = document.getElementById("fertigeBaustellen");
