@@ -334,6 +334,8 @@ Lieferschein speichern
 
 <div id="lieferscheinEintraegeListe"></div>
 
+<div id="excelVorschau"></div>
+
 <div id="lieferscheinContainer"></div>
 
 <button class="back" onclick="zurueckUnterlagen()">
@@ -910,10 +912,20 @@ const sheet=workbook.Sheets[firstSheetName];
 
 const rows=XLSX.utils.sheet_to_json(sheet,{header:1});
 
-console.log(rows);
+let vorschau=document.getElementById("excelVorschau");
+
+vorschau.innerHTML="<h3>📊 Excel Vorschau</h3>";
+
+rows.slice(0,10).forEach((row,index)=>{
+vorschau.innerHTML+=`
+<div class="item">
+<strong>Zeile ${index+1}</strong><br>
+${row.join(" | ")}
+</div>
+`;
+});
 
 alert("Excel wurde gelesen. Zeilen: "+rows.length);
-};
 
 reader.readAsArrayBuffer(file);
 }
