@@ -992,24 +992,20 @@ datum=excelDateToInputDate(zahl);
 if(index===13 || index===14){
 
 const daten=row.filter(zelle=>
-zelle && String(zelle).trim()!==""
+zelle !== undefined &&
+zelle !== null &&
+String(zelle).trim() !== ""
 );
 
-if(daten.length>=3){
+const zahlIndex=daten.findIndex(zelle=>!isNaN(zelle));
 
-artikel=daten[0];
-
-menge=daten.find(zelle=>
-!isNaN(zelle)
-) || "";
-
-einheit=daten[daten.length-1];
-
+if(zahlIndex > 0){
+artikel=daten[zahlIndex - 1];
+menge=daten[zahlIndex];
+einheit=daten[zahlIndex + 1] || "";
 }
 
 }
-
-});
 
 document.getElementById("lieferscheinNr").value = nr;
 document.getElementById("lieferscheinDatum").value = datum;
