@@ -926,7 +926,40 @@ alert("Excel lesen kommt im nächsten Schritt");
 }
 
 function addLieferscheinEintrag(){
-alert("Lieferschein speichern kommt im nächsten Schritt");
+
+const nr=document.getElementById("lieferscheinNr").value.trim();
+const lieferant=document.getElementById("lieferscheinLieferant").value.trim();
+const datum=document.getElementById("lieferscheinDatum").value;
+const artikel=document.getElementById("lieferscheinArtikel").value.trim();
+const menge=document.getElementById("lieferscheinMenge").value.trim();
+const einheit=document.getElementById("lieferscheinEinheit").value.trim();
+const bemerkung=document.getElementById("lieferscheinBemerkung").value.trim();
+
+if(!artikel || !menge){
+alert("Bitte Artikel und Menge eingeben");
+return;
+}
+
+const b=baustellen[aktuelleBaustelle];
+
+if(!b.lieferscheine){
+b.lieferscheine=[];
+}
+
+b.lieferscheine.push({
+nr,
+lieferant,
+datum,
+artikel,
+menge,
+einheit,
+bemerkung
+});
+
+saveData();
+
+alert("Lieferschein gespeichert");
+
 }
 
 function saveLieferscheinDatei(event){
