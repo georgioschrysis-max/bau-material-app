@@ -955,27 +955,58 @@ if(text.includes("Lieferschein Nr.")){
 nr = row[row.length-1];
 }
 
-if(index === 8){
-lieferant = row.find(zelle=>{
-return zelle && isNaN(zelle) && String(zelle).trim()!=="" && String(zelle)!=="von";
+/* Lieferant */
+if(index===8){
+
+const daten=row.filter(zelle=>
+zelle && String(zelle).trim()!==""
+);
+
+lieferant=daten.find(zelle=>{
+const t=String(zelle).trim();
+
+return (
+t!=="von" &&
+t!=="an" &&
+isNaN(t)
+);
+
 }) || "";
+
 }
 
+/* Datum */
 if(text.includes("am")){
-const zahl = row.find(zelle=>zelle && !isNaN(zelle));
+
+const zahl=row.find(zelle=>
+zelle && !isNaN(zelle)
+);
+
 if(zahl){
-datum = excelDateToInputDate(zahl);
-}
+datum=excelDateToInputDate(zahl);
 }
 
-if(index === 13 || index === 14){
-const daten = row.filter(zelle=>zelle && String(zelle).trim()!=="");
-
-if(daten.length >= 3){
-artikel = daten[0];
-menge = daten[1];
-einheit = daten[2];
 }
+
+/* Artikel / Menge / Einheit */
+if(index===13 || index===14){
+
+const daten=row.filter(zelle=>
+zelle && String(zelle).trim()!==""
+);
+
+if(daten.length>=3){
+
+artikel=daten[0];
+
+menge=daten.find(zelle=>
+!isNaN(zelle)
+) || "";
+
+einheit=daten[daten.length-1];
+
+}
+
 }
 
 });
