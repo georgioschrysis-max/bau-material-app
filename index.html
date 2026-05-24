@@ -963,6 +963,45 @@ alert("Lieferschein gespeichert");
 
 }
 
+function renderLieferscheinEintraege(){
+
+const b=baustellen[aktuelleBaustelle];
+const box=document.getElementById("lieferscheinEintraegeListe");
+
+if(!box)return;
+
+if(!b.lieferscheine){
+b.lieferscheine=[];
+}
+
+box.innerHTML="";
+
+if(b.lieferscheine.length===0){
+box.innerHTML="<p>Noch keine Lieferscheine gespeichert.</p>";
+return;
+}
+
+b.lieferscheine.forEach((x,index)=>{
+
+box.innerHTML+=`
+<div class="item">
+<strong>Lieferschein Nr.:</strong> ${x.nr}<br>
+<strong>Datum:</strong> ${x.datum}<br>
+<strong>Lieferant:</strong> ${x.lieferant}<br>
+<strong>Artikel:</strong> ${x.artikel}<br>
+<strong>Menge:</strong> ${x.menge} ${x.einheit}<br>
+<strong>Bemerkung:</strong> ${x.bemerkung}
+
+<button class="delete" onclick="deleteLieferscheinEintrag(${index})">
+Löschen
+</button>
+</div>
+`;
+
+});
+
+}
+
 var lieferscheinFotoInput=document.getElementById("lieferscheinFoto");
 
 if(lieferscheinFotoInput){
