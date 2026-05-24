@@ -969,6 +969,17 @@ const mengeZelle = row.find(zelle=>{
 return zelle && !isNaN(zelle);
 });
 
+const artikelZelle = row.find(zelle=>{
+return zelle && isNaN(zelle) && String(zelle).trim() !== "" && zelle !== "am";
+});
+
+if(mengeZelle && artikelZelle){
+menge = mengeZelle;
+artikel = artikelZelle;
+}
+
+}
+
 if(mengeZelle){
 menge = mengeZelle;
 
