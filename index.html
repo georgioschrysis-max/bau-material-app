@@ -498,6 +498,13 @@ let aktuelleBaustelle=null;
 let aktuellePhase=null;
 let aktuelleLieferscheinMaterialien=[];
 
+function saveLieferscheinDraft(){
+  localStorage.setItem(
+    "lieferscheinDraft",
+    JSON.stringify(aktuelleLieferscheinMaterialien)
+  );
+}
+
 const standardPhasen=[
 "Baustelleneinrichtung",
 "Erdarbeiten",
