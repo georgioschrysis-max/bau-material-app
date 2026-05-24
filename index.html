@@ -984,32 +984,6 @@ einheit=daten[2];
 
 });
 
-if(index===13 || index===14){
-
-const zahlen=row.filter(zelle=>zelle && !isNaN(zelle));
-
-const texte=row.filter(zelle=>{
-return zelle &&
-isNaN(zelle) &&
-String(zelle).trim()!=="";
-});
-
-if(!artikel && texte.length>0){
-artikel=texte[0];
-}
-
-if(!menge && zahlen.length>0){
-menge=zahlen[0];
-}
-
-if(!einheit && texte.length>1){
-einheit=texte[1];
-}
-
-}
-
-});
-
 document.getElementById("lieferscheinNr").value=nr;
 document.getElementById("lieferscheinDatum").value=datum;
 document.getElementById("lieferscheinLieferant").value=lieferant;
