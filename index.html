@@ -527,6 +527,20 @@ const standardChecklist=[
 "Sicherheit kontrolliert","Termin abgestimmt","Arbeit abgeschlossen"
 ];
 
+function loadLieferscheinDraft(){
+
+const draft=localStorage.getItem("lieferscheinDraft");
+
+if(draft){
+
+aktuelleLieferscheinMaterialien=JSON.parse(draft);
+
+renderLieferscheinMaterialien();
+
+}
+
+}
+
 function saveData(){
 localStorage.setItem("baustellen",JSON.stringify(baustellen));
 }
