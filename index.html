@@ -866,63 +866,6 @@ readLieferscheinExcel(file);
   event.target.value = "";
 }
 
-function renderLieferscheinDateien(){
-  const b = baustellen[aktuelleBaustelle];
-  const box = document.getElementById("lieferscheinDateiListe");
-
-  if(!box) return;
-
-  box.innerHTML = "";
-
-  if(!b.lieferscheinDateien || b.lieferscheinDateien.length === 0){
-    box.innerHTML = "<p>Noch keine Dateien.</p>";
-    return;
-  }
-
-b.lieferscheinDateien.forEach((x,index)=>{
-
-box.innerHTML += `
-<div class="item"
-style="
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px;
-">
-
-<div>
-📄 <strong>${x.name}</strong><br>
-Eingang: ${x.datum}
-</div>
-
-<button class="delete"
-style="
-width:50px;
-padding:10px;
-margin:0;
-font-size:16px;
-"
-onclick="deleteLieferscheinDatei(${index})">
-X
-</button>
-
-</div>
-`;
-
-});
-
-const lieferscheinFotoInput=document.getElementById("lieferscheinFoto");
-
-if(lieferscheinFotoInput){
-lieferscheinFotoInput.addEventListener("change", saveLieferscheinDatei);
-}
-
-const lieferscheinDateiInput=document.getElementById("lieferscheinDatei");
-
-if(lieferscheinDateiInput){
-lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
-}
-
 function deleteLieferscheinDatei(index){
 
 const b = baustellen[aktuelleBaustelle];
@@ -962,34 +905,40 @@ function saveLieferscheinDatei(event){
 }
 
 function renderLieferscheinDateien(){
-  const b = baustellen[aktuelleBaustelle];
-  const box = document.getElementById("lieferscheinDateiListe");
 
-  if(!box) return;
+const b=baustellen[aktuelleBaustelle];
+const box=document.getElementById("lieferscheinDateiListe");
 
-  box.innerHTML = "";
+if(!box)return;
 
-  if(!b.lieferscheinDateien || b.lieferscheinDateien.length === 0){
-    box.innerHTML = "<p>Noch keine Dateien.</p>";
-    return;
-  }
+box.innerHTML="";
 
-  b.lieferscheinDateien.forEach((x,index)=>{
-    box.innerHTML += `
-      <div class="item" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-        <div>
-          📄 <strong>${x.name}</strong><br>
-          Eingang: ${x.datum}
-        </div>
+if(!b.lieferscheinDateien || b.lieferscheinDateien.length===0){
+box.innerHTML="<p>Noch keine Dateien.</p>";
+return;
+}
 
-        <button class="delete"
-          style="width:50px;padding:10px;margin:0;font-size:16px;"
-          onclick="deleteLieferscheinDatei(${index})">
-          X
-        </button>
-      </div>
-    `;
-  });
+b.lieferscheinDateien.forEach((x,index)=>{
+
+box.innerHTML+=`
+<div class="item" style="display:flex;justify-content:space-between;align-items:center;gap:10px">
+
+<div>
+📄 <strong>${x.name}</strong><br>
+Eingang: ${x.datum}
+</div>
+
+<button class="delete"
+style="width:50px;padding:10px;margin:0;font-size:16px"
+onclick="deleteLieferscheinDatei(${index})">
+X
+</button>
+
+</div>
+`;
+
+});
+
 }
 
 function deleteLieferscheinDatei(index){
