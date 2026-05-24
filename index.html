@@ -1094,6 +1094,17 @@ placeholder="Bemerkung"
 oninput="aktuelleLieferscheinMaterialien[${index}].bemerkung=this.value">
 </td>
 
+<td>
+
+<button
+class="delete"
+style="padding:6px 10px;margin:0"
+onclick="deleteLieferscheinMaterialZeile(${index})">
+X
+</button>
+
+</td>
+
 </tr>
 `;
 
