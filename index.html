@@ -838,15 +838,6 @@ function zurueckUnterlagen(){
   document.getElementById("unterlagenSeite").classList.remove("hidden");
 }
 
-function deleteLieferscheinDatei(index){
-  const b = baustellen[aktuelleBaustelle];
-
-  b.lieferscheinDateien.splice(index,1);
-
-  saveData();
-  renderLieferscheinDateien();
-}
-
 function saveLieferscheinDatei(event){
 const file=event.target.files[0];
 
@@ -907,17 +898,6 @@ X
 `;
 
 });
-
-}
-
-function deleteLieferscheinDatei(index){
-
-const b=baustellen[aktuelleBaustelle];
-
-b.lieferscheinDateien.splice(index,1);
-
-saveData();
-renderLieferscheinDateien();
 
 }
 
