@@ -974,23 +974,35 @@ datum = excelDateToInputDate(zahl);
 }
 }
 
-if(index === 13 || index === 14){
+if(index >= 13 && index <= 40){
 
-const daten = row.filter(z=>
-z !== undefined &&
-z !== null &&
-String(z).trim() !== ""
+const daten=row.filter(zelle=>
+zelle !== undefined &&
+zelle !== null &&
+String(zelle).trim() !== ""
 );
 
-const zahlIndex = daten.findIndex(z=>{
-const t = String(z).replace(",",".").trim();
-return !isNaN(t) && t !== "";
+const zahlIndex=daten.findIndex(zelle=>{
+const t=String(zelle).replace(",",".").trim();
+return !isNaN(t) && t!=="";
 });
 
 if(zahlIndex >= 0){
-artikel=daten[zahlIndex + 1] || "";
-menge=daten[zahlIndex];
-einheit=daten[zahlIndex + 2] || "";
+
+const material={
+artikel:daten[zahlIndex + 1] || "",
+menge:daten[zahlIndex],
+einheit:daten[zahlIndex + 2] || ""
+};
+
+aktuelleLieferscheinMaterialien.push(material);
+
+if(!artikel){
+artikel=material.artikel;
+menge=material.menge;
+einheit=material.einheit;
+}
+
 }
 
 }
