@@ -974,17 +974,23 @@ if(text.includes("Lieferschein Nr.")){
 lieferscheinNr=row[row.length-1];
 }
 
-if(!artikel && row[0] && !isNaN(row[0])){
+if(!artikel){
 
-menge=row[0];
+const mengeZelle=row.find(zelle=>{
+return zelle && !isNaN(zelle);
+});
+
+if(mengeZelle){
+
+menge=mengeZelle;
 
 artikel=row.find((zelle,index)=>{
-return index>0 && zelle && String(zelle).trim()!=="";
+return index>0 && zelle && isNaN(zelle) && String(zelle).trim()!=="";
 });
 
 }
 
-});
+}
 
 document.getElementById("lieferscheinNr").value=lieferscheinNr;
 
