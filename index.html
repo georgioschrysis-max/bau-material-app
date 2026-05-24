@@ -947,12 +947,14 @@ const day=String(date_info.getDate()).padStart(2,"0");
 return year+"-"+month+"-"+day;
 }
 
-rows.forEach(row=>{
+rows.forEach(row,index)=>{
 
 const text=row.join(" ");
 
-if(text.includes("Lieferschein Nr.") || text.includes("Lieferschein-Nr")){
-nr=row[row.length-1];
+if(index===8){
+lieferant=row.find(zelle=>{
+return zelle && isNaN(zelle) && String(zelle).trim()!=="";
+}) || "";
 }
 
 if(text.includes("Lieferant")){
