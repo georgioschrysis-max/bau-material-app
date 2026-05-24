@@ -1089,6 +1089,24 @@ if(!b.lieferscheine){
 b.lieferscheine=[];
 }
 
+if(aktuelleLieferscheinMaterialien.length > 0){
+
+aktuelleLieferscheinMaterialien.forEach(material=>{
+
+b.lieferscheine.push({
+nr,
+lieferant,
+datum,
+artikel:material.artikel,
+menge:material.menge,
+einheit:material.einheit,
+bemerkung
+});
+
+});
+
+}else{
+
 b.lieferscheine.push({
 nr,
 lieferant,
@@ -1099,6 +1117,8 @@ einheit,
 bemerkung
 });
 
+}
+          
 saveData();
 
 renderLieferscheinEintraege();
