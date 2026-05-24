@@ -1074,31 +1074,31 @@ rows+=`
 <td>
 <input
 value="${x.artikel || ""}"
-oninput="aktuelleLieferscheinMaterialien[${index}].artikel=this.value">
+oninput="aktuelleLieferscheinMaterialien[${index}].artikel=this.value; saveLieferscheinDraft()
 </td>
 
 <td>
 <input
 value="${x.menge || ""}"
-oninput="aktuelleLieferscheinMaterialien[${index}].menge=this.value">
+oninput="aktuelleLieferscheinMaterialien[${index}].menge=this.value; saveLieferscheinDraft()
 </td>
 
 <td>
 <input
 value="${x.einheit || ""}"
-oninput="aktuelleLieferscheinMaterialien[${index}].einheit=this.value">
+oninput="aktuelleLieferscheinMaterialien[${index}].einheit=this.value; saveLieferscheinDraft()
 </td>
 
 <td>
 <input
 placeholder="Inv.-Nr."
-oninput="aktuelleLieferscheinMaterialien[${index}].invNr=this.value">
+oninput="aktuelleLieferscheinMaterialien[${index}].invNr=this.value; saveLieferscheinDraft()
 </td>
 
 <td>
 <input
 placeholder="Bemerkung"
-oninput="aktuelleLieferscheinMaterialien[${index}].bemerkung=this.value">
+oninput="aktuelleLieferscheinMaterialien[${index}].bemerkung=this.value; saveLieferscheinDraft()
 </td>
 
 <td>
