@@ -838,6 +838,9 @@ function zurueckUnterlagen(){
 
 function saveLieferscheinDatei(event){
   const file = event.target.files[0];
+  if(file.name.endsWith(".xlsx") || file.name.endsWith(".xls")){
+readLieferscheinExcel(file);
+}
 
   if(!file) return;
 
@@ -891,6 +894,28 @@ const lieferscheinDateiInput=document.getElementById("lieferscheinDatei");
 
 if(lieferscheinDateiInput){
 lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
+}
+
+function readLieferscheinExcel(file){
+
+const reader=new FileReader();
+
+reader.onload=function(e){
+
+const data=new Uint8Array(e.target.result);
+const workbook=XLSX.read(data,{type:"array"});
+
+const firstSheetName=workbook.SheetNames[0];
+const sheet=workbook.Sheets[firstSheetName];
+
+const rows=XLSX.utils.sheet_to_json(sheet,{header:1});
+
+console.log(rows);
+
+alert("Excel wurde gelesen. Zeilen: "+rows.length);
+};
+
+reader.readAsArrayBuffer(file);
 }
 
 function renderBaustellen(){
