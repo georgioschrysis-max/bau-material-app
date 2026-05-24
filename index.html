@@ -294,6 +294,7 @@ type="file"
 accept=".pdf,.xlsx,.xls,image/*"
 style="display:none">
 
+<div id="lieferscheinDateiListe"></div>
 <div id="lieferscheinContainer"></div>
 
 <button class="back" onclick="zurueckUnterlagen()">
@@ -779,6 +780,10 @@ document.getElementById(seiteId).classList.remove("hidden");
 if(seiteId==="bestellungenSeite"){
 renderProjektBestellungen();
 }
+
+if(seiteId==="lieferscheineSeite"){
+renderLieferscheinDateien();
+}
 }
 
 function zurueckUnterlagen(){
@@ -790,6 +795,61 @@ document.getElementById("taglohnzettelSeite").classList.add("hidden");
 document.getElementById("tagesberichteSeite").classList.add("hidden");
 
 document.getElementById("unterlagenSeite").classList.remove("hidden");
+}
+
+document
+.getElementById("lieferscheinFoto")
+.addEventListener("change", saveLieferscheinDatei);
+
+document
+.getElementById("lieferscheinDatei")
+.addEventListener("change", saveLieferscheinDatei);
+
+function saveLieferscheinDatei(event){
+
+const file=event.target.files[0];
+
+if(!file)return;
+
+const b=baustellen[aktuelleBaustelle];
+
+if(!b.lieferscheinDateien){
+b.lieferscheinDateien=[];
+}
+
+b.lieferscheinDateien.push({
+name:file.name,
+datum:new Date().toLocaleDateString("de-DE")
+});
+
+saveData();
+
+renderLieferscheinDateien();
+}
+
+function renderLieferscheinDateien(){
+
+const b=baustellen[aktuelleBaustelle];
+
+const box=document.getElementById("lieferscheinDateiListe");
+
+box.innerHTML="";
+
+if(!b.lieferscheinDateien || b.lieferscheinDateien.length===0){
+box.innerHTML="<p>Noch keine Dateien.</p>";
+return;
+}
+
+b.lieferscheinDateien.forEach(x=>{
+
+box.innerHTML+=`
+<div class="item">
+📄 <strong>${x.name}</strong><br>
+Eingang: ${x.datum}
+</div>
+`;
+
+});
 }
 
 function renderBaustellen(){
