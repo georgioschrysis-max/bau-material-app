@@ -901,6 +901,17 @@ X
 
 }
 
+function deleteLieferscheinDatei(index){
+
+const b=baustellen[aktuelleBaustelle];
+
+b.lieferscheinDateien.splice(index,1);
+
+saveData();
+renderLieferscheinDateien();
+
+}
+
 function readLieferscheinExcel(file){
 alert("Excel lesen kommt im nächsten Schritt");
 }
@@ -937,6 +948,14 @@ bemerkung
 });
 
 saveData();
+
+document.getElementById("lieferscheinNr").value="";
+document.getElementById("lieferscheinLieferant").value="";
+document.getElementById("lieferscheinDatum").value="";
+document.getElementById("lieferscheinArtikel").value="";
+document.getElementById("lieferscheinMenge").value="";
+document.getElementById("lieferscheinEinheit").value="";
+document.getElementById("lieferscheinBemerkung").value="";
 
 alert("Lieferschein gespeichert");
 
