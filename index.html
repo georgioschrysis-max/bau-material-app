@@ -334,7 +334,11 @@ Lieferschein speichern
 
 <div id="lieferscheinEintraegeListe"></div>
 
-<div id="excelVorschau"></div>
+<button onclick="toggleExcelVorschau()">
+📊 Excel Vorschau anzeigen / ausblenden
+</button>
+
+<div id="excelVorschau" class="hidden"></div>
 
 <h3>📦 Materialien aus Lieferschein</h3>
 <div id="lieferscheinMaterialListe"></div>
@@ -1680,6 +1684,11 @@ schalungSeite.classList.add("hidden");
 
 document.getElementById("home").classList.remove("hidden");
 
+}
+
+function toggleExcelVorschau(){
+  const box = document.getElementById("excelVorschau");
+  box.classList.toggle("hidden");
 }
 
 renderBaustellen();
