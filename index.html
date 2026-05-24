@@ -951,17 +951,19 @@ rows.forEach((row,index)=>{
 
 const text=row.join(" ");
 
-if(index===9){
+/* Lieferschein Nr. */
+if(text.includes("Lieferschein Nr.")){
+nr=row[row.length-1];
+}
+
+/* Lieferant: Zeile 9 */
+if(index===8){
 lieferant=row.find(zelle=>{
-return zelle && isNaN(zelle) && String(zelle).trim()!=="";
+return zelle && isNaN(zelle) && String(zelle).trim()!=="" && String(zelle)!=="von";
 }) || "";
-
 }
 
-if(text.includes("Lieferant")){
-lieferant=row[row.length-1];
-}
-
+/* Datum */
 if(text.includes("am")){
 const zahl=row.find(zelle=>zelle && !isNaN(zelle));
 if(zahl){
@@ -969,20 +971,19 @@ datum=excelDateToInputDate(zahl);
 }
 }
 
-if(!artikel){
-const mengeZelle=row.find(zelle=>zelle && !isNaN(zelle));
+/* Artikel / Menge / Einheit: Zeile 14 oder 15 */
+if(index===13 || index===14){
+const daten=row.filter(zelle=>zelle && String(zelle).trim()!=="");
 
-const artikelZelle=row.find(zelle=>{
-return zelle &&
-isNaN(zelle) &&
-String(zelle).trim()!=="" &&
-String(zelle)!=="am";
+if(daten.length>=3){
+artikel=daten[0];
+menge=daten[1];
+einheit=daten[2];
+}
+}
+
 });
 
-if(mengeZelle && artikelZelle){
-menge=mengeZelle;
-artikel=artikelZelle;
-}
 }
 
 if(index===13 || index===14){
