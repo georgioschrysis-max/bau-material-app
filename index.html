@@ -935,39 +935,113 @@ renderLieferscheinDateien();
 
 }
 
+function saveLieferscheinDatei(event){
+  const file = event.target.files[0];
+
+  if(!file) return;
+
+  if(file.name.endsWith(".xlsx") || file.name.endsWith(".xls")){
+    readLieferscheinExcel(file);
+  }
+
+  const b = baustellen[aktuelleBaustelle];
+
+  if(!b.lieferscheinDateien){
+    b.lieferscheinDateien = [];
+  }
+
+  b.lieferscheinDateien.push({
+    name: file.name,
+    datum: new Date().toLocaleDateString("de-DE")
+  });
+
+  saveData();
+  renderLieferscheinDateien();
+
+  event.target.value = "";
+}
+
+function renderLieferscheinDateien(){
+  const b = baustellen[aktuelleBaustelle];
+  const box = document.getElementById("lieferscheinDateiListe");
+
+  if(!box) return;
+
+  box.innerHTML = "";
+
+  if(!b.lieferscheinDateien || b.lieferscheinDateien.length === 0){
+    box.innerHTML = "<p>Noch keine Dateien.</p>";
+    return;
+  }
+
+  b.lieferscheinDateien.forEach((x,index)=>{
+    box.innerHTML += `
+      <div class="item" style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
+        <div>
+          📄 <strong>${x.name}</strong><br>
+          Eingang: ${x.datum}
+        </div>
+
+        <button class="delete"
+          style="width:50px;padding:10px;margin:0;font-size:16px;"
+          onclick="deleteLieferscheinDatei(${index})">
+          X
+        </button>
+      </div>
+    `;
+  });
+}
+
+function deleteLieferscheinDatei(index){
+  const b = baustellen[aktuelleBaustelle];
+
+  b.lieferscheinDateien.splice(index,1);
+
+  saveData();
+  renderLieferscheinDateien();
+}
+
 function readLieferscheinExcel(file){
+  const reader = new FileReader();
 
-const reader=new FileReader();
+  reader.onload = function(e){
+    const data = new Uint8Array(e.target.result);
+    const workbook = XLSX.read(data,{type:"array"});
 
-reader.onload=function(e){
+    const firstSheetName = workbook.SheetNames[0];
+    const sheet = workbook.Sheets[firstSheetName];
 
-const data=new Uint8Array(e.target.result);
-const workbook=XLSX.read(data,{type:"array"});
+    const rows = XLSX.utils.sheet_to_json(sheet,{header:1});
 
-const firstSheetName=workbook.SheetNames[0];
-const sheet=workbook.Sheets[firstSheetName];
+    const vorschau = document.getElementById("excelVorschau");
 
-const rows=XLSX.utils.sheet_to_json(sheet,{header:1});
+    vorschau.innerHTML = "<h3>📊 Excel Vorschau</h3>";
 
-let vorschau=document.getElementById("excelVorschau");
+    rows.slice(0,30).forEach((row,index)=>{
+      vorschau.innerHTML += `
+        <div class="item">
+          <strong>Zeile ${index+1}</strong><br>
+          ${row.join(" | ")}
+        </div>
+      `;
+    });
 
-vorschau.innerHTML="<h3>📊 Excel Vorschau</h3>";
+    alert("Excel wurde gelesen. Zeilen: " + rows.length);
+  };
 
-rows.slice(0,30).forEach((row,index)=>{
-vorschau.innerHTML+=`
-<div class="item">
-<strong>Zeile ${index+1}</strong><br>
-${row.join(" | ")}
-</div>
-`;
-});
+  reader.readAsArrayBuffer(file);
+}
 
-alert("Excel wurde gelesen. Zeilen: "+rows.length);
+const lieferscheinFotoInput = document.getElementById("lieferscheinFoto");
 
-};
+if(lieferscheinFotoInput){
+  lieferscheinFotoInput.addEventListener("change", saveLieferscheinDatei);
+}
 
-reader.readAsArrayBuffer(file);
+const lieferscheinDateiInput = document.getElementById("lieferscheinDatei");
 
+if(lieferscheinDateiInput){
+  lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
 }
 
 function renderBaustellen(){
