@@ -838,32 +838,6 @@ function zurueckUnterlagen(){
   document.getElementById("unterlagenSeite").classList.remove("hidden");
 }
 
-function saveLieferscheinDatei(event){
-  const file = event.target.files[0];
-
-  if(!file) return;
-
-  if(file.name.endsWith(".xlsx") || file.name.endsWith(".xls")){
-    readLieferscheinExcel(file);
-  }
-
-  const b = baustellen[aktuelleBaustelle];
-
-  if(!b.lieferscheinDateien){
-    b.lieferscheinDateien = [];
-  }
-
-  b.lieferscheinDateien.push({
-    name: file.name,
-    datum: new Date().toLocaleDateString("de-DE")
-  });
-
-  saveData();
-  renderLieferscheinDateien();
-
-  event.target.value = "";
-}
-
 function renderLieferscheinDateien(){
 
 const b=baustellen[aktuelleBaustelle];
