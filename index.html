@@ -1004,6 +1004,17 @@ Löschen
 
 }
 
+function deleteLieferscheinEintrag(index){
+
+const b=baustellen[aktuelleBaustelle];
+
+b.lieferscheine.splice(index,1);
+
+saveData();
+renderLieferscheinEintraege();
+
+}
+
 var lieferscheinFotoInput=document.getElementById("lieferscheinFoto");
 
 if(lieferscheinFotoInput){
