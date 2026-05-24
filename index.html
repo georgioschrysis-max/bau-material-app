@@ -1216,6 +1216,19 @@ Löschen
 
 }
 
+function deleteLieferscheinGruppe(nr,datum,lieferant){
+
+const b=baustellen[aktuelleBaustelle];
+
+b.lieferscheine=b.lieferscheine.filter(x=>
+!(x.nr===nr && x.datum===datum && x.lieferant===lieferant)
+);
+
+saveData();
+renderLieferscheinEintraege();
+
+}
+
 function deleteLieferscheinEintrag(index){
 
 const b=baustellen[aktuelleBaustelle];
