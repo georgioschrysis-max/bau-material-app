@@ -839,46 +839,6 @@ function zurueckUnterlagen(){
 }
 
 function saveLieferscheinDatei(event){
-const file=event.target.files[0];
-
-if(!file)return;
-
-if(file.name.endsWith(".xlsx") || file.name.endsWith(".xls")){
-readLieferscheinExcel(file);
-}
-
-  if(!file) return;
-
-  const b = baustellen[aktuelleBaustelle];
-
-  if(!b.lieferscheinDateien){
-    b.lieferscheinDateien = [];
-  }
-
-  b.lieferscheinDateien.push({
-    name: file.name,
-    datum: new Date().toLocaleDateString("de-DE")
-  });
-
-  saveData();
-  renderLieferscheinDateien();
-
-  event.target.value = "";
-}
-
-function deleteLieferscheinDatei(index){
-
-const b = baustellen[aktuelleBaustelle];
-
-b.lieferscheinDateien.splice(index,1);
-
-saveData();
-
-renderLieferscheinDateien();
-
-}
-
-function saveLieferscheinDatei(event){
   const file = event.target.files[0];
 
   if(!file) return;
