@@ -794,12 +794,17 @@ document.getElementById("stundenlistenSeite").classList.add("hidden");
 document.getElementById("taglohnzettelSeite").classList.add("hidden");
 document.getElementById("tagesberichteSeite").classList.add("hidden");
 
-document.getElementById("unterlagenSeite").classList.remove("hidden");
+const fotoInput=document.getElementById("lieferscheinFoto");
+
+if(fotoInput){
+fotoInput.addEventListener("change", saveLieferscheinDatei);
 }
 
-document
-.getElementById("lieferscheinFoto")
-.addEventListener("change", saveLieferscheinDatei);
+const dateiInput=document.getElementById("lieferscheinDatei");
+
+if(dateiInput){
+dateiInput.addEventListener("change", saveLieferscheinDatei);
+}
 
 document
 .getElementById("lieferscheinDatei")
