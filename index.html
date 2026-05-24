@@ -1012,7 +1012,6 @@ function readLieferscheinExcel(file){
     const sheet = workbook.Sheets[firstSheetName];
 
     const rows = XLSX.utils.sheet_to_json(sheet,{header:1});
-
     const vorschau = document.getElementById("excelVorschau");
 
     vorschau.innerHTML = "<h3>📊 Excel Vorschau</h3>";
