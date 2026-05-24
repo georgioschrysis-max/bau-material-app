@@ -839,8 +839,11 @@ function zurueckUnterlagen(){
 }
 
 function saveLieferscheinDatei(event){
-  const file = event.target.files[0];
-  if(file.name.endsWith(".xlsx") || file.name.endsWith(".xls")){
+const file=event.target.files[0];
+
+if(!file)return;
+
+if(file.name.endsWith(".xlsx") || file.name.endsWith(".xls")){
 readLieferscheinExcel(file);
 }
 
@@ -927,7 +930,10 @@ ${row.join(" | ")}
 
 alert("Excel wurde gelesen. Zeilen: "+rows.length);
 
+};
+
 reader.readAsArrayBuffer(file);
+
 }
 
 function renderBaustellen(){
