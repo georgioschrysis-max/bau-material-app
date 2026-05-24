@@ -272,9 +272,34 @@ Bestellung speichern
 
 <div id="lieferscheineSeite" class="hidden">
 <div class="card">
+
 <h2>📄 Lieferscheine</h2>
+
+<button onclick="document.getElementById('lieferscheinFoto').click()">
+📷 Foto aufnehmen
+</button>
+
+<input id="lieferscheinFoto"
+type="file"
+accept="image/*"
+capture="environment"
+style="display:none">
+
+<button onclick="document.getElementById('lieferscheinDatei').click()">
+📄 Digitalen Lieferschein hochladen
+</button>
+
+<input id="lieferscheinDatei"
+type="file"
+accept=".pdf,.xlsx,.xls,image/*"
+style="display:none">
+
 <div id="lieferscheinContainer"></div>
-<button class="back" onclick="zurueckUnterlagen()">Zurück</button>
+
+<button class="back" onclick="zurueckUnterlagen()">
+Zurück
+</button>
+
 </div>
 </div>
 
