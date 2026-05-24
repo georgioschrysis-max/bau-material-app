@@ -881,14 +881,16 @@ function renderLieferscheinDateien(){
   });
 }
 
-const fotoInput = document.getElementById("lieferscheinFoto");
-if(fotoInput){
-  fotoInput.addEventListener("change", saveLieferscheinDatei);
+const lieferscheinFotoInput=document.getElementById("lieferscheinFoto");
+
+if(lieferscheinFotoInput){
+lieferscheinFotoInput.addEventListener("change", saveLieferscheinDatei);
 }
 
-const dateiInput = document.getElementById("lieferscheinDatei");
-if(dateiInput){
-  dateiInput.addEventListener("change", saveLieferscheinDatei);
+const lieferscheinDateiInput=document.getElementById("lieferscheinDatei");
+
+if(lieferscheinDateiInput){
+lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
 }
 
 function renderBaustellen(){
