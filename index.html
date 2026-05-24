@@ -970,19 +970,24 @@ datum = excelDateToInputDate(zahl);
 }
 
 if(index === 13 || index === 14){
+
 const daten = row.filter(z=>
 z !== undefined &&
 z !== null &&
 String(z).trim() !== ""
 );
 
-const zahlIndex = daten.findIndex(z=>!isNaN(z));
+const zahlIndex = daten.findIndex(z=>{
+const t = String(z).replace(",",".").trim();
+return !isNaN(t) && t !== "";
+});
 
-if(zahlIndex > 0){
-artikel = daten[zahlIndex - 1];
+if(zahlIndex >= 0){
 menge = daten[zahlIndex];
+artikel = daten[zahlIndex - 1] || "";
 einheit = daten[zahlIndex + 1] || "";
 }
+
 }
 
 });
