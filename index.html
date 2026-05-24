@@ -951,82 +951,72 @@ function deleteLieferscheinDatei(index){
 }
 
 function readLieferscheinExcel(file){
-  const reader = new FileReader();
 
-  reader.onload = function(e){
-    const data = new Uint8Array(e.target.result);
-    const workbook = XLSX.read(data,{type:"array"});
+const reader = new FileReader();
 
-    const firstSheetName = workbook.SheetNames[0];
-    const sheet = workbook.Sheets[firstSheetName];
+reader.onload = function(e){
 
-    const rows = XLSX.utils.sheet_to_json(sheet,{header:1});
-    
-    let lieferscheinNr="";
-let artikel="";
-let menge="";
+const data = new Uint8Array(e.target.result);
+const workbook = XLSX.read(data,{type:"array"});
+
+const firstSheetName = workbook.SheetNames[0];
+const sheet = workbook.Sheets[firstSheetName];
+
+const rows = XLSX.utils.sheet_to_json(sheet,{header:1});
+
+let lieferscheinNr = "";
+let artikel = "";
+let menge = "";
 
 rows.forEach(row=>{
 
-const text=row.join(" ");
+const text = row.join(" ");
 
 if(text.includes("Lieferschein Nr.")){
-lieferscheinNr=row[row.length-1];
+lieferscheinNr = row[row.length-1];
 }
 
 if(!artikel){
 
-const mengeZelle=row.find(zelle=>{
+const mengeZelle = row.find(zelle=>{
 return zelle && !isNaN(zelle);
 });
 
 if(mengeZelle){
+menge = mengeZelle;
 
-menge=mengeZelle;
+artikel = row.find((zelle,index)=>{
+return index > 0 && zelle && isNaN(zelle);
+});
+}
 
-artikel=row.find((zelle,index)=>{
-return index>0 && zelle && isNaN(zelle) && String(zelle).trim()!=="";
+}
+
 });
 
-}
+document.getElementById("lieferscheinNr").value = lieferscheinNr;
+document.getElementById("lieferscheinArtikel").value = artikel || "";
+document.getElementById("lieferscheinMenge").value = menge || "";
 
-}
+const vorschau = document.getElementById("excelVorschau");
 
-document.getElementById("lieferscheinNr").value=lieferscheinNr;
+vorschau.innerHTML = "<h3>📊 Excel Vorschau</h3>";
 
-document.getElementById("lieferscheinArtikel").value=artikel;
+rows.slice(0,30).forEach((row,index)=>{
+vorschau.innerHTML += `
+<div class="item">
+<strong>Zeile ${index+1}</strong><br>
+${row.join(" | ")}
+</div>
+`;
+});
 
-document.getElementById("lieferscheinMenge").value=menge;
-    
-    const vorschau = document.getElementById("excelVorschau");
+alert("Excel wurde gelesen. Zeilen: " + rows.length);
 
-    vorschau.innerHTML = "<h3>📊 Excel Vorschau</h3>";
+};
 
-    rows.slice(0,30).forEach((row,index)=>{
-      vorschau.innerHTML += `
-        <div class="item">
-          <strong>Zeile ${index+1}</strong><br>
-          ${row.join(" | ")}
-        </div>
-      `;
-    });
+reader.readAsArrayBuffer(file);
 
-    alert("Excel wurde gelesen. Zeilen: " + rows.length);
-  };
-
-  reader.readAsArrayBuffer(file);
-}
-
-const lieferscheinFotoInput = document.getElementById("lieferscheinFoto");
-
-if(lieferscheinFotoInput){
-  lieferscheinFotoInput.addEventListener("change", saveLieferscheinDatei);
-}
-
-const lieferscheinDateiInput = document.getElementById("lieferscheinDatei");
-
-if(lieferscheinDateiInput){
-  lieferscheinDateiInput.addEventListener("change", saveLieferscheinDatei);
 }
 
 function renderBaustellen(){
