@@ -1153,18 +1153,60 @@ box.innerHTML="<p>Noch keine Lieferscheine gespeichert.</p>";
 return;
 }
 
-b.lieferscheine.forEach((x,index)=>{
+const gruppen={};
+
+b.lieferscheine.forEach(x=>{
+const key=x.nr+"_"+x.datum+"_"+x.lieferant;
+
+if(!gruppen[key]){
+gruppen[key]={
+nr:x.nr,
+datum:x.datum,
+lieferant:x.lieferant,
+bemerkung:x.bemerkung,
+materialien:[]
+};
+}
+
+gruppen[key].materialien.push(x);
+});
+
+Object.values(gruppen).forEach((g)=>{
+
+let rows="";
+
+g.materialien.forEach((x,index)=>{
+rows+=`
+<tr>
+<td>${index+1}</td>
+<td>${x.artikel || ""}</td>
+<td>${x.menge || ""}</td>
+<td>${x.einheit || ""}</td>
+<td>${x.invNr || ""}</td>
+<td>${x.bemerkung || ""}</td>
+</tr>
+`;
+});
 
 box.innerHTML+=`
 <div class="item">
-<strong>Lieferschein Nr.:</strong> ${x.nr}<br>
-<strong>Datum:</strong> ${x.datum}<br>
-<strong>Lieferant:</strong> ${x.lieferant}<br>
-<strong>Artikel:</strong> ${x.artikel}<br>
-<strong>Menge:</strong> ${x.menge} ${x.einheit}<br>
-<strong>Bemerkung:</strong> ${x.bemerkung}
+<strong>📄 Lieferschein Nr.:</strong> ${g.nr}<br>
+<strong>📅 Datum:</strong> ${g.datum}<br>
+<strong>🚚 Lieferant:</strong> ${g.lieferant}<br><br>
 
-<button class="delete" onclick="deleteLieferscheinEintrag(${index})">
+<table style="width:100%;border-collapse:collapse;font-size:13px">
+<tr>
+<th align="left">Nr.</th>
+<th align="left">Beschreibung</th>
+<th align="left">Menge</th>
+<th align="left">Einheit</th>
+<th align="left">Inv.-Nr.</th>
+<th align="left">Bemerkung</th>
+</tr>
+${rows}
+</table>
+
+<button class="delete" onclick="deleteLieferscheinGruppe('${g.nr}','${g.datum}','${g.lieferant}')">
 Löschen
 </button>
 </div>
