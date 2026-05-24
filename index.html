@@ -947,6 +947,10 @@ rows.forEach(row=>{
 
 const text = row.join(" ");
 
+if(row.includes(46154)){
+console.log(excelDateToJSDate(46154));
+}
+
 if(text.includes("Lieferschein Nr.")){
 lieferscheinNr = row[row.length-1];
 }
