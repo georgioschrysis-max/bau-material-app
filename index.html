@@ -1690,6 +1690,7 @@ document.getElementById("bestellungenSeite").classList.remove("hidden");
 
 document.getElementById("bestellungArtikel").value=material.name || "";
 document.getElementById("bestellungMenge").value=material.menge || "";
+document.getElementById("bestellungEinheit").value=material.einheit || "";
 document.getElementById("bestellungBemerkung").value=
 " "+p.name;
 
@@ -1862,7 +1863,7 @@ liste.forEach((x,index)=>{
 box.innerHTML+=`
 <div class="item">
 <strong>${x.name}</strong><br>
-Menge / Info: ${x.menge}
+Menge / Info: ${x.menge} ${x.einheit || ""}
 ${kategorie==="materialien" ? `
 <button onclick="materialZuBestellung(${index})">
 🛒 Bestellung
