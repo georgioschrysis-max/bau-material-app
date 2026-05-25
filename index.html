@@ -1963,6 +1963,53 @@ win.document.close();
 
 }
 
+function exportLieferscheinExcel(){
+
+const nr=document.getElementById("lieferscheinNr").value;
+const datum=document.getElementById("lieferscheinDatum").value;
+const lieferant=document.getElementById("lieferscheinLieferant").value;
+
+const daten=[
+[
+"Lieferschein Nr.",
+"Datum",
+"Lieferant",
+"Beschreibung",
+"Menge",
+"Einheit",
+"Inv.-Nr.",
+"Bemerkung"
+]
+];
+
+aktuelleLieferscheinMaterialien.forEach(x=>{
+
+daten.push([
+nr,
+datum,
+lieferant,
+x.artikel || "",
+x.menge || "",
+x.einheit || "",
+x.invNr || "",
+x.bemerkung || ""
+]);
+
+});
+
+const wb=XLSX.utils.book_new();
+
+const ws=XLSX.utils.aoa_to_sheet(daten);
+
+XLSX.utils.book_append_sheet(wb,ws,"Lieferschein");
+
+XLSX.writeFile(
+wb,
+"Lieferschein_"+nr+".xlsx"
+);
+
+}
+
 renderBaustellen();
 </script>
 
