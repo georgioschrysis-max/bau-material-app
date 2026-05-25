@@ -1080,85 +1080,46 @@ box.innerHTML="<p>Keine Materialien erkannt.</p>";
 return;
 }
 
-let rows="";
-
 aktuelleLieferscheinMaterialien.forEach((x,index)=>{
 
-rows+=`
-<tr>
+box.innerHTML+=`
+<div class="item">
 
-<td>${index+1}</td>
+<h3>📦 Material ${index+1}</h3>
 
-<td>
-<input
-value="${x.artikel || ""}"
-oninput="aktuelleLieferscheinMaterialien[${index}].artikel=this.value; saveLieferscheinDraft()
-</td>
+<label>Beschreibung</label>
+<input value="${x.artikel || ""}"
+oninput="aktuelleLieferscheinMaterialien[${index}].artikel=this.value; saveLieferscheinDraft()">
 
-<td>
-<input
-value="${x.menge || ""}"
-oninput="aktuelleLieferscheinMaterialien[${index}].menge=this.value; saveLieferscheinDraft()
-</td>
+<label>Menge</label>
+<input value="${x.menge || ""}"
+oninput="aktuelleLieferscheinMaterialien[${index}].menge=this.value; saveLieferscheinDraft()">
 
-<td>
-<input
-value="${x.einheit || ""}"
-oninput="aktuelleLieferscheinMaterialien[${index}].einheit=this.value; saveLieferscheinDraft()
-</td>
+<label>Einheit</label>
+<input value="${x.einheit || ""}"
+oninput="aktuelleLieferscheinMaterialien[${index}].einheit=this.value; saveLieferscheinDraft()">
 
-<td>
-<input
-placeholder="Inv.-Nr."
-oninput="aktuelleLieferscheinMaterialien[${index}].invNr=this.value; saveLieferscheinDraft()
-</td>
+<label>Inv.-Nr.</label>
+<input value="${x.invNr || ""}"
+oninput="aktuelleLieferscheinMaterialien[${index}].invNr=this.value; saveLieferscheinDraft()">
 
-<td>
-<input
-placeholder="Bemerkung"
-oninput="aktuelleLieferscheinMaterialien[${index}].bemerkung=this.value; saveLieferscheinDraft()
-</td>
+<label>Bemerkung</label>
+<input value="${x.bemerkung || ""}"
+oninput="aktuelleLieferscheinMaterialien[${index}].bemerkung=this.value; saveLieferscheinDraft()">
 
-<td>
-
-<button
-class="delete"
-style="padding:6px 10px;margin:0"
-onclick="deleteLieferscheinMaterialZeile(${index})">
-X
+<button class="delete" onclick="deleteLieferscheinMaterialZeile(${index})">
+X löschen
 </button>
 
-</td>
-
-</tr>
+</div>
 `;
 
 });
 
-box.innerHTML=`
-
-<table style="width:100%;border-collapse:collapse;font-size:13px">
-
-<tr>
-<th>Nr.</th>
-<th>Beschreibung</th>
-<th>Menge</th>
-<th>Einheit</th>
-<th>Inv.-Nr.</th>
-<th>Bemerkung</th>
-<th></th>
-</tr>
-
-${rows}
-
-</table>
-
-<br>
-
+box.innerHTML+=`
 <button onclick="addLieferscheinMaterialZeile()">
 ➕ Neue Zeile hinzufügen
 </button>
-
 `;
 
 }
