@@ -1653,7 +1653,25 @@ return;
 }
 
 const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+
+if(kategorie==="materialien"){
+
+const einheit=document.getElementById("materialEinheit").value;
+
+p[kategorie].push({
+name,
+menge,
+einheit
+});
+
+document.getElementById("materialEinheit").value="";
+
+}else{
+
 p[kategorie].push({name,menge});
+
+}
+
 saveData();
 renderRessourcen();
 renderSummary();
