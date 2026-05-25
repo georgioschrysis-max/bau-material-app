@@ -1810,6 +1810,11 @@ box.innerHTML+=`
 <div class="item">
 <strong>${x.name}</strong><br>
 Menge / Info: ${x.menge}
+${kategorie==="materialien" ? `
+<button onclick="materialZuBestellung(${index})">
+🛒 Bestellung
+</button>
+` : ""}
 <button class="delete" onclick="deleteRessource('${kategorie}',${index})">Löschen</button>
 </div>`;
 });
