@@ -1644,6 +1644,24 @@ document.getElementById(nameId).value="";
 document.getElementById(mengeId).value="";
 }
 
+function materialZuBestellung(index){
+
+const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
+const material=p.materialien[index];
+
+document.getElementById("phaseSeite").classList.add("hidden");
+document.getElementById("unterlagenSeite").classList.add("hidden");
+document.getElementById("bestellungenSeite").classList.remove("hidden");
+
+document.getElementById("bestellungArtikel").value=material.name || "";
+document.getElementById("bestellungMenge").value=material.menge || "";
+document.getElementById("bestellungBemerkung").value=
+"Aus Bauphase: "+p.name;
+
+renderProjektBestellungen();
+
+}
+
 function deleteRessource(kategorie,index){
 const p=baustellen[aktuelleBaustelle].phasen[aktuellePhase];
 p[kategorie].splice(index,1);
