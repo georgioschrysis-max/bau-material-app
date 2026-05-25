@@ -1656,7 +1656,7 @@ document.getElementById("bestellungenSeite").classList.remove("hidden");
 document.getElementById("bestellungArtikel").value=material.name || "";
 document.getElementById("bestellungMenge").value=material.menge || "";
 document.getElementById("bestellungBemerkung").value=
-"Aus Bauphase: "+p.name;
+" "+p.name;
 
 renderProjektBestellungen();
 
